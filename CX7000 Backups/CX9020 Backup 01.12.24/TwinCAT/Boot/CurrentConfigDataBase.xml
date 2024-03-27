@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="yes"?>
+<Configuration>
+	<Log>1</Log>
+	<LogPath>C:\TwinCAT\TcDatabaseSrv</LogPath>
+	<StartUp>Manual</StartUp>
+	<PwdInfos>tZuYPxhe+G5NKHWLYSZE+NiFAINdlcBgtIUVD+KtAff1ofKFk1lKYvZL/wIzlydjNWtm+4NfC9tXSkKL/gSjJ0Lg9WhQmiPW</PwdInfos>
+	<Databases>
+		<Database Type="Sequal-Server" ValueType="Double">
+			<DBId>2</DBId>
+			<DBServer>t5v2ozo0ll.database.windows.net</DBServer>
+			<DBProvider>SQLOLEDB</DBProvider>
+			<DBUrl>DemoStock</DBUrl>
+			<DBSystemDB>
+			</DBSystemDB>
+			<DBUserId>cdaly2001</DBUserId>
+			<DBTable>LoadsOfVars</DBTable>
+		</Database>
+	</Databases>
+	<AdsDevices />
+	<SymbolGroups />
+</Configuration>

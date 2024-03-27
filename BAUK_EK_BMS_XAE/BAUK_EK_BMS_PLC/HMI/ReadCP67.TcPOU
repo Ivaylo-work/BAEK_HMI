@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ReadCP67" Id="{9520bf6c-b0a7-45ce-b025-02aba67bb34e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ReadCP67
+VAR
+	
+	ReadActLightLvlBoardroom :FB_DALIV2QueryActualLevel;  //Used to read back actual light lvl to correct dimmer on CP67 ask Plug top
+
+
+	ADS_READ:ADSREAD;
+	
+	ADX_READ_DMXR:ADSREAD;
+	ADX_READ_DMXG:ADSREAD;
+	ADX_READ_DMXB:ADSREAD;
+	
+	DMX_Enable_READ:ADSREAD;
+	
+	HoldCP67BoardRoomLightsOn:BYTE;
+	
+
+	Sample		: BYTE;
+	
+	DMXRValues	:	ARRAY [0..7] OF BYTE;
+	DMXGValues	:	ARRAY [0..7] OF BYTE;
+	DMXBValues	:	ARRAY [0..7] OF BYTE;
+	
+	CP67_DMX_Enable	:	BOOL;
+	
+	FBDALIV2Dimmer1Switch : ARRAY [1..15] OF FB_DALIV2Dimmer1Switch;
+	CASECP67BoardRoomLightsOn : INT;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[sample := sample + 1;
+
+FBDALIV2Dimmer1Switch[1](stCommandBuffer:= stCommandBuffer);
+FBDALIV2Dimmer1Switch[2](stCommandBuffer:= stCommandBuffer);
+ReadActLightLvlBoardroom(stCommandBuffer := stCommandBuffer , nActualLevel => BoardroomActualLightLvl ); 
+
+IF CP67BoardRoomLightsOn <> HoldCP67BoardRoomLightsOn THEN
+HoldCP67BoardRoomLightsOn := CP67BoardRoomLightsOn;
+CASECP67BoardRoomLightsOn := 10;
+END_IF
+
+	CASE CASECP67BoardRoomLightsOn OF
+		
+	0: //Idle
+	
+	10:	FBDALIV2Dimmer1Switch[1].nDimmValue	:=  CP67BoardRoomLightsOn;
+		FBDALIV2Dimmer1Switch[1].nAddr		:= 3;
+		FBDALIV2Dimmer1Switch[1].eAddrType	:= 1;
+			
+		FBDALIV2Dimmer1Switch[2].nDimmValue	:=  CP67BoardRoomLightsOn; 
+		FBDALIV2Dimmer1Switch[2].nAddr		:= 2; 
+		FBDALIV2Dimmer1Switch[2].eAddrType	:= 1;
+			
+		CASECP67BoardRoomLightsOn			:= 20;	
+			
+	20:	IF  NOT FBDALIV2Dimmer1Switch[1].bBusy AND NOT FBDALIV2Dimmer1Switch[2].bBusy THEN
+		CASECP67BoardRoomLightsOn 			:= 30;	
+
+		ReadActLightLvlBoardroom.bStart		:= TRUE;
+		ReadActLightLvlBoardroom.nAddr		:= 6;
+		ReadActLightLvlBoardroom.eAddrType	:= 0;
+		END_IF
+	
+	30:	IF NOT ReadActLightLvlBoardroom.bBusy THEN
+		ReadActLightLvlBoardroom.bStart			:= FALSE;
+		CASECP67BoardRoomLightsOn 				:= 0;
+		
+		END_IF
+				
+		
+	END_CASE
+		
+	
+	
+	
+(*// Send back actual light lvls for slider on CP67	
+ReadActLightLvlBoardroom(
+	bStart:= Sample.0, 
+	nAddr:= 6, 
+	eAddrType:= 0, 
+	eCommandPriority:= , 
+	bBusy=> , 
+	bError=> , 
+	nErrorId=> , 
+	nActualLevel=> BoardroomActualLightLvl, 
+	stCommandBuffer:= stCommandBuffer);	*)
+
+(*
+// DMX Values	
+ADX_READ_DMXR(
+	NETID:= '192.168.3.8.1.1', 
+	PORT:= 851, 
+	IDXGRP:= 16#4020, 
+	IDXOFFS:= 1, 
+	LEN:= 8, 
+	DESTADDR:= ADR(DMXRValues), 
+	READ:= Sample.0, 
+	TMOUT:= T#2S, 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+	
+ADX_READ_DMXG(
+	NETID:= '192.168.3.8.1.1', 
+	PORT:= 851, 
+	IDXGRP:= 16#4020, 
+	IDXOFFS:= 9, 
+	LEN:= 8, 
+	DESTADDR:= ADR(DMXGValues), 
+	READ:= Sample.0, 
+	TMOUT:= T#2S, 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+	
+ADX_READ_DMXB(
+	NETID:= '192.168.3.8.1.1', 
+	PORT:= 851, 
+	IDXGRP:= 16#4020, 
+	IDXOFFS:= 17, 
+	LEN:= 8, 
+	DESTADDR:= ADR(DMXBValues), 
+	READ:= Sample.0, 
+	TMOUT:= T#2S, 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+	
+	
+DMX_Enable_READ(
+	NETID:= '192.168.3.8.1.1', 
+	PORT:= 851, 
+	IDXGRP:= 16#4020, 
+	IDXOFFS:= 25, 
+	LEN:= 1, 
+	DESTADDR:= ADR(CP67_DMX_Enable), 
+	READ:= Sample.0, 
+	TMOUT:= T#2S, 
+	BUSY=> , 
+	ERR=> , 
+	ERRID=> );
+	*)
+]]></ST>
+    </Implementation>
+    <LineIds Name="ReadCP67">
+      <LineId Id="22" Count="0" />
+      <LineId Id="325" Count="0" />
+      <LineId Id="321" Count="1" />
+      <LineId Id="341" Count="0" />
+      <LineId Id="303" Count="1" />
+      <LineId Id="327" Count="0" />
+      <LineId Id="307" Count="0" />
+      <LineId Id="293" Count="0" />
+      <LineId Id="309" Count="0" />
+      <LineId Id="308" Count="0" />
+      <LineId Id="312" Count="1" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="315" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="319" Count="1" />
+      <LineId Id="317" Count="1" />
+      <LineId Id="323" Count="0" />
+      <LineId Id="357" Count="0" />
+      <LineId Id="345" Count="2" />
+      <LineId Id="339" Count="0" />
+      <LineId Id="295" Count="0" />
+      <LineId Id="350" Count="0" />
+      <LineId Id="358" Count="0" />
+      <LineId Id="353" Count="0" />
+      <LineId Id="359" Count="0" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="352" Count="0" />
+      <LineId Id="351" Count="0" />
+      <LineId Id="300" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="301" Count="1" />
+      <LineId Id="288" Count="1" />
+      <LineId Id="250" Count="8" />
+      <LineId Id="245" Count="0" />
+      <LineId Id="286" Count="1" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="111" Count="10" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="130" Count="10" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="183" Count="10" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="209" Count="0" />
+      <LineId Id="211" Count="10" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="96" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Dali" Id="{7cd58663-8403-4133-b120-667ea1c00677}" SpecialFunc="None">
+    <Declaration><![CDATA[
+PROGRAM Dali
+VAR
+	KL6811							:			FB_DALIV2Communication;
+	
+	
+	bAssumeBuildingEmpty			:			BOOL;
+	TONGlobalMovementTimer			:			TON;
+
+
+	CommunalAreaPIR_1:FB_DALIV2IAPIR;
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaPIR_1_Occupancy:BOOL;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaPIR_1_LuxLevel:INT;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaPIR_2:FB_DALIV2IAPIR;
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaPIR_2_Occupancy:BOOL;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaPIR_2_LuxLevel:INT;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomPIR_1:FB_DALIV2IAPIR;
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomPIR_1_Occupancy:BOOL;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomPIR_1_LuxLevel:INT;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomPIR_2:FB_DALIV2IAPIR;
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomPIR_2_Occupancy:BOOL; (*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomPIR_2_LuxLevel:INT;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomPIR_1:FB_DALIV2IAPIR;
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomPIR_1_Occupancy:BOOL;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomPIR_1_LuxLevel:INT;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomPIR_2:FB_DALIV2IAPIR;
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomPIR_2_Occupancy:BOOL;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomPIR_2_LuxLevel:INT;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaLights:FB_DALIV2DirectArcPowerControl;
+	{attribute 'OPC.UA.DA' := '1'}
+	CommunalAreaLightsLevel:BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomLights:FB_DALIV2DirectArcPowerControl;
+	{attribute 'OPC.UA.DA' := '1'}
+	StaffroomLightsLevel:BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomBackLights:FB_DALIV2DirectArcPowerControl;
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomBackLightsLevel:BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomFrontLights:FB_DALIV2DirectArcPowerControl;
+	{attribute 'OPC.UA.DA' := '1'}
+	BoardroomFrontLightsLevel:BYTE;(*~ (OPC:1:available) *)
+
+	i: BYTE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[KL6811(
+	bResetMaximumDemandCounter:= ,
+	bResetOverflowCounter:= ,
+	stDALIInData:=  stDALIInData ,
+	stDALIOutData:= stDALIOutData ,
+	stCommandBuffer:= stCommandBuffer ,
+	arrBufferDemandMeter=> ,
+	arrBufferMaximumDemandMeter=> ,
+	arrBufferOverflowCounter=> , 
+	bLineIsBusy=> ,
+	bLineIsInitialized=> );
+
+	// Check Building Occupancy
+	TONGlobalMovementTimer(PT := T#3H );
+	IF NOT Dali.BoardroomPIR_1_Occupancy AND NOT Dali.BoardroomPIR_2_Occupancy AND NOT Dali.CommunalAreaPIR_1_Occupancy AND NOT Dali.CommunalAreaPIR_2_Occupancy AND NOT Dali.StaffroomPIR_1_Occupancy AND NOT Dali.StaffroomPIR_2_Occupancy THEN
+		TONGlobalMovementTimer.IN := TRUE;
+	ELSE
+		TONGlobalMovementTimer.IN := FALSE;
+		bAssumeBuildingEmpty := FALSE;
+	END_IF
+	
+	IF TONGlobalMovementTimer.Q THEN
+		bAssumeBuildingEmpty := TRUE;
+	END_IF
+	
+
+
+	
+// Room Sensors PIR	
+BoardroomPIR_1(
+	nAddr:=0 ,
+	eAddrType:=0 ,
+	stCommandBuffer:=stCommandBuffer ,
+	bOccupancy=>BoardroomPIR_1_Occupancy ,
+	nBrightness=>BoardroomPIR_1_LuxLevel );
+	
+BoardroomPIR_2(
+	nAddr:=1 ,
+	eAddrType:=0 ,
+	stCommandBuffer:=stCommandBuffer  ,
+	bOccupancy=>BoardroomPIR_2_Occupancy ,
+	nBrightness=>BoardroomPIR_2_LuxLevel );
+
+CommunalAreaPIR_1(
+	nAddr:=2 ,
+	eAddrType:=0 ,
+	stCommandBuffer:=stCommandBuffer ,
+	bOccupancy=>CommunalAreaPIR_1_Occupancy ,
+	nBrightness=>CommunalAreaPIR_1_LuxLevel  );
+	
+CommunalAreaPIR_2(
+	nAddr:=3 ,
+	eAddrType:=0 ,
+	stCommandBuffer:=stCommandBuffer ,
+	bOccupancy=>CommunalAreaPIR_2_Occupancy ,
+	nBrightness=>CommunalAreaPIR_2_LuxLevel );
+
+StaffroomPIR_1(
+	nAddr:=4 ,
+	eAddrType:=0 ,
+	stCommandBuffer:=stCommandBuffer ,
+	bOccupancy=>StaffroomPIR_1_Occupancy ,
+	nBrightness=>StaffroomPIR_1_LuxLevel  );
+	
+StaffroomPIR_2(
+	nAddr:=5 ,
+	eAddrType:=0 ,
+	stCommandBuffer:=stCommandBuffer ,
+	bOccupancy=>StaffroomPIR_2_Occupancy ,
+	nBrightness=>StaffroomPIR_2_LuxLevel  );
+	
+	
+(*
+BoardroomBackLights(
+	bStart:= NOT BoardroomBackLights.bBusy ,
+	nAddr:=2 ,
+	eAddrType:=1 ,
+	nArcPowerLevel:=BoardroomBackLightsLevel ,
+	stCommandBuffer:=stCommandBuffer  );
+
+BoardroomFrontLights(
+	bStart:=NOT BoardroomFrontLights.bBusy,
+	nAddr:=3 ,
+	eAddrType:=1 ,
+	nArcPowerLevel:=BoardroomFrontLightsLevel ,
+	stCommandBuffer:=stCommandBuffer  );
+
+CommunalAreaLights(
+	bStart:=NOT CommunalAreaLights.bBusy ,
+	nAddr:=0 ,
+	eAddrType:=1 ,
+	nArcPowerLevel:=CommunalAreaLightsLevel ,
+	stCommandBuffer:=stCommandBuffer  );
+
+StaffroomLights(
+	bStart:=NOT StaffroomLights.bBusy ,
+	nAddr:=1 ,
+	eAddrType:=1 ,
+	nArcPowerLevel:=StaffroomLightsLevel ,
+	stCommandBuffer:=stCommandBuffer  );*)]]></ST>
+    </Implementation>
+    <LineIds Name="Dali">
+      <LineId Id="35" Count="10" />
+      <LineId Id="510" Count="0" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="511" Count="0" />
+      <LineId Id="427" Count="0" />
+      <LineId Id="495" Count="0" />
+      <LineId Id="514" Count="0" />
+      <LineId Id="497" Count="0" />
+      <LineId Id="519" Count="0" />
+      <LineId Id="496" Count="0" />
+      <LineId Id="493" Count="0" />
+      <LineId Id="516" Count="2" />
+      <LineId Id="494" Count="0" />
+      <LineId Id="370" Count="0" />
+      <LineId Id="428" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="47" Count="5" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="53" Count="12" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="66" Count="12" />
+      <LineId Id="172" Count="0" />
+      <LineId Id="79" Count="5" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="234" Count="0" />
+      <LineId Id="85" Count="27" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

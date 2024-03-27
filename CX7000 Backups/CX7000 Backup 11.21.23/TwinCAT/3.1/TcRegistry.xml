@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<TcRegistry>
+	<Key Name="HKLM">
+		<Key Name="Software">
+			<Key Name="Beckhoff">
+				<Key Name="TwinCAT3">
+					<Value Name="CurrentVersion" Type="SZ">3.1</Value>
+					<Key Name="System">
+						<Value Name="RunAsDevice" Type="DW">1</Value>
+						<Value Name="LockedMemSize" Type="DW">33554432</Value>
+						<Value Name="SysStartupState" Type="DW">5</Value>
+						<Value Name="AmsNetId" Type="BIN">058156E80101</Value>
+					</Key>
+					<Key Name="3.1">
+						<Value Name="BootDir" Type="SZ">\TwinCAT\3.1\Boot\</Value>
+						<Value Name="ConfigDir" Type="SZ">\TwinCAT\3.1\Config\</Value>
+						<Value Name="InstallDir" Type="SZ">\TwinCAT\3.1\</Value>
+						<Value Name="TargetDir" Type="SZ">\TwinCAT\3.1\Target\</Value>
+						<Value Name="DriverAutoLoadDir" Type="SZ">\usr\</Value>
+						<Value Name="DriverAutoInstallDir" Type="SZ">\usr\</Value>
+					</Key>
+					<Key Name="Io">
+						<Value Name="NoPciScan" Type="DW">1</Value>
+						<Value Name="NoIsaScan" Type="DW">1</Value>
+						<Key Name="FixedDevices">
+							<Key Name="CCAT1">
+								<Value Name="ISAADDRESS" Type="DW">268435456</Value>
+								<Value Name="DeviceType" Type="DW">124</Value>
+							</Key>
+							<Key Name="CCAT2">
+								<Value Name="ISAADDRESS" Type="DW">536870912</Value>
+								<Value Name="DeviceType" Type="DW">124</Value>
+							</Key>
+							<Key Name="CX7000">
+								<Value Name="PORTNO" Type="DW">4660</Value>
+								<Value Name="DEVICETYPE" Type="DW">161</Value>
+							</Key>
+						</Key>
+					</Key>
+				</Key>
+				<Key Name="MDP"/>
+			</Key>
+		</Key>
+		<Key Name="Ident">
+			<Value Name="DeviceType" Type="SZ">CX7000</Value>
+		</Key>
+	</Key>
+</TcRegistry>

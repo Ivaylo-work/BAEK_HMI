@@ -1,0 +1,20 @@
+{
+  "$schema": "../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/LocalizationDescription.Schema.json",
+  "locale": "en",
+  "localizedText": {
+    "L_Language": "Language",
+    "L_German": "German",
+    "L_English": "English",
+    "L_LanguageSelection": "Language Selection",
+    "L_CloseText": "Close",
+    "L_Overview": "Overview",
+    "L_SignIn": "Sign In",
+    "L_StaffRoom": "Staff Room",
+    "L_CommunalArea": "Communal Area",
+    "L_Boardroom": "Boardroom",
+    "L_CoffeeMachine": "Coffee Machine",
+    "L_Localization": "Localization",
+    "L_Theme": "Theme",
+    "L_HMISettings": "HMI Settings"
+  }
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
+	<TargetInfo>
+		<TcTargetDesc>
+			<TargetType>CX7000-OS</TargetType>
+			<TargetVersion>
+				<Version>3</Version>
+				<Revision>1</Revision>
+				<Build>4025</Build>
+			</TargetVersion>
+			<Hardware>
+				<Model>CX7000</Model>
+				<SerialNo>000000</SerialNo>
+				<CPUVersion>1.1</CPUVersion>
+				<Date>1.1.18</Date>
+				<CPUArchitecture>5</CPUArchitecture>
+			</Hardware>
+			<OsImage>
+				<ImageDevice>5</ImageDevice>
+				<OsName>TwinCAT OS</OsName>
+				<OsVersion>10.0</OsVersion>
+			</OsImage>
+		</TcTargetDesc>
+	</TargetInfo>
+	<LicenseInfo>
+		<SystemId Level="10">{96556D61-BF9F-3949-95E8-20904C52DBAA}</SystemId>
+		<CustomComment>
+			<![CDATA[Device License for device type CX7000]]>
+		</CustomComment>
+		<IssueTime>2020-01-21T13:55:48</IssueTime>
+		<LicenseKey>63b3fbf426e632871b388aef60672b66d777852ca49eecbe18f18b86bd27096e064f1d5fba5fe1fc333a7c5fa18aef06131f96a7cd4919fbe6dfc97626ecfc5e553ed1ff103cccd1755dce6023907e4dba9228d2d9558a22a6d781bac15a81c053869eece0ffb181c4b093001e13b65c01a98e3908e611b68482c6cdcc8b9a421979bb16b4533a99323dc78bceb6e1a810c3d52e5d910bc4c112603041124d6fd13d82f616b8b28d54459e338730178ca5b327eb2f50c31c4f4259f9c0dcd1bdc54de7a3bfcdc0930d2cc991a91cd81faa052c9494fa0b1e2cd880bff88af96a56f9c70820071778a0a8eda82495152a06c482a494b504edab7ebc789534b6cc</LicenseKey>
+		<License>
+			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
+			<Name>TC3 PLC</Name>
+			<OrderNo>TC1200</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{1EEBBAAA-51E1-4750-9D6A-7B04116EA32B}</LicenseId>
+			<Name>TC3 Temperature-Controller</Name>
+			<OrderNo>TF4110</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{A1AF8A04-C08D-4853-A5A0-0E6C3A278A8C}</LicenseId>
+			<Name>TC3 Modbus-RTU</Name>
+			<OrderNo>TF6255</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</LicenseId>
+			<Name>TC3 Serial-Communication</Name>
+			<OrderNo>TF6340</OrderNo>
+		</License>
+		<License AddedThrough="{1EEBBAAA-51E1-4750-9D6A-7B04116EA32B}">
+			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
+			<Name>TC3 Controller Toolbox</Name>
+			<OrderNo>TF4100</OrderNo>
+		</License>
+		<License AddedThrough="{66689887-CCBD-452C-AC9A-039D997C6E66}">
+			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
+			<Name>TC3 IO</Name>
+			<OrderNo>TC1100</OrderNo>
+		</License>
+		<License AddedThrough="{66689887-CCBD-452C-AC9A-039D997C6E66}">
+			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
+			<Name>TC3 ADS</Name>
+			<OrderNo>TC1000</OrderNo>
+		</License>
+	</LicenseInfo>
+</TcLicenseInfo>

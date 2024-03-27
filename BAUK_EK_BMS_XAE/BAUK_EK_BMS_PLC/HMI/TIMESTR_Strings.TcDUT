@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="TIMESTR_Strings" Id="{ea94092f-1a36-4b0c-b6a7-9562432bddce}">
+    <Declaration><![CDATA[TYPE TIMESTR_Strings :
+STRUCT
+	sYear: STRING;
+	sMonth: STRING;
+	sDayOfWeek: STRING;
+	sDay: STRING;
+	sHour: STRING;
+	sMinute: STRING;
+	sSecond: STRING;
+	sMillisecond: STRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

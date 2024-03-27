@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FileHandle" Id="{3eecc647-b70c-4f4d-9e48-7e93457b76ce}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM FileHandle
+VAR
+	///File Handle Blocks from Tc2_System.lib
+	fbOpenFile: FB_FileOpen;
+	fbWriteFile: FB_FilePuts;
+	fbReadFile: FB_FileRead;
+	fbCloseFile: FB_FileClose;
+	///Case Variables
+	nFileCaseIndex: INT;
+	nSignOutCase: INT;
+	nWriteTableCase: INT;
+	///DateTime
+	fbGetTime: NT_GetTime;
+	///Triggers and GeneralVars
+	rtSignInTrig: R_TRIG;
+	rtSignOut: R_TRIG;
+	rtChangeMade: R_TRIG;
+	i: INT;
+	y: INT;
+	///File Variables
+	sFileName: STRING;
+	sLine: STRING(255);
+	Init: BOOL;
+	DateChange: STRING;
+	MonthEnd: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Get and format system time
+GetSystemTime();
+
+//Init IF
+IF NOT Init THEN
+	Init := TRUE;
+	DateChange := STDateTimeStrings.sDay;
+END_IF
+
+IF DateChange <> STDateTimeStrings.sDay THEN //See if date has changed to save table and clear it for new month
+	DateChange :=  STDateTimeStrings.sDay;
+	CurrentMonthSignInTable := BlankCurrentMonthSignInTable;
+	ComboBoxCurrentMonthSignInTable := BlankComboBoxCurrentMonthSignInTable;
+	rtChangeMade.CLK := TRUE;
+END_IF
+
+//Hide sign in button
+IF sVisuName = '' OR sVisuCompany = '' OR sVisuPersonVisiting = '' THEN
+	xVisuHideSignInButton := TRUE;
+ELSE	
+	xVisuHideSignInButton := FALSE;
+END_IF
+
+//Sign in clicked?	
+rtSignInTrig(CLK:= xVisuSignInButton);
+
+IF rtSignInTrig.Q THEN
+	xVisuSignInButton := FALSE;
+	rtChangeMade.CLK := TRUE;
+	nWriteTableCase := 10;
+END_IF
+
+//SignOutWith
+	rtSignOut(CLK:= xVisuSignOutButton);
+	
+	IF rtSignOut.Q AND CurrentMonthSignInTable[nVisuTableRowSelection].Name <> '' THEN
+		xVisuSignOutButton := FALSE;
+		CurrentMonthSignInTable[nVisuTableRowSelection].sTimeOut := sTime;
+		//CurrentMonthSignInTable[nVisuTableRowSelection].Email := sVisuEmailAddress;
+		//sVisuEmailAddress := '';
+		//CurrentMonthSignInTable[nVisuTableRowSelection].PCControl := xVisuYesPCControl;
+		//xVisuYesPCControl := FALSE;
+		CurrentMonthSignInTable[nVisuTableRowSelection].SignOut := TRUE; 
+		rtChangeMade.CLK := TRUE;
+		nSignOutCase := 10;
+	END_IF
+
+//Change Made to table, trigger file write
+rtChangeMade();
+
+IF rtChangeMade.Q THEN
+	nFileCaseIndex := 10;
+	rtChangeMade.CLK := FALSE;
+END_IF
+
+	//Move customer info to table case
+	CASE nWriteTableCase OF
+		
+	0:	//IDLE	
+
+	10:	//Write customer details to table and file
+		xVisuSignInButton := FALSE;
+		FOR  i := 0 TO nMaxTableLength DO
+			IF CurrentMonthSignInTable[i].Name = '' THEN
+				
+			ComboBoxCurrentMonthSignInTable[i]			:= sVisuName;
+						
+			CurrentMonthSignInTable[i].Name 				:= sVisuName; 
+			CurrentMonthSignInTable[i].Company 			:= sVisuCompany; 
+			CurrentMonthSignInTable[i].PersonVisiting 	:= sVisuPersonVisiting; 
+			CurrentMonthSignInTable[i].Reason		 	:= sVisuReason; 
+			CurrentMonthSignInTable[i].VehicleReg 		:= sVisuVehicleReg; 
+			CurrentMonthSignInTable[i].sDate		 		:= sDate; 
+			CurrentMonthSignInTable[i].sTimeIn		 	:= sTime; 
+			CurrentMonthSignInTable[i].PCControl		 	:= xVisuYesPCControl;
+			CurrentMonthSignInTable[i].Email			 	:= sVisuEmailAddress; 
+	
+			
+			EXIT;		
+			END_IF
+		END_FOR
+		
+		nWriteTableCase := 20;
+		
+	20:		
+			sVisuName := '';
+			sVisuCompany := '';
+			sVisuPersonVisiting := ''; 
+			sVisuReason := ''; 
+			sVisuVehicleReg := ''; 
+			sDate := ''; 
+			sTime := ''; 
+			xVisuYesPCControl := FALSE;
+			sVisuEmailAddress := ''; 
+		
+		nWriteTableCase := 0;	
+
+				
+	END_CASE
+	
+	
+// Write changes to file
+	
+CASE nFileCaseIndex OF
+	
+0:	//Idle, waiting for a change to be made
+	
+10:	fbOpenFile.sPathName := '\Hard Disk\SignIn\';
+	fbOpenFile.sPathName :=  CONCAT(fbOpenFile.sPathName , sFileName );
+	fbOpenFile.sPathName :=  CONCAT(fbOpenFile.sPathName , '.csv' );
+
+	fbOpenFile(sNetId:= , nMode:= FOPEN_MODEWRITE, bExecute:= TRUE, tTimeout:= T#2S);
+	
+	nFileCaseIndex := 20;
+	
+20:	fbOpenFile(bExecute := FALSE);	
+	IF NOT fbOpenFile.bBusy THEN
+		
+		IF CurrentMonthSignInTable[y].Name <> '' THEN
+			BuildFileString();			
+			fbWriteFile(hFile := fbOpenFile.hFile , 
+			sLine:= sLine, 
+			bExecute:= TRUE, 
+			tTimeout:= T#2S );	
+			nFileCaseIndex := 30;
+		ELSE
+			nFileCaseIndex := 30;	
+		END_IF
+	
+	END_IF
+	
+30:	fbWriteFile();
+	IF NOT fbWriteFile.bBusy THEN
+		fbWriteFile(bExecute := FALSE);
+		y := y + 1;
+		
+		IF CurrentMonthSignInTable[y].Name <> '' THEN
+			nFileCaseIndex := 20;	
+		ELSE
+			nFileCaseIndex := 40;	
+		END_IF
+		
+	END_IF;
+
+40: fbCloseFile(hFile:= fbOpenFile.hFile , 
+	bExecute:= TRUE, 
+	tTimeout:= T#2S);
+	y := 0;
+	nFileCaseIndex := 50;	
+	
+50:	fbCloseFile();
+	IF NOT fbCloseFile.bBusy THEN
+		fbCloseFile(bExecute := FALSE);
+		nFileCaseIndex := 0;
+	END_IF
+
+END_CASE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Action Name="BuildFileString" Id="{4d39e62a-b726-4825-9b4e-7bddd67546b6}">
+      <Implementation>
+        <ST><![CDATA[
+	
+	sLine := 	CurrentMonthSignInTable[y].Name ;
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].Company);
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].PersonVisiting);
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].Reason);
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].VehicleReg);
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].sDate);
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].sTimeIn);	
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	BOOL_TO_STRING(CurrentMonthSignInTable[y].SignOut));
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].sTimeOut);
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	BOOL_TO_STRING(CurrentMonthSignInTable[y].PCControl));
+	sLine :=	CONCAT(sLine, ',');
+	sLine :=	CONCAT(sLine, 	CurrentMonthSignInTable[y].Email	);
+	sLine :=	CONCAT(sLine, '$L');
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="GetSystemTime" Id="{eb016949-870c-4e3b-9026-e9cb602a261a}">
+      <Implementation>
+        <ST><![CDATA[fbGetTime(NETID:= , START:= TRUE , TMOUT:= T#2S, BUSY=> , ERR=> , ERRID=> , TIMESTR=> );
+fbGetTime(NETID:= , START:= FALSE, TMOUT:= T#2S, BUSY=> , ERR=> , ERRID=> , TIMESTR=> );
+
+STDateTimeStrings.sYear := WORD_TO_STRING(fbGetTime.TIMESTR.wYear);
+
+IF fbGetTime.TIMESTR.wMonth > 9 THEN
+STDateTimeStrings.sMonth := WORD_TO_STRING(fbGetTime.TIMESTR.wMonth);
+ELSE
+STDateTimeStrings.sMonth := '0';
+STDateTimeStrings.sMonth := CONCAT(STDateTimeStrings.sMonth,WORD_TO_STRING(fbGetTime.TIMESTR.wMonth));
+END_IF
+
+IF fbGetTime.TIMESTR.wDay > 9 THEN
+STDateTimeStrings.sDay := WORD_TO_STRING(fbGetTime.TIMESTR.wDay);
+ELSE
+STDateTimeStrings.sDay := '0';
+STDateTimeStrings.sDay := CONCAT(STDateTimeStrings.sDay,WORD_TO_STRING(fbGetTime.TIMESTR.wDay));
+END_IF
+
+IF fbGetTime.TIMESTR.wHour > 9 THEN
+STDateTimeStrings.sHour := WORD_TO_STRING(fbGetTime.TIMESTR.wHour);
+ELSE
+STDateTimeStrings.sHour := '0';
+STDateTimeStrings.sHour := CONCAT(STDateTimeStrings.sHour,WORD_TO_STRING(fbGetTime.TIMESTR.wHour));
+END_IF
+
+IF fbGetTime.TIMESTR.wMinute > 9 THEN
+STDateTimeStrings.sMinute := WORD_TO_STRING(fbGetTime.TIMESTR.wMinute);
+ELSE
+STDateTimeStrings.sMinute := '0';
+STDateTimeStrings.sMinute := CONCAT(STDateTimeStrings.sMinute,WORD_TO_STRING(fbGetTime.TIMESTR.wMinute));
+END_IF
+
+IF fbGetTime.TIMESTR.wSecond > 9 THEN
+STDateTimeStrings.sSecond := WORD_TO_STRING(fbGetTime.TIMESTR.wSecond);
+ELSE
+STDateTimeStrings.sSecond := '0';
+STDateTimeStrings.sSecond := CONCAT(STDateTimeStrings.sSecond,WORD_TO_STRING(fbGetTime.TIMESTR.wSecond));
+END_IF
+
+
+sDate :=  STDateTimeStrings.sDay;
+sDate := CONCAT(sDate,'/');
+sDate := CONCAT(sDate,STDateTimeStrings.sMonth);
+sDate := CONCAT(sDate,'/');
+sDate := CONCAT(sDate,STDateTimeStrings.sYear);
+
+sTime :=  STDateTimeStrings.sHour;
+sTime := CONCAT(sTime,':');
+sTime := CONCAT(sTime,STDateTimeStrings.sMinute);
+sTime := CONCAT(sTime,':');
+sTime := CONCAT(sTime,STDateTimeStrings.sSecond);
+
+sFileName := CONCAT(STDateTimeStrings.sDay , STDateTimeStrings.sMonth);
+sFileName := CONCAT(sFileName , STDateTimeStrings.sYear);
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="FileHandle">
+      <LineId Id="3" Count="11" />
+      <LineId Id="230" Count="0" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="15" Count="39" />
+      <LineId Id="57" Count="7" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="227" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="286" Count="0" />
+      <LineId Id="66" Count="8" />
+      <LineId Id="225" Count="1" />
+      <LineId Id="75" Count="2" />
+      <LineId Id="220" Count="1" />
+      <LineId Id="209" Count="0" />
+      <LineId Id="212" Count="0" />
+      <LineId Id="222" Count="1" />
+      <LineId Id="214" Count="4" />
+      <LineId Id="258" Count="0" />
+      <LineId Id="219" Count="0" />
+      <LineId Id="211" Count="0" />
+      <LineId Id="78" Count="77" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FileHandle.BuildFileString">
+      <LineId Id="2" Count="24" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FileHandle.GetSystemTime">
+      <LineId Id="2" Count="17" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="21" Count="34" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

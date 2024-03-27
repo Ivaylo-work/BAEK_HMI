@@ -1,0 +1,18 @@
+;-------------------------------------------------------------------------------
+; Serial USB driver for Baltech RFID reader
+;-------------------------------------------------------------------------------
+; Vendor ID 13AD (5037) - Device ID F019 (61465)
+;
+; Set "Index" to the desired COM port if it should not be assigned dynamically
+;-------------------------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\BALTECH_USBSER_CLASS]
+    "Prefix"="COM"
+;   "Index"=dword:6
+    "Dll"="USBSer_Baltech.DLL"
+    "DeviceArrayIndex"=dword:1
+    "RxBufferSize"=dword:4000
+    "IClass"="{CC5195AC-BA49-48a0-BE17-DF6D1B0173DD}"
+
+[HKEY_LOCAL_MACHINE\Drivers\USB\LoadClients\5037_61465\Default\Default\BALTECH_USBSER_CLASS]
+    "Prefix"="COM"
+    "Dll"="USBSer_Baltech.DLL"

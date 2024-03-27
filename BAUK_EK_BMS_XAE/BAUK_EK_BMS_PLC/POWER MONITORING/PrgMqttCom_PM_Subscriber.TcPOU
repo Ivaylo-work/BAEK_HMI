@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PrgMqttCom_PM_Subscriber" Id="{fb45282b-221b-41b9-b270-b0c4ec652b09}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PrgMqttCom_PM_Subscriber
+VAR
+	fbMqttClient : FB_IotMqttClient;
+	bSetParameter : BOOL := TRUE;
+	bConnect : BOOL := TRUE;
+	
+	(* received message *)	
+	bSubscribedActivePower : BOOL;
+	sTopicActivePower : STRING(255) := 'Active_Power';
+	{attribute 'TcEncoding':='UTF-8'}
+	sPayloadActivePower : STRING(255);
+	
+	bSubscribedCurrent : BOOL;
+	sTopicCurrent : STRING(255) := 'Current';
+	{attribute 'TcEncoding':='UTF-8'}
+	sPayloadCurrent : STRING(255);
+	
+	bSubscribedVarientValue : BOOL;
+	sTopicVarientValue : STRING(255) := 'Varient_Value';
+	{attribute 'TcEncoding':='UTF-8'}
+	sPayloadVarientValue : STRING(255);
+	
+	bSubscribedVoltage : BOOL;
+	sTopicVoltage : STRING(255) := 'Voltage';
+	{attribute 'TcEncoding':='UTF-8'}
+	sPayloadVoltage : STRING(255);
+	
+	diVoltage				: REAL;
+	diCurrent				: REAL;
+	diActivePower 			: REAL;
+	diVarientValue			: REAL;
+		
+	fbMessageQueue : FB_IotMqttMessageQueue;
+	fbMessage : FB_IotMqttMessage;
+	
+	hrErrorOccurred : HRESULT; // contains the latest occurred error
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bSetParameter THEN
+	bSetParameter := FALSE;
+	fbMqttClient.sHostName:= '10.199.143.2';
+	fbMqttClient.nHostPort:= 1883;
+	fbMqttClient.sClientId:= 'CX2040_Power_Monitoring'; 
+	fbMqttClient.sTopicPrefix:= ''; 
+	fbMqttClient.nKeepAlive:= 60; 
+//	fbMqttClient.sUserName:= ;
+//	fbMqttClient.sUserPassword:= ; 
+//	fbMqttClient.stWill:= ; 
+//	fbMqttClient.stTLS:= ;
+	fbMqttClient.ipMessageQueue := fbMessageQueue;
+END_IF
+
+fbMqttClient.Execute(bConnect);
+IF fbMqttClient.bError THEN
+	// add your error logging here
+	hrErrorOccurred := fbMqttClient.hrErrorCode;
+END_IF
+
+IF fbMessageQueue.nQueuedMessages > 0 THEN
+	IF fbMessageQueue.Dequeue(fbMessage:=fbMessage) THEN
+		IF fbMessage.CompareTopic(sTopic := sTopicVoltage) THEN
+			fbMessage.GetPayload(pPayload:=ADR(sPayloadVoltage), nPayloadSize:=SIZEOF(sPayloadVoltage), bSetNullTermination:=FALSE);
+        	diVoltage := STRING_TO_REAL(sPayloadVoltage);
+			
+		ELSIF fbMessage.CompareTopic(sTopic:=sTopicCurrent) THEN
+            fbMessage.GetPayload(pPayload:=ADR(sPayloadCurrent), nPayloadSize:=SIZEOF(sPayloadCurrent), bSetNullTermination:=FALSE);
+        	diCurrent := STRING_TO_REAL(sPayloadCurrent);
+			
+		ELSIF fbMessage.CompareTopic(sTopic:=sTopicActivePower) THEN
+            fbMessage.GetPayload(pPayload:=ADR(sPayloadActivePower), nPayloadSize:=SIZEOF(sPayloadActivePower), bSetNullTermination:=FALSE);
+        	diActivePower := STRING_TO_REAL(sPayloadActivePower);
+			
+		ELSIF fbMessage.CompareTopic(sTopic:=sTopicVarientValue) THEN
+            fbMessage.GetPayload(pPayload:=ADR(sPayloadVarientValue), nPayloadSize:=SIZEOF(sPayloadVarientValue), bSetNullTermination:=FALSE);
+        	diVarientValue := STRING_TO_REAL(sPayloadVarientValue);
+			
+		END_IF
+	END_IF
+END_IF
+
+IF fbMqttClient.bConnected THEN
+	IF NOT bSubscribedActivePower THEN
+		bSubscribedActivePower := fbMqttClient.Subscribe(sTopic:=sTopicActivePower, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+		IF fbMqttClient.bError THEN
+			// add your error logging here
+			hrErrorOccurred := fbMqttClient.hrErrorCode;
+		END_IF
+	END_IF	
+
+	IF NOT bSubscribedCurrent THEN
+		bSubscribedCurrent := fbMqttClient.Subscribe(sTopic:=sTopicCurrent, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+		IF fbMqttClient.bError THEN
+			// add your error logging here
+			hrErrorOccurred := fbMqttClient.hrErrorCode;
+		END_IF
+	END_IF
+	
+	IF NOT bSubscribedVarientValue THEN
+		bSubscribedVarientValue := fbMqttClient.Subscribe(sTopic:=sTopicVarientValue, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+		IF fbMqttClient.bError THEN
+			// add your error logging here
+			hrErrorOccurred := fbMqttClient.hrErrorCode;
+		END_IF
+	END_IF
+
+	IF NOT bSubscribedVoltage THEN
+		bSubscribedVoltage := fbMqttClient.Subscribe(sTopic:=sTopicVoltage, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+		IF fbMqttClient.bError THEN
+			// add your error logging here
+			hrErrorOccurred := fbMqttClient.hrErrorCode;
+		END_IF
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="PrgMqttCom_PM_Subscriber">
+      <LineId Id="168" Count="12" />
+      <LineId Id="320" Count="60" />
+      <LineId Id="231" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

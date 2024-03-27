@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PrgMqttCom_Blinds_Publisher" Id="{3671603f-ce1a-4877-9351-391aaefe0379}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PrgMqttCom_Blinds_Publisher
+VAR
+	fbMqttClient : FB_IotMqttClient;
+	bSetParameter : BOOL := TRUE;
+	bConnect : BOOL := TRUE;
+	
+	(* published message *)
+	sTopicSelectRoom : STRING(255);//:= 'Staff Room';
+	sTopicSelectBulkCommand : STRING(255) := 'Blind Selection';
+	//sTopicSelectBoardroom : STRING(255) := 'Boardroom';
+	
+	bSelectStaffRoom : BOOL;
+	bSelectCommunalArea : BOOL;
+	bSelectBoardroom : BOOL;
+	
+	sPayloadCommand : STRING(255);// := 'Up';
+//	sPayloadCommandDown : STRING(255) := 'Down';
+//	sPayloadCommandStop : STRING(255) := 'Stop';
+//	sPayloadCommandTilt : STRING(255) := 'Tilt';
+
+	bCommandUp : BOOL;
+	bCommandDown : BOOL;
+	bCommandStop : BOOL;
+	bCommandTilt : BOOL;
+	
+	bulkCommandPackage :STRING;
+	
+	i: INT;
+	fbTimer : TON := (PT:=T#1S);
+	fbTimerTilt : TON := (PT:=T#0.5S);
+	
+	fbMessageQueue : FB_IotMqttMessageQueue;
+	fbMessage : FB_IotMqttMessage;
+	
+	hrErrorOccurred : HRESULT; // contains the latest occurred error
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bSetParameter THEN
+	bSetParameter := FALSE;
+	fbMqttClient.sHostName:= '10.199.143.2';
+	fbMqttClient.nHostPort:= 1883;
+	fbMqttClient.sClientId:= 'CX2040_Blinds'; 
+	fbMqttClient.sTopicPrefix:= ''; 
+	fbMqttClient.nKeepAlive:= 60; 
+//	fbMqttClient.sUserName:= ;
+//	fbMqttClient.sUserPassword:= ; 
+//	fbMqttClient.stWill:= ; 
+//	fbMqttClient.stTLS:= ;
+	fbMqttClient.ipMessageQueue := fbMessageQueue;
+END_IF
+
+fbMqttClient.Execute(bConnect);
+IF fbMqttClient.bError THEN
+	// add your error logging here
+	hrErrorOccurred := fbMqttClient.hrErrorCode;
+END_IF
+
+IF bSelectStaffRoom THEN
+	bSelectStaffRoom := FALSE;
+	sTopicSelectRoom := 'Staff Room';
+	bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[0].SelectBlindsBulkCommand);
+END_IF
+
+IF bSelectCommunalArea THEN
+	bSelectCommunalArea := FALSE;
+	sTopicSelectRoom := 'Communal Area';
+	bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[1].SelectBlindsBulkCommand);
+END_IF
+
+IF bSelectBoardroom THEN
+	bSelectBoardroom := FALSE;
+	sTopicSelectRoom := 'Boardroom';
+	bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[2].SelectBlindsBulkCommand);
+END_IF
+
+
+
+IF bCommandUp THEN
+	bCommandUp := FALSE;
+	sPayloadCommand := 'Up';
+	IF sTopicSelectRoom = 'Staff Room' THEN
+		bSelectStaffRoom := TRUE;
+	ELSIF sTopicSelectRoom = 'Communal Area' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[1].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Boardroom' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[2].SelectBlindsBulkCommand);
+	END_IF
+END_IF
+
+IF bCommandDown THEN
+	bCommandDown := FALSE;
+	sPayloadCommand := 'Down';
+	IF sTopicSelectRoom = 'Staff Room' THEN
+		bSelectStaffRoom := TRUE;//bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[0].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Communal Area' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[1].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Boardroom' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[2].SelectBlindsBulkCommand);
+	END_IF
+END_IF
+
+IF bCommandStop THEN
+	bCommandStop := FALSE;
+	sPayloadCommand := 'Stop';
+	IF sTopicSelectRoom = 'Staff Room' THEN
+		bSelectStaffRoom := TRUE;//bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[0].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Communal Area' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[1].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Boardroom' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[2].SelectBlindsBulkCommand);
+	END_IF
+END_IF
+
+IF bCommandTilt THEN
+	bCommandTilt := FALSE;
+	sPayloadCommand := 'Tilt';
+	IF sTopicSelectRoom = 'Staff Room' THEN
+		bSelectStaffRoom := TRUE;//bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[0].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Communal Area' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[1].SelectBlindsBulkCommand);
+	ELSIF sTopicSelectRoom = 'Boardroom' THEN
+		bulkCommandPackage := fConvertBoolArrayToString(boolArray := BackgroundComms.BlindCommandTable[2].SelectBlindsBulkCommand);
+	END_IF
+END_IF
+
+
+
+
+
+IF fbMqttClient.bConnected THEN
+	IF sPayloadCommand = 'Tilt' THEN
+		fbTimerTilt(IN:=TRUE);
+		fbMqttClient.Publish(	sTopic:= sTopicSelectBulkCommand, 
+									pPayload:= ADR(bulkCommandPackage), nPayloadSize:= LEN2(ADR(bulkCommandPackage))+1, 
+									eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+		fbMqttClient.Publish(	sTopic:= sTopicSelectRoom, 
+									pPayload:= ADR(sPayloadCommand), nPayloadSize:= LEN2(ADR(sPayloadCommand))+1, 
+									eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+		
+		IF fbTimerTilt.Q THEN // publish new payload every second
+			sPayloadCommand := 'Stop';
+			fbTimerTilt(IN:=FALSE);
+			fbMqttClient.Publish(	sTopic:= sTopicSelectBulkCommand, 
+									pPayload:= ADR(bulkCommandPackage), nPayloadSize:= LEN2(ADR(bulkCommandPackage))+1, 
+									eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+			fbMqttClient.Publish(	sTopic:= sTopicSelectRoom, 
+									pPayload:= ADR(sPayloadCommand), nPayloadSize:= LEN2(ADR(sPayloadCommand))+1, 
+									eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );			
+			IF fbMqttClient.bError THEN
+				// add your error logging here
+				hrErrorOccurred := fbMqttClient.hrErrorCode;
+			END_IF
+		END_IF
+	ELSE
+		fbTimer(IN:=TRUE);
+		IF fbTimer.Q THEN // publish new payload every second
+			fbTimer(IN:=FALSE);
+			fbMqttClient.Publish(	sTopic:= sTopicSelectBulkCommand, 
+									pPayload:= ADR(bulkCommandPackage), nPayloadSize:= LEN2(ADR(bulkCommandPackage))+1, 
+									eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+									
+			fbMqttClient.Publish(	sTopic:= sTopicSelectRoom, 
+									pPayload:= ADR(sPayloadCommand), nPayloadSize:= LEN2(ADR(sPayloadCommand))+1, 
+									eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+			IF fbMqttClient.bError THEN
+				// add your error logging here
+				hrErrorOccurred := fbMqttClient.hrErrorCode;
+			END_IF
+		END_IF
+	END_IF
+END_IF
+
+fbTimerTilt();]]></ST>
+    </Implementation>
+    <LineIds Name="PrgMqttCom_Blinds_Publisher">
+      <LineId Id="275" Count="18" />
+      <LineId Id="301" Count="0" />
+      <LineId Id="305" Count="0" />
+      <LineId Id="352" Count="0" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="447" Count="0" />
+      <LineId Id="353" Count="0" />
+      <LineId Id="345" Count="0" />
+      <LineId Id="355" Count="2" />
+      <LineId Id="448" Count="0" />
+      <LineId Id="344" Count="0" />
+      <LineId Id="359" Count="3" />
+      <LineId Id="449" Count="0" />
+      <LineId Id="358" Count="0" />
+      <LineId Id="383" Count="1" />
+      <LineId Id="369" Count="3" />
+      <LineId Id="450" Count="1" />
+      <LineId Id="453" Count="3" />
+      <LineId Id="452" Count="0" />
+      <LineId Id="373" Count="4" />
+      <LineId Id="461" Count="5" />
+      <LineId Id="460" Count="0" />
+      <LineId Id="378" Count="4" />
+      <LineId Id="468" Count="5" />
+      <LineId Id="467" Count="0" />
+      <LineId Id="368" Count="0" />
+      <LineId Id="386" Count="3" />
+      <LineId Id="475" Count="5" />
+      <LineId Id="474" Count="0" />
+      <LineId Id="385" Count="0" />
+      <LineId Id="445" Count="1" />
+      <LineId Id="394" Count="0" />
+      <LineId Id="396" Count="0" />
+      <LineId Id="306" Count="1" />
+      <LineId Id="644" Count="0" />
+      <LineId Id="670" Count="2" />
+      <LineId Id="659" Count="0" />
+      <LineId Id="612" Count="1" />
+      <LineId Id="610" Count="0" />
+      <LineId Id="669" Count="0" />
+      <LineId Id="588" Count="0" />
+      <LineId Id="633" Count="0" />
+      <LineId Id="589" Count="0" />
+      <LineId Id="674" Count="1" />
+      <LineId Id="642" Count="0" />
+      <LineId Id="673" Count="0" />
+      <LineId Id="643" Count="0" />
+      <LineId Id="641" Count="0" />
+      <LineId Id="606" Count="3" />
+      <LineId Id="587" Count="0" />
+      <LineId Id="614" Count="0" />
+      <LineId Id="619" Count="5" />
+      <LineId Id="632" Count="0" />
+      <LineId Id="630" Count="1" />
+      <LineId Id="629" Count="0" />
+      <LineId Id="625" Count="3" />
+      <LineId Id="615" Count="0" />
+      <LineId Id="585" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="635" Count="0" />
+      <LineId Id="634" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

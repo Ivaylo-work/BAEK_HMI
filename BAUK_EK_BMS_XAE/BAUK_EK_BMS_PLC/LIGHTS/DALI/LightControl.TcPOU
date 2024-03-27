@@ -1,0 +1,1077 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="LightControl" Id="{476dfd26-e722-485f-867b-053377d66b3d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM LightControl
+VAR
+	
+	//Force Variables
+	TurnAllOff								:	BOOL;
+	TurnAllOn								:	BOOL;
+	Bypass									:	BOOL;
+	
+	//UPdate light status pulse
+	Update									:	INT;	
+	
+	//Set Min Or Max Levels
+	SetMaxLevel								:	FB_DALIV2SetMaxLevel;
+	xExecuteSetMax							:	BOOL;
+	MaxSetting								:	BYTE := 255;
+	SetMinLevel								:	FB_DALIV2SetMinLevel;
+	xExecuteSetMin							:	BOOL;
+	MinSetting								:	BYTE := 76;	
+  	DaliAddrress							:	BYTE;
+	                                    	
+                                        	
+                                        	
+	//Group Light OFF control           	
+	TurnAllOffGroup0_MiddleRoom				:	FB_DALIV2Off;		
+	TurnAllOffGroup1_OfficeDesks			:	FB_DALIV2Off;
+	TurnAllOffGroup2_BoardroomBackRow		:	FB_DALIV2Off;
+	TurnAllOffGroup3_BoardroomFront2		:	FB_DALIV2Off;
+	TurnAllOffGroup4_OfficePassage			:	FB_DALIV2Off;
+	TurnAllOffGroup5_TableTennis			:	FB_DALIV2Off;
+	TurnAllOffGroup6_MiddleRoomPassage		:	FB_DALIV2Off;
+	TurnAllOffGroup7_TechRoom				:	FB_DALIV2Off;
+	TurnAllOffGroup8_ServerRoom				:	FB_DALIV2Off;
+	
+	
+	//Light Control Per Group
+	LightControlGroup0_MiddleRoom			:	FB_DALIV2Light;
+	LightControlGroup1_OfficeDesks			:	FB_DALIV2Light;
+	LightControlGroup2_BoardroomBackRow		:	FB_DALIV2Light;
+	LightControlGroup3_BoardroomFront2		:	FB_DALIV2Light;
+	LightControlGroup4_OfficePassage		:	FB_DALIV2Light;
+	LightControlGroup5_TableTennis			:	FB_DALIV2Light;
+	LightControlGroup6_MiddleRoomPassage	:	FB_DALIV2Light;
+	LightControlGroup7_TechRoom				:	FB_DALIV2Light;
+	LightControlGroup8_ServerRoom			:	FB_DALIV2Light;
+	
+	//Recall Max Level			
+	RecallMaxLevelGroup0_MiddleRoom			:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup1_OfficeDesks		:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup2_BoardroomBackRow	:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup3_BoardroomFront2	:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup4_OfficePassage		:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup5_TableTennis		:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup6_MiddleRoomPassage	:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup7_TechRoom			:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup8_ServerRoom			:	FB_DALIV2RecallMaxLevel;
+	
+	//Recall Min Level		
+	//Groups	
+	RecallMinLevelGroup0_MiddleRoom			:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup1_OfficeDesks		:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup2_BoardroomBackRow	:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup3_BoardroomFront2	:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup4_OfficePassage		:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup5_TableTennis		:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup6_MiddleRoomPassage	:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup7_TechRoom			:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup8_ServerRoom			:	FB_DALIV2RecallMinLevel;
+	
+	//Individual Lamps
+	RecallMinLevelCouchLight				:	FB_DALIV2RecallMinLevel;
+	RecallStepUPCouchLight					:	FB_DALIV2StepUp;
+	
+	IgnoreFronttime : ton;
+	
+	
+
+	nForceLightsOffHour						:	INT := 19;	// Lights will turn off at this time
+	nHourOfDay								:	INT;
+	bNoOccupancyFlag						:	BOOL;
+	trigbAssumeBuildingEmpty				:	R_TRIG;
+	i										:	BYTE;
+                                        	
+	FBDALIV2Dimmer1SwitchStaff				:	FB_DALIV2Dimmer1Switch;
+	FBDALIV2Dimmer1SwitchBoarda				:	FB_DALIV2Dimmer1Switch;	
+	FBDALIV2Dimmer1SwitchBoardb				:	FB_DALIV2Dimmer1Switch;
+	FBDALIV2Dimmer1SwitchBoardc				:	FB_DALIV2Dimmer1Switch;
+	FBDALIV2Dimmer1SwitchBoardd				:	FB_DALIV2Dimmer1Switch;
+	FBDALIV2Dimmer1SwitchBoarde				:	FB_DALIV2Dimmer1Switch;
+	FBDALIV2Dimmer1SwitchBoardf				:	FB_DALIV2Dimmer1Switch;
+				                        	
+	                                    	
+	                                    	
+	OfficeDimmValue							:	BYTE := 190;	
+	WorkshopDimmValue						:	BYTE := 190;
+	                                    	
+	FBFade									:	FB_DALIV2Ramp;
+	
+	FBFadeOffice							:	FB_DALIV2Dimmer1Switch;
+	FBFadeWorkshop							:	FB_DALIV2Dimmer1Switch;
+		
+	bMainEntranceFadeSetFlag				:	BOOL;
+	nEndLevelIn								:	BYTE;
+	MainEntTimer							:	TON;
+	OfficeTimer								:	TON;
+	                                    	
+	bMainOfficeFadeSetFlag					: 	BOOL;       	
+	                                    	
+	OfficeLightControl						:	FB_ConstantLightControlEco;
+	WorkshopLightControl					:	FB_ConstantLightControlEco;
+	OfficePassageLightControl				:	FB_DALIV2Light;
+	ServerRoomLightControl					:	FB_DALIV2Light;
+	                                    	
+	EmergancyLightControlOffice				:	FB_DALIV2RecallMaxLevel;
+	EmergancyLightControlBoard				:	FB_DALIV2Light;
+	EmergancyLightControlReception			:	FB_DALIV2Light;
+	
+	ReceptionDoorLightControl				:	FB_DALIV2Light;
+	ReceptionPassageLightControl			:	FB_DALIV2Light;
+	ReceptionTableKitchLoungeLightControl	:	FB_DALIV2Light;
+	
+	ReceptionDoorLightControlOnLeave		:	FB_DALIV2Light;
+	
+	
+	TableTennisLightControl					:	FB_DALIV2Light;
+	TableTennisDimm							:	FB_DALIV2Dimmer1Switch;
+	                                    	
+	                                    	
+	OfficePassageTime						:	TON;
+	OfficePassageTriggerOn					:	BOOL;
+	OfficePassageTriggerOff					:	BOOL;	
+	                                    	
+	WorkshopPassageTime						:	TON;
+	WorkshopPassageTriggerOn				:	BOOL;
+	WorkshopPassageTriggerOff				:	BOOL;
+	                                    	
+	DeskAreaTime							:	TON;
+	DeskAreaTriggerOn						:	BOOL;
+	DeskAreaTriggerOff						:	BOOL;
+	                                    	
+	OfficeLightLevel						:	UINT;
+	WorkshopLightLevel						:	UINT;
+
+	
+	
+	bLightADS 					AT %MB100	:	BOOL;
+	bLightsADSOff 				AT %MB110 	:	BOOL;
+	
+
+	ReceptionDoorTriggerOn					:	BOOL;
+	ReceptionDoorTriggerOFF					:	BOOL;
+	
+	ReceptionPassageTriggerOn				:	BOOL;
+	ReceptionPassageTriggerOFF				:	BOOL;
+	                                		 	
+		                            		 	
+	                                		 	
+	ReceptionDoorTime						:	TON;
+	ReceptionPassageTime					:	TON;
+	ReceptionTableKitchLoungeTime			:	TON;
+	                                		 	
+	
+	GoHomeHold 								:	TON;
+	GoHomeHoldActivated						:	BOOL;
+	ClearRoomTimer							:	TON;
+	
+
+	
+	ResetOthers								:	BOOL;
+	ReceptionTableKitchLoungeTriggerOn		:	BOOL;
+	ReceptionTableKitchLoungeTriggerOFF		:	BOOL;
+	
+	OfficeLightLevelSetpoint				:	UINT := 900;
+	WorkshopLightLevelSetpoint				:	UINT := 1000;
+	
+	xBoardToom_Lights_ProjectorMode			:	BOOL;
+	rt_BoardToom_Lights_ProjectorMode		:	R_TRIG;
+	
+	TurnOnCabinetLights						:	BOOL;
+	IgnoreFront								:	BOOL;
+	
+	CouchLightStepUp: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Reset
+ReceptionDoorLightControlOnLeave(bOn:= FALSE, bOff:= FALSE,	nAddr:= 24, eAddrType:= 0,stCommandBuffer:= stCommandBuffer);
+
+//Individual Light Control via tLigthTable for direct testing	
+FOR i := 0 TO 57 DO
+	FBDALIV2Light[i](
+			bOn:= tLightTable[i].bOn, 
+			bOff:= tLightTable[i].bOff, 
+			bToggle:= tLightTable[i].bToggle, 
+			nAddr:= i ,
+			eAddrType:= 0, 
+			nMasterDevAddr:= , 
+			tCycleActualLevelMasterDev:= , 
+			bLight=> tLightTable[i].LigthStatus, 
+			bBusy=> , 
+			bError=> , 
+			nErrorId=> , 
+			stCommandBuffer:= stCommandBuffer);
+END_FOR
+
+Update := Update + 1;
+
+(*FOR i := 0 TO 57 DO
+	FBDALIV2QueryLightState[i](	
+						bStart := update.0,
+						nAddr := i,	
+						eAddrType := 0,
+						bLampPowerOn => tLightTable[i].LigthStatus,
+						stCommandBuffer:= stCommandBuffer);
+END_FOR	*)
+
+	//force vars
+	IF TurnAllOn THEN
+	TurnAllOn := FALSE;
+	
+	LightControlGroup0_MiddleRoom		(bOn:= TRUE, bOff:= , nAddr:= 0, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup1_OfficeDesks		(bOn:= TRUE, bOff:= , nAddr:= 1, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup2_BoardroomBackRow	(bOn:= TRUE, bOff:= , nAddr:= 2, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup3_BoardroomFront2	(bOn:= TRUE, bOff:= , nAddr:= 3, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup4_OfficePassage	(bOn:= TRUE, bOff:= , nAddr:= 4, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup5_TableTennis		(bOn:= TRUE, bOff:= , nAddr:= 5, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup6_MiddleRoomPassage(bOn:= TRUE, bOff:= , nAddr:= 6, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup7_TechRoom			(bOn:= TRUE, bOff:= , nAddr:= 7, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup8_ServerRoom		(bOn:= TRUE, bOff:= , nAddr:= 8, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	
+	xXplanarScreenPowerOn := TRUE;
+	
+	TurnAllOffGroup0_MiddleRoom			(bStart:= FALSE , nAddr:= 0, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup1_OfficeDesks		(bStart:= FALSE , nAddr:= 1, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
+	TurnAllOffGroup2_BoardroomBackRow	(bStart:= FALSE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup3_BoardroomFront2	(bStart:= FALSE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup4_OfficePassage		(bStart:= FALSE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_TableTennis		(bStart:= FALSE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= FALSE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup7_TechRoom			(bStart:= FALSE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	TurnAllOffGroup8_ServerRoom			(bStart:= FALSE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+		
+	ELSIF TurnAllOFF THEN
+	TurnAllOFF := FALSE;	
+	LightControlGroup0_MiddleRoom		(bOn:= FALSE, bOff:= , nAddr:= 0, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup1_OfficeDesks		(bOn:= FALSE, bOff:= , nAddr:= 1, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup2_BoardroomBackRow	(bOn:= FALSE, bOff:= , nAddr:= 2, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup3_BoardroomFront2	(bOn:= FALSE, bOff:= , nAddr:= 3, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup4_OfficePassage	(bOn:= FALSE, bOff:= , nAddr:= 4, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup5_TableTennis		(bOn:= FALSE, bOff:= , nAddr:= 5, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup6_MiddleRoomPassage(bOn:= FALSE, bOff:= , nAddr:= 6, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup7_TechRoom			(bOn:= FALSE, bOff:= , nAddr:= 7, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup8_ServerRoom		(bOn:= FALSE, bOff:= , nAddr:= 8, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	
+	xXplanarScreenPowerOff := TRUE;
+	
+	TurnAllOffGroup0_MiddleRoom			(bStart:= TRUE , nAddr:= 0, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup1_OfficeDesks		(bStart:= TRUE , nAddr:= 1, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
+	TurnAllOffGroup2_BoardroomBackRow	(bStart:= TRUE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup3_BoardroomFront2	(bStart:= TRUE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup4_OfficePassage		(bStart:= TRUE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_TableTennis		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= TRUE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup7_TechRoom			(bStart:= TRUE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	TurnAllOffGroup8_ServerRoom			(bStart:= TRUE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
+	
+	END_IF
+
+IF Bypass THEN
+	RETURN;
+END_IF
+
+//Set Min or Max for individual lamp ******************************************
+	SetMaxLevel(bStart:= xExecuteSetMax, nAddr:= DaliAddrress, eAddrType:= 0, nMaxLevel:= MaxSetting, stCommandBuffer:= stCommandBuffer);
+
+	SetMinLevel(bStart:= xExecuteSetMin, nAddr:= DaliAddrress, eAddrType:= 0, nMinLevel:= MinSetting, stCommandBuffer:= stCommandBuffer);
+//******************************************************************************
+
+//Force Lights off after this time*****************************************************************************
+GoHomeHold();
+ClearRoomTimer();
+trigbAssumeBuildingEmpty(CLK := Dali.bAssumeBuildingEmpty);
+
+IF bNoOccupancyFlag THEN
+	ResetOthers := FALSE;
+	bNoOccupancyFlag := FALSE;
+END_IF
+
+IF trigbAssumeBuildingEmpty.Q THEN
+	ResetOthers := TRUE;
+	TurnAllOffGroup0_MiddleRoom			(bStart:= TRUE , nAddr:= 0, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup1_OfficeDesks		(bStart:= TRUE , nAddr:= 1, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
+	TurnAllOffGroup2_BoardroomBackRow	(bStart:= TRUE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup3_BoardroomFront2	(bStart:= TRUE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup4_OfficePassage		(bStart:= TRUE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_TableTennis		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= TRUE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup7_TechRoom			(bStart:= TRUE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	TurnAllOffGroup8_ServerRoom			(bStart:= TRUE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	
+	xXplanarScreenPowerOff := TRUE;
+	
+	DeskAreaTriggerOn 			:= FALSE;
+	DeskAreaTriggerOff 			:= FALSE;
+	WorkshopPassageTriggerOn 	:= FALSE;
+	WorkshopPassageTriggerOff 	:= FALSE;
+	OfficePassageTime.IN		:= FALSE;
+	WorkshopPassageTime.IN		:= FALSE;
+	
+	bNoOccupancyFlag := TRUE;
+	
+END_IF
+
+
+
+IF PTM200StrippedTables[5].Signal THEN  // hold in to turn off all before going home
+	
+//IF  EnOcean.AllWindowsClosed  THEN
+
+	GoHomeHold.IN := TRUE;	
+	GoHomeHold.PT := T#2S;	
+		IF GoHomeHold.Q THEN
+			GoHomeHold.IN := FALSE;	
+			GoHomeHoldActivated := TRUE;
+		END_IF	
+	xSleepMode := TRUE;		
+	
+//ELSE
+	
+	//AWindowIsOpenLightTrigger := TRUE;
+		
+//END_IF		
+		
+END_IF
+
+IF NOT PTM200StrippedTables[5].Signal AND NOT GoHomeHoldActivated THEN
+	GoHomeHold.IN := FALSE;
+	TurnAllOffGroup0_MiddleRoom			(bStart:= FALSE , nAddr:= 0, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup1_OfficeDesks		(bStart:= FALSE , nAddr:= 1, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
+	TurnAllOffGroup2_BoardroomBackRow	(bStart:= FALSE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup3_BoardroomFront2	(bStart:= FALSE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup4_OfficePassage		(bStart:= FALSE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_TableTennis		(bStart:= FALSE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= FALSE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup7_TechRoom			(bStart:= FALSE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	TurnAllOffGroup8_ServerRoom			(bStart:= FALSE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+
+END_IF
+
+IF GoHomeHoldActivated THEN // Go home swicth has been held
+	IgnoreFront := TRUE;
+	IgnoreFronttime.IN := IgnoreFront;
+	ResetOthers := TRUE;
+	
+	TurnAllOffGroup0_MiddleRoom			(bStart:= TRUE , nAddr:= 0, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup1_OfficeDesks		(bStart:= TRUE , nAddr:= 1, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
+	TurnAllOffGroup2_BoardroomBackRow	(bStart:= TRUE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup3_BoardroomFront2	(bStart:= TRUE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup4_OfficePassage		(bStart:= TRUE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_TableTennis		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= TRUE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup7_TechRoom			(bStart:= TRUE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	TurnAllOffGroup8_ServerRoom			(bStart:= TRUE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
+	
+	xXplanarScreenPowerOff := TRUE;
+
+	DeskAreaTriggerOn 			:= FALSE;
+	DeskAreaTriggerOff 			:= FALSE;
+	WorkshopPassageTriggerOn 	:= FALSE;
+	WorkshopPassageTriggerOff 	:= FALSE;
+	OfficePassageTime.IN		:= FALSE;
+	WorkshopPassageTime.IN		:= FALSE;
+		
+	ClearRoomTimer.IN := TRUE;
+	ClearRoomTimer.pt := T#100S;
+	
+	GoHomeHoldActivated := FALSE;
+	
+	//DMX off
+	TurnOnCabinetLights	:= FALSE;
+	
+END_IF
+
+
+IgnoreFronttime.pt := T#1S;
+IgnoreFronttime();
+
+IF IgnoreFronttime.Q THEN
+	IgnoreFronttime.IN := FALSE;
+	IgnoreFronttime();
+	ReceptionDoorLightControlOnLeave(bOn:= TRUE, bOff:= FALSE,	nAddr:= 24, eAddrType:= 0,stCommandBuffer:= stCommandBuffer);
+END_IF
+
+IF ClearRoomTimer.Q THEN
+	IgnoreFront := FALSE;
+	IgnoreFronttime.IN := FALSE;
+	ClearRoomTimer.IN := FALSE;
+	ResetOthers := FALSE;
+	ReceptionDoorLightControlOnLeave(bOn:= FALSE, bOff:= TRUE,	nAddr:= 24, eAddrType:= 0,stCommandBuffer:= stCommandBuffer);
+END_IF
+
+
+MainEntTimer(IN:= , PT:= T#3600S, Q=> , ET=> );  
+OfficeTimer(IN:= , PT:= T#3600S, Q=> , ET=> );  
+ReceptionDoorTime(); 
+OfficePassageTime();
+WorkshopPassageTime();
+DeskAreaTime();
+
+			
+//Reception Area**********************************************************
+ReceptionDoor_LightControl();
+ReceptionPassage_LightControl();
+
+
+
+//Dimm Staff Office***************************************************************************
+	FBDALIV2Dimmer1SwitchStaff(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[7].Signal, 
+	bOff:= PTM200StrippedTables[5].Signal, 
+	bSetDimmValue:= , 
+	nDimmValue:= , 
+	tSwitchOverTime:= , 
+	tCycleDelay:= , 
+	bMemoryModeOn:= , 
+	nOnValueWithoutMemoryMode:= , 
+	nAddr:= 1, 
+	eAddrType:= 1, 
+	nMasterDevAddr:= , 
+	nMinLevelMasterDev:= , 
+	nMaxLevelMasterDev:= , 
+	tCycleActualLevelMasterDev:= , 
+	nActualLevelMasterDev=> , 
+	bBusy=> , 
+	bError=> , 
+	nErrorId=> , 
+	stCommandBuffer:= stCommandBuffer );
+
+	IF PTM200StrippedTables[6].Signal AND FBDALIV2Dimmer1SwitchStaff.nDimmValue < 254  THEN
+		FBDALIV2Dimmer1SwitchStaff.nDimmValue := FBDALIV2Dimmer1SwitchStaff.nDimmValue + 1;
+	END_IF		
+	
+	IF PTM200StrippedTables[4].Signal AND FBDALIV2Dimmer1SwitchStaff.nDimmValue > 0  THEN
+		FBDALIV2Dimmer1SwitchStaff.nDimmValue := FBDALIV2Dimmer1SwitchStaff.nDimmValue - 1;
+	END_IF	
+
+//Office Light Control***********************************************************************
+
+	//Desk area light control 
+	OfficeLightControl(
+		bEnable:= TRUE, 
+		bOn:= DeskAreaTriggerOn (*PTM200StrippedTables[7].Signal*), 
+		bOff:= DeskAreaTriggerOff (*PTM200StrippedTables[5].Signal*), 
+		bToggle:= , 
+		nSetpointValue:= OfficeLightLevelSetpoint, 
+		nActualValue:= Dali.StaffroomPIR_2_LuxLevel, 
+		nHysteresis:= 50, 
+		nMaxLevel:= 245, 					//250
+		nMinLevel:= 10, 
+		nStepSize:= 1, 
+		tDeadTime:= T#2S, 
+		nOptions:= , 
+		nDeviation=> , 
+		bControllerIsActive=> , 
+		bBusy=> , 
+		bError=> , 
+		nErrorId=> , 
+		nLightLevel:= OfficeLightLevel );
+		
+		FBFadeOffice(
+			nDimmValue:= UINT_TO_BYTE(OfficeLightLevel), 
+			nAddr:= 1, 
+			eAddrType:= 1, 
+			stCommandBuffer:= stCommandBuffer);
+			
+	/////////////////////////// Desk area Occupancy handle //////////////////////////
+	IF 	Dali.StaffroomPIR_2_Occupancy  THEN
+		DeskAreaTriggerOn 		:= TRUE;
+		DeskAreaTriggerOff		:= FALSE;
+		DeskAreaTime.IN			:= FALSE;
+	END_IF
+	
+	IF NOT Dali.StaffroomPIR_2_Occupancy THEN
+		DeskAreaTime.IN			:= TRUE;
+		DeskAreaTime.PT			:= T#1H;	
+	END_IF
+	
+	IF DeskAreaTime.Q OR ResetOthers THEN
+		DeskAreaTriggerOn 		:= FALSE;
+		DeskAreaTriggerOff		:= TRUE;
+	END_IF
+	////////////////////////////////////////////////////////////////////////////////////			
+		
+	//Workshop and server room light control***************************************************************
+		LightControlGroup7_TechRoom(
+							bOn:= WorkshopPassageTriggerOn, 
+							bOff:= WorkshopPassageTriggerOff, 
+							nAddr:= 7, 
+							eAddrType:= 1, 
+							bLight=> , 
+							stCommandBuffer:= stCommandBuffer );	
+							
+		LightControlGroup8_ServerRoom(
+							bOn:= WorkshopPassageTriggerOn, 
+							bOff:= WorkshopPassageTriggerOff, 
+							nAddr:= 8, 
+							eAddrType:= 1, 
+							bLight=> , 
+							stCommandBuffer:= stCommandBuffer );
+			
+	/////////////////////////// Workshop Passage Occupancy handle //////////////////////////
+	IF 	Dali.StaffroomPIR_1_Occupancy  THEN
+		WorkshopPassageTriggerOn 		:= TRUE;
+		WorkshopPassageTriggerOff		:= FALSE;
+		WorkshopPassageTime.IN			:= FALSE;
+	END_IF
+	
+	IF  NOT Dali.StaffroomPIR_1_Occupancy THEN
+		WorkshopPassageTime.IN			:= TRUE;
+		WorkshopPassageTime.PT			:= T#1H;	
+	END_IF
+	
+	IF WorkshopPassageTime.Q OR ResetOthers THEN
+
+		WorkshopPassageTriggerOn 		:= FALSE;
+		WorkshopPassageTriggerOff		:= TRUE;
+	END_IF
+	////////////////////////////////////////////////////////////////////////////////////		
+			
+	
+//Office passge light control**********************************************************
+		OfficePassageLightControl(
+			bOn:= OfficePassageTriggerOn, 
+			bOff:= OfficePassageTriggerOFF,
+			nAddr:= 4, 
+			eAddrType:= 1, 
+			nMasterDevAddr:= , 
+			tCycleActualLevelMasterDev:= , 
+			stCommandBuffer:= stCommandBuffer);	
+			
+				
+
+//Table Tennis Group 5**********************************************************
+LightControlGroup5_TableTennis(
+			bOn:= PTM200StrippedTables[12].Signal, 
+			bOff:= ,
+			nAddr:= 5, 
+			eAddrType:= eDALIV2AddrTypeGroup, 
+			stCommandBuffer:= stCommandBuffer);		
+			
+RecallMinLevelGroup5_TableTennis(
+			bStart:= PTM200StrippedTables[13].Signal, 
+			nAddr:= 5, 
+			eAddrType:= eDALIV2AddrTypeGroup, 
+			stCommandBuffer:= stCommandBuffer );
+//*******************************************************************************
+		
+	
+	/////////////////////////// Office Passage Occupancy handle //////////////////////////
+	IF 	Dali.StaffroomPIR_1_Occupancy OR Dali.StaffroomPIR_2_Occupancy  THEN
+		OfficePassageTriggerOn 		:= TRUE;
+		OfficePassageTriggerOFF		:= FALSE;
+		OfficePassageTime.IN		:= FALSE;
+	END_IF
+	
+	IF NOT Dali.StaffroomPIR_1_Occupancy AND NOT Dali.StaffroomPIR_2_Occupancy THEN
+		OfficePassageTime.IN		:= TRUE;
+		OfficePassageTime.PT		:= T#1H;	
+	END_IF
+	
+	IF OfficePassageTime.Q OR ResetOthers THEN
+
+		OfficePassageTriggerOn 		:= FALSE;
+		OfficePassageTriggerOFF		:= TRUE;
+	END_IF
+	////////////////////////////////////////////////////////////////////////////////////
+
+bLightADS := PTM200StrippedTables[3].Signal;
+bLightsADSOff := 	PTM200StrippedTables[1].Signal;
+bLightsADSOff := 	PTM200StrippedTables[0].Signal;
+
+//All Board room on********************************************************************
+	FBDALIV2Dimmer1SwitchBoarda(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[3].Signal OR PTM200StrippedTables[2].Signal, 
+	bOff:= PTM200StrippedTables[1].Signal OR PTM200StrippedTables[0].Signal, 
+	nAddr:= 3, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer); 
+
+	FBDALIV2Dimmer1SwitchBoardb(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[3].Signal OR PTM200StrippedTables[2].Signal, 
+	bOff:= PTM200StrippedTables[1].Signal  OR PTM200StrippedTables[0].Signal, 
+	nAddr:= 2, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer );	
+
+	
+	//Projector Board room on*********************************************
+	
+	rt_BoardToom_Lights_ProjectorMode(CLK := xBoardToom_Lights_ProjectorMode);
+	
+	FBDALIV2Dimmer1SwitchBoardc(
+	bSwitchDimm:= , 
+	bOn:= , 
+	bOff:= PTM200StrippedTables[1].Signal OR rt_BoardToom_Lights_ProjectorMode.Q, //Bottom Left Switch
+	nAddr:= 3, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer );
+
+	FBDALIV2Dimmer1SwitchBoardd(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[0].Signal OR rt_BoardToom_Lights_ProjectorMode.Q, //Bottom Right Switch
+	bOff:= PTM200StrippedTables[1].Signal,  //Bottom Left Switch
+	nAddr:= 2, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer );
+	
+	//Board table spots****************************************************
+	
+		FOR i := 10 TO 11 DO
+		FBDALIV2Light[i](
+			bOn:= PTM200StrippedTables[3].Signal, 
+			bOff:= PTM200StrippedTables[0].Signal, 
+			bToggle:= , 
+			nAddr:= i, 
+			eAddrType:= 0, 
+			nMasterDevAddr:= , 
+			tCycleActualLevelMasterDev:= , 
+			bLight=> , 
+			stCommandBuffer:= stCommandBuffer );
+		END_FOR	
+		
+		FOR i := 10 TO 11 DO
+		FBDALIV2Light[i](
+			bOn:= PTM200StrippedTables[3].Signal, 
+			bOff:= PTM200StrippedTables[0].Signal, 
+			bToggle:= , 
+			nAddr:= i, 
+			eAddrType:= 0, 
+			nMasterDevAddr:= , 
+			tCycleActualLevelMasterDev:= , 
+			bLight=> , 
+			stCommandBuffer:= stCommandBuffer );
+		END_FOR	
+	
+				
+
+	/////////////////////////// Office Passage Occupancy handle //////////////////////////
+	IF 	Dali.CommunalAreaPIR_2_Occupancy AND NOT ReceptionTableKitchLoungeLightControl.bLight THEN
+		ReceptionTableKitchLoungeTriggerOn 		:= TRUE;
+		ReceptionTableKitchLoungeTriggerOFF		:= FALSE;
+		ReceptionTableKitchLoungeTime.IN		:= FALSE;
+	END_IF
+	
+	IF NOT Dali.CommunalAreaPIR_2_Occupancy  THEN
+		ReceptionTableKitchLoungeTime.IN		:= TRUE;
+		ReceptionTableKitchLoungeTime.PT		:= T#1H;	
+	END_IF
+	
+	IF ReceptionTableKitchLoungeTime.Q OR ResetOthers THEN
+
+		ReceptionTableKitchLoungeTriggerOn 		:= FALSE;
+		ReceptionTableKitchLoungeTriggerOFF		:= TRUE;
+	END_IF
+	
+	//Reception Kitch.lounge.table light control**********************************************************
+		ReceptionTableKitchLoungeLightControl(
+			bOn:= ReceptionTableKitchLoungeTriggerOn, 
+			bOff:= ReceptionTableKitchLoungeTriggerOFF,
+			nAddr:= 0, 
+			eAddrType:= 1, 
+			nMasterDevAddr:= , 
+			bLight => ,
+			tCycleActualLevelMasterDev:= , 
+			stCommandBuffer:= stCommandBuffer);	
+			
+		RecallMinLevelGroup5_TableTennis(
+			bStart:= ReceptionTableKitchLoungeTriggerOn, 
+			nAddr:= 5, 
+			eAddrType:= eDALIV2AddrTypeGroup, 
+			stCommandBuffer:= stCommandBuffer );
+			
+		(*RecallMinLevelCouchLight(
+			bStart:= ReceptionTableKitchLoungeTriggerOn, 
+			nAddr:= 57, 
+			eAddrType:= eDALIV2AddrTypeShort    , 
+			stCommandBuffer:= stCommandBuffer );*)
+		
+		RecallStepUPCouchLight(
+			bStart:= CouchLightStepUp, 
+			nAddr:= 57, 
+			eAddrType:= eDALIV2AddrTypeShort, 
+			stCommandBuffer:= stCommandBuffer);
+	
+	
+	IF ReceptionTableKitchLoungeTriggerOn THEN
+		ReceptionTableKitchLoungeTriggerOn := FALSE;
+		xXplanarScreenPowerOn := TRUE;	
+	END_IF 		
+	
+	IF ReceptionTableKitchLoungeTriggerOff THEN
+		ReceptionTableKitchLoungeTriggerOff := FALSE;
+		
+	END_IF 		
+	
+	////////////////////////////////////////////////////////////////////////////////////
+
+	
+
+	
+	
+	
+]]></ST>
+    </Implementation>
+    <Action Name="ReceptionDoor_LightControl" Id="{0f0141a0-0212-4e00-aeaa-81885379793f}">
+      <Implementation>
+        <ST><![CDATA[//Reception Door light control**********************************************************
+IF NOT IgnoreFront THEN
+
+		ReceptionDoorLightControl(
+			bOn:= ReceptionDoorTriggerOn, 
+			bOff:= , //ReceptionDoorTriggerOFF
+			nAddr:= 24, 
+			eAddrType:= 0, 
+			nMasterDevAddr:= , 
+			tCycleActualLevelMasterDev:= , 
+			stCommandBuffer:= stCommandBuffer);	
+
+	/////////////////////////// Reception Door  Occupancy handle //////////////////////////
+	IF 	Dali.CommunalAreaPIR_1_Occupancy  THEN
+		
+		ReceptionDoorTriggerOn 		:= TRUE;
+		ReceptionDoorTriggerOFF		:= FALSE;
+		ReceptionDoorTime.IN		:= FALSE;
+		TurnOnCabinetLights			:= TRUE;
+		
+	END_IF
+	
+	IF NOT Dali.CommunalAreaPIR_1_Occupancy  THEN
+		ReceptionDoorTime.IN		:= TRUE;
+		ReceptionDoorTime.PT		:= T#3600S;	
+	END_IF
+	
+	IF ReceptionDoorTime.Q OR ResetOthers THEN
+		TurnOnCabinetLights := FALSE;
+		ReceptionDoorTriggerOn 		:= FALSE;
+		ReceptionDoorTriggerOFF		:= TRUE;
+	END_IF
+	//***************************************************************************************
+
+	
+END_IF	
+	]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="ReceptionPassage_LightControl" Id="{7e7993cd-0bc6-4ef5-a823-9bb0caff04d4}">
+      <Implementation>
+        <ST><![CDATA[//Reception Passage light control**********************************************************
+		ReceptionPassageLightControl(
+			bOn:= ReceptionPassageTriggerOn, 
+			bOff:= ReceptionPassageTriggerOFF,
+			nAddr:= 6, 
+			eAddrType:= 1, 
+			nMasterDevAddr:= , 
+			tCycleActualLevelMasterDev:= , 
+			stCommandBuffer:= stCommandBuffer);	
+
+	/////////////////////////// Reception Passage  Occupancy handle //////////////////////////
+	IF 	Dali.StaffroomPIR_1_Occupancy OR Dali.StaffroomPIR_2_Occupancy OR Dali.CommunalAreaPIR_2_Occupancy THEN
+		ReceptionPassageTriggerOn 			:= TRUE;
+		ReceptionPassageTriggerOFF			:= FALSE;
+		ReceptionPassageTime.IN				:= FALSE;
+	END_IF
+	
+	IF NOT Dali.StaffroomPIR_1_Occupancy AND NOT Dali.StaffroomPIR_2_Occupancy AND NOT Dali.CommunalAreaPIR_2_Occupancy THEN
+		ReceptionPassageTime.IN				:= TRUE;
+		ReceptionPassageTime.PT				:= T#3600S;	
+	END_IF
+	
+	IF ReceptionPassageTime.Q OR ResetOthers THEN
+	
+		ReceptionPassageTriggerOn 			:= FALSE;
+		ReceptionPassageTriggerOFF			:= TRUE;
+	END_IF
+	//***************************************************************************************]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="LightControl">
+      <LineId Id="3676" Count="0" />
+      <LineId Id="3679" Count="0" />
+      <LineId Id="3682" Count="0" />
+      <LineId Id="2851" Count="14" />
+      <LineId Id="2846" Count="0" />
+      <LineId Id="3689" Count="0" />
+      <LineId Id="3684" Count="0" />
+      <LineId Id="3700" Count="0" />
+      <LineId Id="3683" Count="0" />
+      <LineId Id="3694" Count="0" />
+      <LineId Id="3699" Count="0" />
+      <LineId Id="3695" Count="0" />
+      <LineId Id="3686" Count="0" />
+      <LineId Id="3696" Count="0" />
+      <LineId Id="3698" Count="0" />
+      <LineId Id="3685" Count="0" />
+      <LineId Id="2870" Count="1" />
+      <LineId Id="2885" Count="0" />
+      <LineId Id="2916" Count="0" />
+      <LineId Id="2945" Count="0" />
+      <LineId Id="2917" Count="0" />
+      <LineId Id="2887" Count="7" />
+      <LineId Id="3477" Count="1" />
+      <LineId Id="2918" Count="0" />
+      <LineId Id="2922" Count="7" />
+      <LineId Id="2919" Count="1" />
+      <LineId Id="2895" Count="0" />
+      <LineId Id="2930" Count="0" />
+      <LineId Id="2946" Count="8" />
+      <LineId Id="3480" Count="0" />
+      <LineId Id="3479" Count="0" />
+      <LineId Id="2955" Count="8" />
+      <LineId Id="2899" Count="0" />
+      <LineId Id="2943" Count="0" />
+      <LineId Id="2869" Count="0" />
+      <LineId Id="2847" Count="1" />
+      <LineId Id="2866" Count="1" />
+      <LineId Id="2997" Count="1" />
+      <LineId Id="3004" Count="0" />
+      <LineId Id="3018" Count="0" />
+      <LineId Id="3020" Count="0" />
+      <LineId Id="2849" Count="1" />
+      <LineId Id="1913" Count="0" />
+      <LineId Id="1279" Count="0" />
+      <LineId Id="1345" Count="0" />
+      <LineId Id="1961" Count="0" />
+      <LineId Id="2614" Count="0" />
+      <LineId Id="1966" Count="3" />
+      <LineId Id="1929" Count="0" />
+      <LineId Id="1928" Count="0" />
+      <LineId Id="1936" Count="8" />
+      <LineId Id="2667" Count="0" />
+      <LineId Id="3481" Count="1" />
+      <LineId Id="1945" Count="5" />
+      <LineId Id="1934" Count="0" />
+      <LineId Id="1951" Count="0" />
+      <LineId Id="1953" Count="0" />
+      <LineId Id="1952" Count="0" />
+      <LineId Id="1931" Count="0" />
+      <LineId Id="1955" Count="0" />
+      <LineId Id="1280" Count="0" />
+      <LineId Id="1274" Count="0" />
+      <LineId Id="1271" Count="0" />
+      <LineId Id="2073" Count="0" />
+      <LineId Id="2075" Count="0" />
+      <LineId Id="2074" Count="0" />
+      <LineId Id="1275" Count="0" />
+      <LineId Id="1293" Count="0" />
+      <LineId Id="1288" Count="0" />
+      <LineId Id="1291" Count="0" />
+      <LineId Id="1323" Count="0" />
+      <LineId Id="1294" Count="0" />
+      <LineId Id="2082" Count="0" />
+      <LineId Id="2329" Count="0" />
+      <LineId Id="2085" Count="0" />
+      <LineId Id="2114" Count="0" />
+      <LineId Id="2086" Count="0" />
+      <LineId Id="2079" Count="0" />
+      <LineId Id="2077" Count="1" />
+      <LineId Id="1276" Count="0" />
+      <LineId Id="1283" Count="1" />
+      <LineId Id="1287" Count="0" />
+      <LineId Id="2721" Count="7" />
+      <LineId Id="1502" Count="0" />
+      <LineId Id="3476" Count="0" />
+      <LineId Id="1286" Count="0" />
+      <LineId Id="1295" Count="0" />
+      <LineId Id="1272" Count="0" />
+      <LineId Id="3283" Count="0" />
+      <LineId Id="3297" Count="0" />
+      <LineId Id="1299" Count="0" />
+      <LineId Id="3273" Count="0" />
+      <LineId Id="2729" Count="7" />
+      <LineId Id="1479" Count="0" />
+      <LineId Id="3483" Count="1" />
+      <LineId Id="3271" Count="0" />
+      <LineId Id="1481" Count="0" />
+      <LineId Id="1483" Count="2" />
+      <LineId Id="1487" Count="1" />
+      <LineId Id="1482" Count="0" />
+      <LineId Id="1347" Count="0" />
+      <LineId Id="1355" Count="0" />
+      <LineId Id="3276" Count="1" />
+      <LineId Id="3882" Count="2" />
+      <LineId Id="1346" Count="0" />
+      <LineId Id="3282" Count="0" />
+      <LineId Id="3287" Count="0" />
+      <LineId Id="3292" Count="0" />
+      <LineId Id="3288" Count="0" />
+      <LineId Id="3294" Count="0" />
+      <LineId Id="3293" Count="0" />
+      <LineId Id="3280" Count="0" />
+      <LineId Id="3289" Count="0" />
+      <LineId Id="3295" Count="0" />
+      <LineId Id="3291" Count="0" />
+      <LineId Id="3290" Count="0" />
+      <LineId Id="1349" Count="0" />
+      <LineId Id="1348" Count="0" />
+      <LineId Id="3296" Count="0" />
+      <LineId Id="3285" Count="0" />
+      <LineId Id="1353" Count="1" />
+      <LineId Id="3272" Count="0" />
+      <LineId Id="1351" Count="0" />
+      <LineId Id="1509" Count="0" />
+      <LineId Id="1273" Count="0" />
+      <LineId Id="404" Count="0" />
+      <LineId Id="574" Count="0" />
+      <LineId Id="1255" Count="0" />
+      <LineId Id="991" Count="0" />
+      <LineId Id="1066" Count="1" />
+      <LineId Id="1234" Count="0" />
+      <LineId Id="1176" Count="0" />
+      <LineId Id="1180" Count="0" />
+      <LineId Id="1177" Count="0" />
+      <LineId Id="1179" Count="0" />
+      <LineId Id="1178" Count="0" />
+      <LineId Id="1175" Count="0" />
+      <LineId Id="47" Count="21" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="128" Count="7" />
+      <LineId Id="512" Count="0" />
+      <LineId Id="510" Count="0" />
+      <LineId Id="1017" Count="0" />
+      <LineId Id="1016" Count="0" />
+      <LineId Id="728" Count="17" />
+      <LineId Id="707" Count="0" />
+      <LineId Id="748" Count="0" />
+      <LineId Id="750" Count="0" />
+      <LineId Id="755" Count="0" />
+      <LineId Id="770" Count="0" />
+      <LineId Id="793" Count="0" />
+      <LineId Id="749" Count="0" />
+      <LineId Id="1044" Count="0" />
+      <LineId Id="1046" Count="15" />
+      <LineId Id="1045" Count="0" />
+      <LineId Id="933" Count="0" />
+      <LineId Id="892" Count="0" />
+      <LineId Id="888" Count="0" />
+      <LineId Id="2967" Count="1" />
+      <LineId Id="2970" Count="1" />
+      <LineId Id="2974" Count="0" />
+      <LineId Id="2965" Count="0" />
+      <LineId Id="2978" Count="0" />
+      <LineId Id="2980" Count="5" />
+      <LineId Id="2979" Count="0" />
+      <LineId Id="1018" Count="0" />
+      <LineId Id="1024" Count="12" />
+      <LineId Id="1342" Count="0" />
+      <LineId Id="1037" Count="2" />
+      <LineId Id="1019" Count="1" />
+      <LineId Id="1006" Count="0" />
+      <LineId Id="1015" Count="0" />
+      <LineId Id="1008" Count="6" />
+      <LineId Id="1007" Count="0" />
+      <LineId Id="1500" Count="0" />
+      <LineId Id="2456" Count="0" />
+      <LineId Id="2442" Count="0" />
+      <LineId Id="2441" Count="0" />
+      <LineId Id="2458" Count="4" />
+      <LineId Id="2443" Count="0" />
+      <LineId Id="2465" Count="0" />
+      <LineId Id="2777" Count="3" />
+      <LineId Id="2474" Count="0" />
+      <LineId Id="2489" Count="0" />
+      <LineId Id="2475" Count="0" />
+      <LineId Id="1492" Count="0" />
+      <LineId Id="964" Count="0" />
+      <LineId Id="630" Count="0" />
+      <LineId Id="656" Count="0" />
+      <LineId Id="986" Count="0" />
+      <LineId Id="1000" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="992" Count="1" />
+      <LineId Id="999" Count="0" />
+      <LineId Id="998" Count="0" />
+      <LineId Id="995" Count="0" />
+      <LineId Id="966" Count="0" />
+      <LineId Id="982" Count="0" />
+      <LineId Id="1343" Count="0" />
+      <LineId Id="1001" Count="0" />
+      <LineId Id="1004" Count="0" />
+      <LineId Id="1002" Count="0" />
+      <LineId Id="1005" Count="0" />
+      <LineId Id="968" Count="0" />
+      <LineId Id="967" Count="0" />
+      <LineId Id="1120" Count="1" />
+      <LineId Id="1607" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="136" Count="3" />
+      <LineId Id="146" Count="1" />
+      <LineId Id="156" Count="5" />
+      <LineId Id="168" Count="1" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="467" Count="0" />
+      <LineId Id="180" Count="1" />
+      <LineId Id="1707" Count="1" />
+      <LineId Id="2220" Count="0" />
+      <LineId Id="1711" Count="0" />
+      <LineId Id="183" Count="2" />
+      <LineId Id="192" Count="1" />
+      <LineId Id="202" Count="5" />
+      <LineId Id="214" Count="1" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="226" Count="1" />
+      <LineId Id="284" Count="0" />
+      <LineId Id="312" Count="0" />
+      <LineId Id="300" Count="8" />
+      <LineId Id="299" Count="0" />
+      <LineId Id="313" Count="0" />
+      <LineId Id="315" Count="12" />
+      <LineId Id="292" Count="0" />
+      <LineId Id="3026" Count="0" />
+      <LineId Id="1365" Count="17" />
+      <LineId Id="3046" Count="0" />
+      <LineId Id="3049" Count="14" />
+      <LineId Id="3048" Count="0" />
+      <LineId Id="3245" Count="0" />
+      <LineId Id="3254" Count="0" />
+      <LineId Id="3257" Count="0" />
+      <LineId Id="3255" Count="1" />
+      <LineId Id="3246" Count="0" />
+      <LineId Id="3485" Count="0" />
+      <LineId Id="4068" Count="3" />
+      <LineId Id="4066" Count="0" />
+      <LineId Id="3489" Count="0" />
+      <LineId Id="3064" Count="2" />
+      <LineId Id="3493" Count="0" />
+      <LineId Id="3068" Count="1" />
+      <LineId Id="3071" Count="1" />
+      <LineId Id="3492" Count="0" />
+      <LineId Id="3070" Count="0" />
+      <LineId Id="3047" Count="0" />
+      <LineId Id="477" Count="0" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="479" Count="0" />
+      <LineId Id="2803" Count="0" />
+      <LineId Id="485" Count="1" />
+      <LineId Id="476" Count="0" />
+      <LineId Id="75" Count="0" />
+    </LineIds>
+    <LineIds Name="LightControl.ReceptionDoor_LightControl">
+      <LineId Id="2" Count="0" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="3" Count="9" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="14" Count="2" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="17" Count="7" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="25" Count="2" />
+      <LineId Id="1" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="36" Count="2" />
+    </LineIds>
+    <LineIds Name="LightControl.ReceptionPassage_LightControl">
+      <LineId Id="2" Count="22" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="25" Count="2" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

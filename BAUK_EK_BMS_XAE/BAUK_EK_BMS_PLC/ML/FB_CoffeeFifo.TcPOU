@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_CoffeeFifo" Id="{c6762e8b-fc36-47ae-8d2d-2e3e7e41d42c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CoffeeFifo
+VAR_INPUT
+	bOverwrite	: BOOL;
+	in 			: REAL;
+END_VAR
+VAR_OUTPUT
+	bOk			: BOOL;
+	nCount		: UDINT;
+	nLoad		: UDINT;
+	out			: REAL;
+	arrBuffer 	: ARRAY[0..MAX_BUFFER_SIZE] OF LREAL; (* Buffer memory used by FB_MemRingBuffer function block *)
+END_VAR
+VAR
+	//arrBuffer 	: ARRAY[0..MAX_BUFFER_SIZE] OF lREAL; (* Buffer memory used by FB_MemRingBuffer function block *)
+	fbBuffer	: FB_MemRingBuffer;
+END_VAR
+
+VAR CONSTANT
+    MAX_BUFFER_SIZE : UDINT := 160;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Action Name="A_Add" Id="{2c2495cd-a353-4876-9043-2f8d41c4c5c4}">
+      <Implementation>
+        <ST><![CDATA[fbBuffer.A_AddTail( pWrite:= ADR( in ),
+					cbWrite:= SIZEOF( in ),
+					pBuffer:= ADR( arrBuffer ),
+					cbBuffer:= SIZEOF( arrBuffer ),
+					bOk=> bOk,
+					nCount => nCount );
+
+
+IF NOT bOk THEN (* overflow ? *)
+	IF bOverwrite THEN
+		fbBuffer.A_RemoveHead(); (* remove one oldest entry *)
+		
+		fbBuffer.A_AddTail( bOk => bOk, nCount => nCount );
+	END_IF
+END_IF
+
+
+
+nLoad := (fbBuffer.cbSize * 100) / MAX_BUFFER_SIZE;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_Get" Id="{8e6c70b5-e9e2-4af1-bd24-c1862074ce7a}">
+      <Implementation>
+        <ST><![CDATA[fbBuffer.A_GetHead( pRead:= ADR( out ),
+					cbRead:= SIZEOF( out ),
+					pBuffer:= ADR( arrBuffer ),
+					cbBuffer:= SIZEOF( arrBuffer ),
+					bOk=> bOk,
+					nCount => nCount );
+
+nLoad := (fbBuffer.cbSize * 100) / MAX_BUFFER_SIZE;;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_Remove" Id="{169a7a51-772c-4042-871f-def01ed3b8ee}">
+      <Implementation>
+        <ST><![CDATA[fbBuffer.A_RemoveHead( 	pRead:= ADR( out ),
+						cbRead:= SIZEOF( out ),
+						pBuffer:= ADR( arrBuffer ),
+						cbBuffer:= SIZEOF( arrBuffer ),
+						bOk=> bOk,
+						nCount => nCount );
+
+nLoad := (fbBuffer.cbSize * 100) / MAX_BUFFER_SIZE;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="A_Reset" Id="{1064c0ad-927a-4dc8-806e-23283a752fd7}">
+      <Implementation>
+        <ST><![CDATA[MEMSET( ADR( arrBuffer ), 0, SIZEOF( arrBuffer ) ); (* reset (optional) internal buffer *)
+
+fbBuffer.A_Reset( 	bOk=> bOk,
+					nCount => nCount );
+
+nLoad := (fbBuffer.cbSize * 100) / MAX_BUFFER_SIZE;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="FB_CoffeeFifo">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CoffeeFifo.A_Add">
+      <LineId Id="2" Count="17" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CoffeeFifo.A_Get">
+      <LineId Id="20" Count="6" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CoffeeFifo.A_Remove">
+      <LineId Id="2" Count="6" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CoffeeFifo.A_Reset">
+      <LineId Id="2" Count="4" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

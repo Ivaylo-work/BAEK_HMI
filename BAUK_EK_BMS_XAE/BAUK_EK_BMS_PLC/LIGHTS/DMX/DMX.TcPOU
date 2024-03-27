@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DMX" Id="{36f8106f-dadf-4721-a1c7-65ded9337ee8}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM DMX
+VAR
+	WaveIncRed : BYTE;
+	WaveIncBlue : BYTE;
+	WaveIncGreen : BYTE;
+	WaveResolutionRed : BYTE;
+	WaveResolutionBlue : BYTE;
+	WaveResolutionGreen : BYTE;
+
+	fbEL6851Communication	:	FB_EL6851Communication;
+	{attribute 'OPC.UA.DA' := '1'}
+	byTopLeftShelfRed		: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byTopLeftShelfGreen		: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byTopLeftShelfBlue		: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle1LeftShelfRed	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle1LeftShelfGreen	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle1LeftShelfBlue	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle2LeftShelfRed	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle2LeftShelfGreen	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle2LeftShelfBlue	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byBottomLeftShelfRed	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byBottomLeftShelfGreen	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byBottomLeftShelfBlue	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byTopRightShelfRed		: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byTopRightShelfGreen	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byTopRightShelfBlue		: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle1RightShelfRed	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle1RightShelfGreen: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle1RightShelfBlue	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle2RightShelfRed	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle2RightShelfGreen: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byMiddle2RightShelfBlue	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byBottomRightShelfRed	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byBottomRightShelfGreen	: BYTE;(*~ (OPC:1:available) *)
+	{attribute 'OPC.UA.DA' := '1'}
+	byBottomRightShelfBlue	: BYTE;(*~ (OPC:1:available) *)
+	
+	enableColourWheelControl	AT%I*	:	BOOL;
+	redColourWheelValue			AT%I*	:	BYTE;
+	greenColourWheelValue		AT%I*	:	BYTE;
+	blueColourWheelValue		AT%I*	:	BYTE;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//DMX Handle
+fbEL6851Communication(wSourceManufacturerID := 16#42_41,
+						dwSourceDeviceID := 16#12_13_14_15,
+						bEnableSendingData := TRUE,
+						bSetCycleMode := TRUE,
+						bSendDefaultData := FALSE,
+						uiDataLength := 512,
+						dwOptions := 0,
+						stEL6851InData := stDMXInDataLinie01,
+						stEL6851OutData := stDMXOutDataLinie01,
+						stCommandBuffer := stCommandBuffer01,
+						arrProcessData := arrDMXProcessData);
+
+MoveDMXValues();					
+Wave();
+						
+	IF AWindowIsOpenLightTrigger OR LightControl.TurnOnCabinetLights THEN
+		
+	AWindowIsOpenLightTrigger := FALSE;
+		
+		byTopLeftShelfRed				 := 254;
+		byMiddle1LeftShelfRed			 := 254;	 
+		byMiddle2LeftShelfRed			 := 254;	
+		byBottomLeftShelfRed			 := 254;
+		byTopRightShelfRed				 := 254;
+		byMiddle1RightShelfRed			 := 254;	 
+		byMiddle2RightShelfRed			 := 254;	
+		byBottomRightShelfRed			 := 254;
+		
+		byTopLeftShelfGreen				 := 0;
+		byMiddle1LeftShelfGreen			 := 0;	 
+		byMiddle2LeftShelfGreen			 := 0;	
+		byBottomLeftShelfGreen			 := 0;
+		byTopRightShelfGreen			 := 0;
+		byMiddle1RightShelfGreen		 := 0;	 
+		byMiddle2RightShelfGreen		 := 0;	
+		byBottomRightShelfGreen			 := 0;
+		
+		byTopLeftShelfBlue				 := 0;
+		byMiddle1LeftShelfBlue			 := 0;	 
+		byMiddle2LeftShelfBlue			 := 0;	
+		byBottomLeftShelfBlue			 := 0;
+		byTopRightShelfBlue				 := 0;
+		byMiddle1RightShelfBlue			 := 0;	 
+		byMiddle2RightShelfBlue			 := 0;	
+		byBottomRightShelfBlue			 := 0;
+	
+	ELSE
+		(*Add DMX Lidgts contol - off switch*)
+		byTopLeftShelfRed				 := 0;
+		byMiddle1LeftShelfRed			 := 0;	 
+		byMiddle2LeftShelfRed			 := 0;	
+		byBottomLeftShelfRed			 := 0;
+		byTopRightShelfRed				 := 0;
+		byMiddle1RightShelfRed			 := 0;	 
+		byMiddle2RightShelfRed			 := 0;	
+		byBottomRightShelfRed			 := 0;
+		
+		byTopLeftShelfGreen				 := 0;
+		byMiddle1LeftShelfGreen			 := 0;	 
+		byMiddle2LeftShelfGreen			 := 0;	
+		byBottomLeftShelfGreen			 := 0;
+		byTopRightShelfGreen			 := 0;
+		byMiddle1RightShelfGreen		 := 0;	 
+		byMiddle2RightShelfGreen		 := 0;	
+		byBottomRightShelfGreen			 := 0;
+		
+		byTopLeftShelfBlue				 := 0;
+		byMiddle1LeftShelfBlue			 := 0;	 
+		byMiddle2LeftShelfBlue			 := 0;	
+		byBottomLeftShelfBlue			 := 0;
+		byTopRightShelfBlue				 := 0;
+		byMiddle1RightShelfBlue			 := 0;	 
+		byMiddle2RightShelfBlue			 := 0;	
+		byBottomRightShelfBlue			 := 0;
+	
+	END_IF
+	
+IF setBoardroomGold THEN
+		
+		byTopLeftShelfRed				 := 254;
+		byMiddle1LeftShelfRed			 := 254;	 
+		byMiddle2LeftShelfRed			 := 254;	
+		byBottomLeftShelfRed			 := 254;
+		byTopRightShelfRed				 := 254;
+		byMiddle1RightShelfRed			 := 254;	 
+		byMiddle2RightShelfRed			 := 254;	
+		byBottomRightShelfRed			 := 254;
+		
+		byTopLeftShelfGreen				 := 215;
+		byMiddle1LeftShelfGreen			 := 215;	 
+		byMiddle2LeftShelfGreen			 := 215;	
+		byBottomLeftShelfGreen			 := 215;
+		byTopRightShelfGreen			 := 215;
+		byMiddle1RightShelfGreen		 := 215;	 
+		byMiddle2RightShelfGreen		 := 215;	
+		byBottomRightShelfGreen			 := 215;
+		
+		byTopLeftShelfBlue				 := 0;
+		byMiddle1LeftShelfBlue			 := 0;	 
+		byMiddle2LeftShelfBlue			 := 0;	
+		byBottomLeftShelfBlue			 := 0;
+		byTopRightShelfBlue				 := 0;
+		byMiddle1RightShelfBlue			 := 0;	 
+		byMiddle2RightShelfBlue			 := 0;	
+		byBottomRightShelfBlue			 := 0;
+	
+	END_IF
+
+IF setBoardroomPurple THEN
+		
+		byTopLeftShelfRed				 := 254;
+		byMiddle1LeftShelfRed			 := 254;	 
+		byMiddle2LeftShelfRed			 := 254;	
+		byBottomLeftShelfRed			 := 254;
+		byTopRightShelfRed				 := 254;
+		byMiddle1RightShelfRed			 := 254;	 
+		byMiddle2RightShelfRed			 := 254;	
+		byBottomRightShelfRed			 := 254;
+		
+		byTopLeftShelfGreen				 := 0;
+		byMiddle1LeftShelfGreen			 := 0;	 
+		byMiddle2LeftShelfGreen			 := 0;	
+		byBottomLeftShelfGreen			 := 0;
+		byTopRightShelfGreen			 := 0;
+		byMiddle1RightShelfGreen		 := 0;	 
+		byMiddle2RightShelfGreen		 := 0;	
+		byBottomRightShelfGreen			 := 0;
+		
+		byTopLeftShelfBlue				 := 254;
+		byMiddle1LeftShelfBlue			 := 254;	 
+		byMiddle2LeftShelfBlue			 := 254;	
+		byBottomLeftShelfBlue			 := 254;
+		byTopRightShelfBlue				 := 254;
+		byMiddle1RightShelfBlue			 := 254;	 
+		byMiddle2RightShelfBlue			 := 254;	
+		byBottomRightShelfBlue			 := 254;
+	
+	END_IF
+
+IF setBoardroomPurple THEN
+		
+		byTopLeftShelfRed				 := 220;
+		byMiddle1LeftShelfRed			 := 220;	 
+		byMiddle2LeftShelfRed			 := 220;	
+		byBottomLeftShelfRed			 := 220;
+		byTopRightShelfRed				 := 220;
+		byMiddle1RightShelfRed			 := 220;	 
+		byMiddle2RightShelfRed			 := 220;	
+		byBottomRightShelfRed			 := 220;
+		
+		byTopLeftShelfGreen				 := 20;
+		byMiddle1LeftShelfGreen			 := 20;	 
+		byMiddle2LeftShelfGreen			 := 20;	
+		byBottomLeftShelfGreen			 := 20;
+		byTopRightShelfGreen			 := 20;
+		byMiddle1RightShelfGreen		 := 20;	 
+		byMiddle2RightShelfGreen		 := 20;	
+		byBottomRightShelfGreen			 := 20;
+		
+		byTopLeftShelfBlue				 := 60;
+		byMiddle1LeftShelfBlue			 := 60;	 
+		byMiddle2LeftShelfBlue			 := 60;	
+		byBottomLeftShelfBlue			 := 60;
+		byTopRightShelfBlue				 := 60;
+		byMiddle1RightShelfBlue			 := 60;	 
+		byMiddle2RightShelfBlue			 := 60;	
+		byBottomRightShelfBlue			 := 60;
+	
+	END_IF
+	
+	IF FBEnOceanPTM200[2].bSwitches[0] THEN
+		byTopLeftShelfRed			 := 254;
+		byMiddle1LeftShelfRed		 := 254;	 
+		byMiddle2LeftShelfRed		 := 254;	
+		byBottomLeftShelfRed		 := 254;
+		
+		byTopRightShelfRed			 := 254;
+		byMiddle1RightShelfRed		 := 254;	 
+		byMiddle2RightShelfRed		 := 254;	
+		byBottomRightShelfRed		 := 254;
+	END_IF
+	
+	IF FBEnOceanPTM200[2].bSwitches[1] THEN
+		byTopLeftShelfGreen				 := 254;
+		byMiddle1LeftShelfGreen			 := 254;	 
+		byMiddle2LeftShelfGreen			 := 254;	
+		byBottomLeftShelfGreen			 := 254;
+		
+		byTopRightShelfGreen			 := 254;
+		byMiddle1RightShelfGreen		 := 254;	 
+		byMiddle2RightShelfGreen		 := 254;	
+		byBottomRightShelfGreen			 := 254;
+	END_IF
+
+	IF FBEnOceanPTM200[2].bSwitches[2] THEN
+		byTopLeftShelfBlue				 := 254;
+		byMiddle1LeftShelfBlue			 := 254;	 
+		byMiddle2LeftShelfBlue			 := 254;	
+		byBottomLeftShelfBlue			 := 254;
+		
+		byTopRightShelfBlue				 := 254;
+		byMiddle1RightShelfBlue			 := 254;	 
+		byMiddle2RightShelfBlue			 := 254;	
+		byBottomRightShelfBlue			 := 254;
+	END_IF
+	
+	IF FBEnOceanPTM200[2].bSwitches[3] OR PTM200StrippedTables[5].Signal THEN
+		byTopLeftShelfRed				 := 0;
+		byMiddle1LeftShelfRed			 := 0;	 
+		byMiddle2LeftShelfRed			 := 0;	
+		byBottomLeftShelfRed			 := 0;
+		
+		byTopRightShelfRed				 := 0;
+		byMiddle1RightShelfRed			 := 0;	 
+		byMiddle2RightShelfRed			 := 0;	
+		byBottomRightShelfRed			 := 0;
+		
+		byTopLeftShelfGreen				 := 0;
+		byMiddle1LeftShelfGreen			 := 0;	 
+		byMiddle2LeftShelfGreen			 := 0;	
+		byBottomLeftShelfGreen			 := 0;
+		
+		byTopRightShelfGreen			 := 0;
+		byMiddle1RightShelfGreen		 := 0;	 
+		byMiddle2RightShelfGreen		 := 0;	
+		byBottomRightShelfGreen			 := 0;
+		
+		byTopLeftShelfBlue				 := 0;
+		byMiddle1LeftShelfBlue			 := 0;	 
+		byMiddle2LeftShelfBlue			 := 0;	
+		byBottomLeftShelfBlue			 := 0;
+		
+		byTopRightShelfBlue				 := 0;
+		byMiddle1RightShelfBlue			 := 0;	 
+		byMiddle2RightShelfBlue			 := 0;	
+		byBottomRightShelfBlue			 := 0;
+	END_IF
+
+
+
+	// SET DMX Shelves for Projector Mode
+	IF FBEnOceanPTM200[0].bSwitches[2] THEN
+		byTopLeftShelfRed				 := 0;
+		byMiddle1LeftShelfRed			 := 0;	 
+		byMiddle2LeftShelfRed			 := 0;	
+		byBottomLeftShelfRed			 := 0;
+		byTopRightShelfRed				 := 0;
+		byMiddle1RightShelfRed			 := 0;	 
+		byMiddle2RightShelfRed			 := 0;	
+		byBottomRightShelfRed			 := 0;
+		
+		byTopLeftShelfGreen				 := 0;
+		byMiddle1LeftShelfGreen			 := 0;	 
+		byMiddle2LeftShelfGreen			 := 0;	
+		byBottomLeftShelfGreen			 := 0;
+		byTopRightShelfGreen			 := 0;
+		byMiddle1RightShelfGreen		 := 0;	 
+		byMiddle2RightShelfGreen		 := 0;	
+		byBottomRightShelfGreen			 := 0;
+		
+		byTopLeftShelfBlue				 := 254;
+		byMiddle1LeftShelfBlue			 := 254;	 
+		byMiddle2LeftShelfBlue			 := 254;	
+		byBottomLeftShelfBlue			 := 254;
+		byTopRightShelfBlue				 := 254;
+		byMiddle1RightShelfBlue			 := 254;	 
+		byMiddle2RightShelfBlue			 := 254;	
+		byBottomRightShelfBlue			 := 254;
+	END_IF
+
+	
+	IF (*ReadCP67.CP67_DMX_Enable*) enableColourWheelControl THEN
+		byTopLeftShelfRed				 := redColourWheelValue;
+		byMiddle1LeftShelfRed			 := redColourWheelValue;	 
+		byMiddle2LeftShelfRed			 := redColourWheelValue;	
+		byBottomLeftShelfRed			 := redColourWheelValue;
+		byTopRightShelfRed				 := redColourWheelValue;
+		byMiddle1RightShelfRed			 := redColourWheelValue;	 
+		byMiddle2RightShelfRed			 := redColourWheelValue;	
+		byBottomRightShelfRed			 := redColourWheelValue;
+		
+		byTopLeftShelfGreen				 := greenColourWheelValue;
+		byMiddle1LeftShelfGreen			 := greenColourWheelValue; 
+		byMiddle2LeftShelfGreen			 := greenColourWheelValue;	
+		byBottomLeftShelfGreen			 := greenColourWheelValue;
+		byTopRightShelfGreen			 := greenColourWheelValue;
+		byMiddle1RightShelfGreen		 := greenColourWheelValue;	 
+		byMiddle2RightShelfGreen		 := greenColourWheelValue;	
+		byBottomRightShelfGreen			 := greenColourWheelValue;
+		
+		byTopLeftShelfBlue				 := blueColourWheelValue;
+		byMiddle1LeftShelfBlue			 := blueColourWheelValue;	 
+		byMiddle2LeftShelfBlue			 := blueColourWheelValue;	
+		byBottomLeftShelfBlue			 := blueColourWheelValue;
+		byTopRightShelfBlue				 := blueColourWheelValue;
+		byMiddle1RightShelfBlue			 := blueColourWheelValue;	 
+		byMiddle2RightShelfBlue			 := blueColourWheelValue;	
+		byBottomRightShelfBlue			 := blueColourWheelValue;
+		
+		(*byTopLeftShelfRed				 := ReadCP67.DMXRValues[0];
+		byMiddle1LeftShelfRed			 := ReadCP67.DMXRValues[1];	 
+		byMiddle2LeftShelfRed			 := ReadCP67.DMXRValues[2];	
+		byBottomLeftShelfRed			 := ReadCP67.DMXRValues[3];
+		byTopRightShelfRed				 := ReadCP67.DMXRValues[4];
+		byMiddle1RightShelfRed			 := ReadCP67.DMXRValues[5];	 
+		byMiddle2RightShelfRed			 := ReadCP67.DMXRValues[6];	
+		byBottomRightShelfRed			 := ReadCP67.DMXRValues[7];
+		
+		byTopLeftShelfGreen				 := ReadCP67.DMXGValues[0];
+		byMiddle1LeftShelfGreen			 := ReadCP67.DMXGValues[1]; 
+		byMiddle2LeftShelfGreen			 := ReadCP67.DMXGValues[2];	
+		byBottomLeftShelfGreen			 := ReadCP67.DMXGValues[3];
+		byTopRightShelfGreen			 := ReadCP67.DMXGValues[4];
+		byMiddle1RightShelfGreen		 := ReadCP67.DMXGValues[5];	 
+		byMiddle2RightShelfGreen		 := ReadCP67.DMXGValues[6];	
+		byBottomRightShelfGreen			 := ReadCP67.DMXGValues[7];
+		
+		byTopLeftShelfBlue				 := ReadCP67.DMXBValues[0];
+		byMiddle1LeftShelfBlue			 := ReadCP67.DMXBValues[1];	 
+		byMiddle2LeftShelfBlue			 := ReadCP67.DMXBValues[2];	
+		byBottomLeftShelfBlue			 := ReadCP67.DMXBValues[3];
+		byTopRightShelfBlue				 := ReadCP67.DMXBValues[4];
+		byMiddle1RightShelfBlue			 := ReadCP67.DMXBValues[5];	 
+		byMiddle2RightShelfBlue			 := ReadCP67.DMXBValues[6];	
+		byBottomRightShelfBlue			 := ReadCP67.DMXBValues[7];*)
+	END_IF
+]]></ST>
+    </Implementation>
+    <Action Name="MoveDMXValues" Id="{ca2b17c9-1ac4-4270-804b-e8ebe51499af}">
+      <Implementation>
+        <ST><![CDATA[
+	//Left Shelf					
+	arrDMXProcessData[1] := byTopLeftShelfRed;
+	arrDMXProcessData[2] := byTopLeftShelfGreen;
+	arrDMXProcessData[3] := byTopLeftShelfBlue;
+
+	arrDMXProcessData[10] := byMiddle1LeftShelfRed;
+	arrDMXProcessData[11] := byMiddle1LeftShelfGreen;
+	arrDMXProcessData[12] := byMiddle1LeftShelfBlue;
+
+	arrDMXProcessData[20] := byMiddle2LeftShelfRed;
+	arrDMXProcessData[21] := byMiddle2LeftShelfGreen;
+	arrDMXProcessData[22] := byMiddle2LeftShelfBlue;
+
+	arrDMXProcessData[30] := byBottomLeftShelfRed;
+	arrDMXProcessData[31] := byBottomLeftShelfGreen;
+	arrDMXProcessData[32] := byBottomLeftShelfBlue;
+
+	
+	//Right Shelf
+	arrDMXProcessData[40] := byTopRightShelfRed;
+	arrDMXProcessData[41] := byTopRightShelfGreen;
+	arrDMXProcessData[42] := byTopRightShelfBlue;
+
+	arrDMXProcessData[50] := byMiddle1RightShelfRed;
+	arrDMXProcessData[51] := byMiddle1RightShelfGreen;
+	arrDMXProcessData[52] := byMiddle1RightShelfBlue;
+
+	arrDMXProcessData[60] := byMiddle2RightShelfRed;
+	arrDMXProcessData[61] := byMiddle2RightShelfGreen;
+	arrDMXProcessData[62] := byMiddle2RightShelfBlue;
+
+	arrDMXProcessData[70] := byBottomRightShelfRed;
+	arrDMXProcessData[71] := byBottomRightShelfGreen;
+	arrDMXProcessData[72] := byBottomRightShelfBlue;
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Wave" Id="{1f9a1847-7f91-4836-bdaf-356f6a9cba52}">
+      <Implementation>
+        <ST><![CDATA[
+		
+
+WaveIncRed := WaveIncRed + WaveResolutionRed;
+	
+WaveIncBlue := WaveIncBlue + WaveResolutionBlue;
+
+WaveIncGreen := WaveIncGreen + WaveResolutionGreen;
+		
+
+
+					
+			
+
+
+
+		
+		
+
+		]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="DMX">
+      <LineId Id="486" Count="0" />
+      <LineId Id="270" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="269" Count="0" />
+      <LineId Id="268" Count="0" />
+      <LineId Id="34" Count="6" />
+      <LineId Id="272" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="423" Count="0" />
+      <LineId Id="273" Count="0" />
+      <LineId Id="677" Count="0" />
+      <LineId Id="714" Count="1" />
+      <LineId Id="680" Count="0" />
+      <LineId Id="741" Count="24" />
+      <LineId Id="683" Count="2" />
+      <LineId Id="1076" Count="0" />
+      <LineId Id="1078" Count="25" />
+      <LineId Id="1077" Count="0" />
+      <LineId Id="681" Count="0" />
+      <LineId Id="828" Count="0" />
+      <LineId Id="830" Count="0" />
+      <LineId Id="833" Count="26" />
+      <LineId Id="861" Count="1" />
+      <LineId Id="829" Count="0" />
+      <LineId Id="863" Count="28" />
+      <LineId Id="678" Count="1" />
+      <LineId Id="892" Count="28" />
+      <LineId Id="676" Count="0" />
+      <LineId Id="921" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="195" Count="1" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="198" Count="0" />
+      <LineId Id="200" Count="0" />
+      <LineId Id="202" Count="2" />
+      <LineId Id="201" Count="0" />
+      <LineId Id="192" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="207" Count="9" />
+      <LineId Id="206" Count="0" />
+      <LineId Id="218" Count="10" />
+      <LineId Id="217" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="303" Count="9" />
+      <LineId Id="488" Count="0" />
+      <LineId Id="313" Count="8" />
+      <LineId Id="489" Count="0" />
+      <LineId Id="322" Count="11" />
+      <LineId Id="490" Count="0" />
+      <LineId Id="362" Count="0" />
+      <LineId Id="492" Count="4" />
+      <LineId Id="498" Count="8" />
+      <LineId Id="508" Count="8" />
+      <LineId Id="518" Count="3" />
+      <LineId Id="491" Count="0" />
+      <LineId Id="584" Count="0" />
+      <LineId Id="363" Count="0" />
+      <LineId Id="611" Count="0" />
+      <LineId Id="987" Count="24" />
+      <LineId Id="986" Count="0" />
+      <LineId Id="1012" Count="0" />
+      <LineId Id="586" Count="24" />
+      <LineId Id="585" Count="0" />
+      <LineId Id="613" Count="0" />
+      <LineId Id="80" Count="0" />
+    </LineIds>
+    <LineIds Name="DMX.MoveDMXValues">
+      <LineId Id="2" Count="34" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="DMX.Wave">
+      <LineId Id="1" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="34" Count="2" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="31" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="TableTennisScoreCounter" Id="{6768a184-5b20-4146-a9d5-4c417992d68d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM TableTennisScoreCounter
+VAR
+
+	nPlayerOne			:	INT;
+	nPlayerTwo			:	INT;
+	nPlayerScoreDiff	:	INT;
+	
+	sPlayerOne			:	STRING;
+	sPlayerTwo			:	STRING;
+	
+	sPlayerList: ARRAY [0..nMaxTableLength] OF STRING := ['Adam', 'Alan', 'Astrid', 'Jamie', 'Guest'];
+		
+	sWinner 			: 	STRING;	
+	
+	xPlayerOneWins		:	BOOL;	
+	xPlayerTwoWins		:	BOOL;	
+	
+	rtPlayerOne			:	R_TRIG;	
+	rtPlayerTwo			:	R_TRIG;
+	rtResetOne			:	R_TRIG;
+	rtResetTwo			:	R_TRIG;
+	
+	
+	i: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rtPlayerOne(CLK := PTM200StrippedTables[12].Signal);
+rtPlayerTwo(CLK := PTM200StrippedTables[13].Signal);
+rtResetOne(CLK := PTM200StrippedTables[14].Signal);
+rtResetTwo(CLK := PTM200StrippedTables[15].Signal);
+
+
+
+IF rtPlayerOne.Q THEN
+	nPlayerOne := nPlayerOne + 1;
+END_IF
+
+IF rtPlayerTwo.Q THEN
+	nPlayerTwo := nPlayerTwo + 1;
+END_IF
+
+IF rtResetOne.Q THEN
+	nPlayerOne := 0;
+END_IF
+
+IF rtResetTwo.Q THEN
+	nPlayerTwo := 0;
+END_IF
+
+nPlayerScoreDiff := ABS(nPlayerOne - nPlayerTwo);
+
+IF nPlayerOne >= 11 AND nPlayerOne > nPlayerTwo AND nPlayerScoreDiff >= 2 THEN
+	sWinner := CONCAT(sPlayerOne, ' Wins');
+	xPlayerOneWins := TRUE;
+ELSIF nPlayerTwo >= 11 AND nPlayerTwo > nPlayerOne AND nPlayerScoreDiff >= 2 THEN
+	sWinner := CONCAT(sPlayerTwo, ' Wins');
+	xPlayerTwoWins := TRUE;
+END_IF
+
+IF nPlayerOne = 0 AND  nPlayerTwo = 0 THEN
+	sWinner := '';
+	xPlayerOneWins := FALSE;
+	xPlayerTwoWins := FALSE;
+END_IF
+
+FOR i := 5 TO 49 DO //Set to 5 so as not to overwrite staff names
+
+	IF 	CurrentMonthSignInTable[i].Name = '' THEN
+	sPlayerList[i] := CurrentMonthSignInTable[i-5].Name;
+	ELSE
+	EXIT;	
+	END_IF
+
+END_FOR
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="TableTennisScoreCounter">
+      <LineId Id="10" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="158" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="39" Count="1" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="43" Count="1" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="68" Count="2" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="78" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="131" Count="1" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="122" Count="3" />
+      <LineId Id="26" Count="2" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

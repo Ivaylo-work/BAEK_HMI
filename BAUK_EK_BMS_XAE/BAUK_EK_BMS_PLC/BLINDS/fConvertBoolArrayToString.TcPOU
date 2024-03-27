@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fConvertBoolArrayToString" Id="{d4adca73-0cf2-4ddf-af37-47e77453b820}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION fConvertBoolArrayToString : STRING
+VAR_INPUT
+	boolArray: ARRAY[1..16] OF BOOL;
+END_VAR
+VAR
+	i: INT := 1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR i := 1 TO 16 BY 1 DO
+    IF boolArray[i] THEN
+        fConvertBoolArrayToString := Concat(STR1 := fConvertBoolArrayToString, STR2 := '1');
+    ELSE
+        fConvertBoolArrayToString := Concat(STR1 := fConvertBoolArrayToString, STR2 := '0');
+    END_IF;
+END_FOR;]]></ST>
+    </Implementation>
+    <LineIds Name="fConvertBoolArrayToString">
+      <LineId Id="10" Count="5" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

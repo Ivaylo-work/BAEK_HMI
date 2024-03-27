@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="StructAdvancedBlindControl" Id="{b7698ac4-2602-4ea9-b03b-57fe0ea0ecec}">
+    <Declaration><![CDATA[TYPE StructAdvancedBlindControl :
+
+STRUCT
+
+	Blind									:						ARRAY [1..16] OF BOOL;
+
+	xUp										:						BOOL;
+	xDown									:						BOOL;
+	xStop									:						BOOL;
+	xTilt										:						BOOL;
+	xTiltDown								:						BOOL;
+	xTiltTime									:						TIME;
+	nDirection								:						INT;
+
+	tUpDelay								:						TIME;
+	tonUp									:						TON;
+
+	tDownDelay								:						TIME;
+	tonDown									:						TON;
+
+	tTiltDelay								:						TIME;
+
+	xDone									:						BOOL;
+
+
+
+
+
+END_STRUCT
+
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

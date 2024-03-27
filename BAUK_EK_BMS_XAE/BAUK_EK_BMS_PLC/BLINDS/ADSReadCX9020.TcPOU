@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ADSReadCX9020" Id="{108b3680-2023-463f-9377-c138a264cdc2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM ADSReadCX9020
+VAR
+
+	UpdateBlindData:ADSREADEX;
+	UpdateBlindDataCP67:ADSREADEX;
+	UpdateInterval:BYTE;
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Collects enocean switches from CX9020 SERVER  and CP67 BOARD ROOM*)
+
+
+UpdateInterval := UpdateInterval + 1;
+
+UpdateBlindData(
+	NETID:= '5.129.86.232.1.1',
+	PORT:= 851 ,
+	IDXGRP:=16#F020,//16#4020 ,
+	IDXOFFS:= 16#1F400,//0,
+	LEN:= 4,//40,
+	DESTADDR:= ADR(PassADSBlindInfo),
+	READ:= UpdateInterval.0,
+	TMOUT:= t#5s,
+	BUSY=> ,
+	ERR=> ,
+	ERRID=> ,
+	COUNT_R=> );
+
+
+
+UpdateBlindDataCP67(
+	NETID:= '192.168.3.8.1.1',
+	PORT:= 851 ,
+	IDXGRP:=16#4020 ,
+	IDXOFFS:= 40,
+	LEN:= 57,
+	DESTADDR:= ADR(PassADSBlindControlCP67),
+	READ:= UpdateInterval.0,
+	TMOUT:= t#5s,
+	BUSY=> ,
+	ERR=> ,
+	ERRID=> ,
+	COUNT_R=> );]]></ST>
+    </Implementation>
+    <LineIds Name="ADSReadCX9020">
+      <LineId Id="8" Count="33" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

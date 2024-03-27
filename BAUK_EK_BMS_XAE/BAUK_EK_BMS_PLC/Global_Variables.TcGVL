@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="Global_Variables" Id="{31c90e2a-ae31-4840-bb9d-3190ae10ebec}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+	///Current Table Shown on main page
+	BlankCurrentMonthSignInTable			: 	ARRAY[0..nMaxTableLength] OF ST_SignInTable;
+	///Visulization             			  	
+	sVisuName								: 	STRING(255);
+	sVisuCompany							: 	STRING(255);
+	sVisuPersonVisiting						: 	STRING(255);
+	sVisuReason								: 	STRING(255);
+	sVisuVehicleReg							: 	STRING(10);
+	sVisusDateIn							: 	STRING(8);
+	sVisusTimeIn							: 	STRING(8);
+	
+	
+	///Visu Variables
+	xVisuSignInButton						: 	BOOL;
+	xVisuSignOutButton						: 	BOOL;
+	xVisuHideSignInButton					: 	BOOL;
+	xVisuYesPCControl						: 	BOOL;
+	nVisuTableRowSelection					: 	INT;
+	nVisuTableColumnSelection				: 	INT;
+	sVisuEmailAddress						: 	STRING;
+	///Date Time Variables
+	STDateTimeStrings						: 	TIMESTR_Strings;
+	sDate									: 	STRING;
+	sTime									:	STRING;
+	
+	ComboBoxCurrentMonthSignInTable 		: 	ARRAY[0..nMaxTableLength] OF STRING;
+	BlankComboBoxCurrentMonthSignInTable	: 	ARRAY[0..nMaxTableLength] OF STRING;
+	
+	test : STRING;
+	
+	numberOfOpenWindows				AT%Q* 	:	WORD;
+	boardroomModeIsProjector		AT%Q* 	:	BOOL;
+	boardroomModeIsFullOn			AT%Q* 	:	BOOL;
+	setBoardroomGold				AT%I* 	:	BOOL;
+	setBoardroomPurple				AT%I* 	:	BOOL;
+	setBoardroomRed					AT%I* 	:	BOOL;
+	communalLux1					AT%Q* 	: 	INT;
+	communalLux2					AT%Q* 	: 	INT;
+	communalOccupancy1				AT%Q* 	: 	BOOL;
+	communalOccupancy2				AT%Q* 	: 	BOOL;
+	staffLux1						AT%Q* 	: 	INT;
+	staffLux2						AT%Q* 	: 	INT;
+	staffOccupancy1					AT%Q* 	: 	BOOL;
+	staffOccupancy2					AT%Q* 	: 	BOOL;
+	boardLux1						AT%Q* 	: 	INT;
+	boardLux2						AT%Q* 	: 	INT;
+	boardOccupancy1					AT%Q* 	: 	BOOL;
+	boardOccupancy2					AT%Q* 	: 	BOOL;
+	//Enocean Socket Control Bits
+
+	xXplanarScreenPowerOn					:	BOOL;
+	xXplanarScreenPowerOff					:	BOOL;
+	
+	xSleepMode								:	BOOL;
+
+	EnOceanComms							: 	STR_KL6581;
+
+	stKL6581InData 					AT%I*	:	KL6581_Input;
+	stKL6581OutData 				AT%Q*	:	KL6581_Output;
+
+	stCommandBuffer 						: 	ST_DALIV2CommandBuffer;
+
+	stDALIInData    				AT%I*	: 	ST_DALIV2InData;
+	stDALIOutData  					AT%Q*	: 	ST_DALIV2OutData;
+
+	(* DMX Line *)
+	stDMXInDataLinie01              AT%I*	:	ST_EL6851InData;
+	stDMXOutDataLinie01             AT%Q*	:	ST_EL6851OutData;
+	stCommandBuffer01						:	ST_DMXCommandBuffer;
+	
+	arrDMXProcessData						:	ARRAY [1..512] 	OF BYTE;
+	FBEnOceanPTM200							:	ARRAY [0..3] 	OF FB_EnOceanPTM200; 
+	FBEnOceanSTM250							:	ARRAY [0..5] 	OF FB_EnOceanSTM250;
+		
+	EnoceanTransmitterID					: 	ARRAY [0..3] 	OF UDINT := [3035027, 3030651, 3036382, 3030640];
+	EnoceanTransmitterIDWindows				: 	ARRAY [0..5] 	OF UDINT := [85424832, 85423614, 93313507, 85423331, 85423280, 85423273]; 
+	
+	PTM200StrippedTables					:	ARRAY [0..15] 	OF SwitchTable;
+	PTM250WindowSensor						:	ARRAY [0..5]	OF BOOL;
+	
+	FBDALIV2Light							:	ARRAY [0..57] 	OF FB_DALIV2Light;
+	FBDALIV2QueryLightState					:	ARRAY [0..57] 	OF FB_DALIV2QueryLampPowerOn;
+	tLightTable								:	ARRAY [0..57] 	OF LightTable;
+	
+	BlindCX7000UserTable					:	ARRAY [0..2] 	OF StructBlindControl;
+	BlindCommandTable 				AT%MB0	:	ARRAY [0..19] 	OF UINT;		
+
+	CP67BoardRoomLightsOn			AT%MB40	:	BYTE;
+	BoardroomActualLightLvl 		AT%MB42	:	BYTE;
+	
+	
+	AWindowIsOpenLightTrigger				:	BOOL;
+	
+	diPh1Voltage							:	DINT;
+	diPh1Current							:	DINT;
+	diPh1ActivePower						:	DINT;
+
+	diVoltage						AT%IB0	:	DINT;
+	diCurrent						AT%IB4	:	DINT;
+	diActivePower					AT%IB8	:	DINT;
+	diFrequency						AT%IB12	:	DINT;
+	diVarientValue					AT%IB16	:	DINT;
+	uiPresentIndex					AT%IB20	:	USINT;
+	uiIndexRequest					AT%QB17	:	USINT := 4;
+
+	Mains_Varient_Raw						: 	ARRAY [0..6] OF DINT;
+
+	VisuGroupSelect							:	INT;
+
+	AdvancedBlindControl					:	ARRAY [1..16] OF StructAdvancedBlindControl;
+
+
+	PassADSBlindInfo				AT %MB0	:	ARRAY [0..19] OF UINT;
+
+	PassADSBlindControlCP67					:	ARRAY [1..57] OF BYTE;
+
+
+	(* Blind Modes/Scenes*)
+
+	BoardRoom_PrivacyMode					:	BOOL;
+	BoardRoom_SceneryMode					:	BOOL;
+	BoardRoom_ProjectorMode					:	BOOL;
+	BoardRoom_MeetingMode					:	BOOL;
+                                			
+	DeskArea_PrivacyMode					:	BOOL;
+	DeskArea_SceneryMode					:	BOOL;
+	DeskArea_NightMode						:	BOOL;
+	DeskArea_MorningMode					:	BOOL;
+                                			    
+	KitchenArea_PrivacyMode					:	BOOL;
+	KitchenArea_SceneryMode					:	BOOL;
+	KitchenArea_NightMode					:	BOOL;
+	KitchenArea_MorningMode					:	BOOL;
+                                	            
+	EntireBuilding_CleaningMode				:	BOOL;
+
+END_VAR
+
+VAR_GLOBAL CONSTANT
+	BUFFER_SIZE								: 	INT := 10000;
+	nMaxTableLength							: 	INT := 50;
+END_VAR
+
+
+VAR_GLOBAL PERSISTENT
+	CurrentMonthSignInTable					: 	ARRAY[0..nMaxTableLength] OF ST_SignInTable;
+	KWAccumulate							:	REAL;
+	KWHReading								:	REAL;
+	Cost									:	REAL;
+
+END_VAR
+
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

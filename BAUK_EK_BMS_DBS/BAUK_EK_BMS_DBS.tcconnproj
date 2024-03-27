@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{020578ba-2f6f-41dd-aa87-4f5fd2400510}</ProjectGuid>
+    <AssemblyName>BAUK_EK_BMS_DBS</AssemblyName>
+    <Name>BAUK_EK_BMS_DBS</Name>
+    <RootNamespace>BAUK_EK_BMS_DBS</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="TcDbServer.tcdbsrv">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <tcdbsrvdbCompile Include="TcDbServer\DB\DB.tcdbsrvdb">
+      <DependentUpon>TcDbServer.tcdbsrv</DependentUpon>
+    </tcdbsrvdbCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcdbsrvautoCompile Include="TcDbServer\DB\AutoLogGroup1\AutoLogGroup1.tcdbsrvauto">
+      <DependentUpon>TcDbServer\DB\DB.tcdbsrvdb</DependentUpon>
+    </tcdbsrvautoCompile>
+    <tcdbsrvautoCompile Include="TcDbServer\DB\AutoLogGroup\AutoLogGroup.tcdbsrvauto">
+      <DependentUpon>TcDbServer\DB\DB.tcdbsrvdb</DependentUpon>
+    </tcdbsrvautoCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcdbsrvadsCompile Include="TcDbServer\DB\AutoLogGroup1\AdsDevice.tcdbsrvads">
+      <DependentUpon>TcDbServer\DB\AutoLogGroup1\AutoLogGroup1.tcdbsrvauto</DependentUpon>
+    </tcdbsrvadsCompile>
+    <tcdbsrvadsCompile Include="TcDbServer\DB\AutoLogGroup\AdsDevice.tcdbsrvads">
+      <DependentUpon>TcDbServer\DB\AutoLogGroup\AutoLogGroup.tcdbsrvauto</DependentUpon>
+    </tcdbsrvadsCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcdbsrvsymCompile Include="TcDbServer\DB\AutoLogGroup1\Symbols.tcdbsrvsym">
+      <DependentUpon>TcDbServer\DB\AutoLogGroup1\AutoLogGroup1.tcdbsrvauto</DependentUpon>
+    </tcdbsrvsymCompile>
+    <tcdbsrvsymCompile Include="TcDbServer\DB\AutoLogGroup\Symbols.tcdbsrvsym">
+      <DependentUpon>TcDbServer\DB\AutoLogGroup\AutoLogGroup.tcdbsrvauto</DependentUpon>
+    </tcdbsrvsymCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcdbsrvtblCompile Include="TcDbServer\DB\AutoLogGroup1\DBTable.tcdbsrvtbl">
+      <DependentUpon>TcDbServer\DB\AutoLogGroup1\AutoLogGroup1.tcdbsrvauto</DependentUpon>
+    </tcdbsrvtblCompile>
+    <tcdbsrvtblCompile Include="TcDbServer\DB\AutoLogGroup\DBTable.tcdbsrvtbl">
+      <DependentUpon>TcDbServer\DB\AutoLogGroup\AutoLogGroup.tcdbsrvauto</DependentUpon>
+    </tcdbsrvtblCompile>
+  </ItemGroup>
+  <!-- This next bit is required unless the macro used to Import your targets is defined in an MSBuild toolset. -->
+  <ProjectExtensions>
+    <ProjectCapabilities>
+      <ProjectConfigurationsDeclaredAsItems />
+      <TcConnectivity />
+    </ProjectCapabilities>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c653eb4f-879b-4bfa-81ea-fd3b382d1a99}</ProjectGuid>
+    <SubObjectsSortedByName>True</SubObjectsSortedByName>
+    <DownloadApplicationInfo>true</DownloadApplicationInfo>
+    <WriteProductVersion>true</WriteProductVersion>
+    <GenerateTpy>false</GenerateTpy>
+    <Name>BAUK_EK_BMS_PLC</Name>
+    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <Application>{681e5101-fac2-43c7-9e12-e616c2b8eab8}</Application>
+    <TypeSystem>{4758fbe4-ca3b-4a11-a905-118991011a9f}</TypeSystem>
+    <Implicit_Task_Info>{95529f81-542d-4cd5-ba10-6a959f0a2e80}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{91914d5a-e01f-4740-888e-108378716ac0}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{2f8e24ff-2c63-49e1-9144-8817536fa69f}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{685a0cf8-d515-4915-8950-bd0c2240c018}</LibraryReferences>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BLINDS\ADSReadCX9020.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\BackgroundComms.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\BlindControl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\BlindStretch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\ConvertBoolArrayToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\DataForEAP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\fConvertBoolArrayToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\PrgMqttCom_Blinds_Publisher.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\Selection.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\StructAdvancedBlindControl.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLINDS\StructBlindControl.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ENOCEAN\EnOcean.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global_Variables.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\FileHandle.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\ReadCP67.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\ST_SignInTable.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\SwitchTable.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\TableTennisScoreCounter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\TIMESTR_Strings.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMI\VariableHandleForHmi.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LIGHTS\DALI\Dali.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LIGHTS\DALI\LightControl.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LIGHTS\DALI\LightTable.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LIGHTS\DMX\DMX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ML\CoffeePredictionML.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ML\FB_CoffeeFifo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ML\MLtest.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POWER MONITORING\CoffeType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POWER MONITORING\FB_Latch.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POWER MONITORING\PrgMqttCom_PM_Subscriber.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POWER MONITORING\P_Scaling.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POWER MONITORING\SQLDB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POWER MONITORING\ST_PHASE_DATA.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BLINDS" />
+    <Folder Include="ENOCEAN" />
+    <Folder Include="LIGHTS" />
+    <Folder Include="LIGHTS\DALI" />
+    <Folder Include="HMI" />
+    <Folder Include="LIGHTS\DMX" />
+    <Folder Include="ML" />
+    <Folder Include="POWER MONITORING" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="RecipeManagement">
+      <DefaultResolution>Recipe Management, * (System)</DefaultResolution>
+      <Namespace>Recipe_Management</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_BABasic">
+      <DefaultResolution>Tc2_BABasic, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_BABasic</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_DALI">
+      <DefaultResolution>Tc2_DALI, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_DALI</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Database">
+      <DefaultResolution>Tc2_Database, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Database</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_DMX">
+      <DefaultResolution>Tc2_DMX, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_DMX</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_EnOcean">
+      <DefaultResolution>Tc2_EnOcean, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_EnOcean</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_SerialCom">
+      <DefaultResolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_SerialCom</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_IotBase">
+      <DefaultResolution>Tc3_IotBase, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_IotBase</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_MLL">
+      <DefaultResolution>Tc3_MLL, * (Beckhoff Automation GmbH)</DefaultResolution>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BAUK_EK_BMS_PLC.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="Tc2_BABasic">
+      <Resolution>Tc2_BABasic, * (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc2_DALI">
+      <Resolution>Tc2_DALI, * (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc2_DMX">
+      <Resolution>Tc2_DMX, * (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc2_SerialCom">
+      <Resolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" />
+      <d n="Values" t="Hashtable" />
+    </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>
