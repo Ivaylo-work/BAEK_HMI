@@ -1,5 +1,0 @@
-;-------------------------------------------------------------------------------
-; Enable 'Simple Network Management Protocol (SNMP)' service
-;-------------------------------------------------------------------------------
-[HKEY_LOCAL_MACHINE\Services\SNMP]
-    "Flags"=dword:10
