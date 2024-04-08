@@ -92,7 +92,7 @@
     "ENABLE_SERVER_UPDATE": true,
     "ENDPOINTS": [
         "http://127.0.0.1:13000",
-        "http://127.0.0.1:3000"
+        "http://127.0.0.1:3001"
     ],
     "ETAGENABLED": true,
     "EXTENSIONS": {
@@ -2579,6 +2579,114 @@
             },
             "USEMAPPING": true
         },
+        "PLC1..FBEnOceanSTM250.0.bState": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.FBEnOceanSTM250[0]::bState",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "This output will be TRUE, if the contact of the Reed-relay on the STM250-transmitter-modul is activ (contact closed).",
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1..FBEnOceanSTM250.1.bState": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.FBEnOceanSTM250[1]::bState",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "This output will be TRUE, if the contact of the Reed-relay on the STM250-transmitter-modul is activ (contact closed).",
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1..FBEnOceanSTM250.2.bState": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.FBEnOceanSTM250[2]::bState",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "This output will be TRUE, if the contact of the Reed-relay on the STM250-transmitter-modul is activ (contact closed).",
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1..FBEnOceanSTM250.3.bState": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.FBEnOceanSTM250[3]::bState",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "This output will be TRUE, if the contact of the Reed-relay on the STM250-transmitter-modul is activ (contact closed).",
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1..FBEnOceanSTM250.4.bState": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.FBEnOceanSTM250[4]::bState",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "This output will be TRUE, if the contact of the Reed-relay on the STM250-transmitter-modul is activ (contact closed).",
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1..FBEnOceanSTM250.5.bState": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.FBEnOceanSTM250[5]::bState",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "This output will be TRUE, if the contact of the Reed-relay on the STM250-transmitter-modul is activ (contact closed).",
+                        "propertyOrder": 5
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1..KWAccumulate": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -2985,6 +3093,26 @@
                         "propertyOrder": 5
                     }
                 ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.EnOcean.AllWindowsClosed": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::EnOcean::AllWindowsClosed",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.LightControl.GoHomeHoldActivated": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::GoHomeHoldActivated",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
             },
             "USEMAPPING": true
         },
@@ -9042,6 +9170,12 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
+                "PLC1..FBEnOceanSTM250.0.bState": 3,
+                "PLC1..FBEnOceanSTM250.1.bState": 3,
+                "PLC1..FBEnOceanSTM250.2.bState": 3,
+                "PLC1..FBEnOceanSTM250.3.bState": 3,
+                "PLC1..FBEnOceanSTM250.4.bState": 3,
+                "PLC1..FBEnOceanSTM250.5.bState": 3,
                 "PLC1..KWAccumulate": 3,
                 "PLC1..KWHReading": 3,
                 "PLC1..boardOccupancy1": 3,
@@ -9067,6 +9201,8 @@
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandStop": 3,
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandUp": 3,
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandUpJog": 3,
+                "PLC1.EnOcean.AllWindowsClosed": 3,
+                "PLC1.LightControl.GoHomeHoldActivated": 3,
                 "PLC1.MLtest.iDataOut": 3,
                 "PLC1.P_Scaling.diScaledFrequency": 3,
                 "PLC1.PrgMqttCom_Blinds_Publisher.bCommandDown": 3,
@@ -9191,20 +9327,20 @@
     "USERSELECTTYPE": 0,
     "VIDEOSEGMENTSIZE": 1048576,
     "VIRTUALDIRECTORIES": {
-        "/": "..\\..\\BAUK_EK_BMS_HMI\\",
-        "/Beckhoff.TwinCAT.HMI.BA.Controls": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Controls.2.6.0\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.BA.Framework": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Framework.2.6.0\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.BA.Icons": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Icons.2.6.0\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.Controls": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Controls.12.760.54\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta.1.1.114",
-        "/Beckhoff.TwinCAT.HMI.EcDiagnosticsControl": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnosticsControl.12.760.54\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.Functions": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Functions.12.760.54\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.ResponsiveNavigation": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ResponsiveNavigation.12.760.54\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.Scope": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.14.1.114",
-        "/Beckhoff.TwinCAT.HMI.Scope.Meta": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.Meta.1.1.114",
-        "/Beckhoff.TwinCAT.HMI.ScopeControl": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ScopeControl.12.760.54\\runtimes\\native1.12-tchmi",
-        "/bin": "..\\..\\BAUK_EK_BMS_HMI\\bin\\",
-        "/bin/framework": "..\\..\\BAUK_EK_BMS_HMI\\bin\\framework",
-        "/framework": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Framework.12.760.54\\runtimes\\native1.12-tchmi"
+        "/": "..\\..\\..\\BAUK_EK_BMS_HMI\\",
+        "/Beckhoff.TwinCAT.HMI.BA.Controls": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Controls.2.6.0\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.BA.Framework": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Framework.2.6.0\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.BA.Icons": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Icons.2.6.0\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.Controls": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Controls.12.760.54\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta.1.1.114",
+        "/Beckhoff.TwinCAT.HMI.EcDiagnosticsControl": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnosticsControl.12.760.54\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.Functions": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Functions.12.760.54\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.ResponsiveNavigation": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ResponsiveNavigation.12.760.54\\runtimes\\native1.12-tchmi",
+        "/Beckhoff.TwinCAT.HMI.Scope": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.14.1.114",
+        "/Beckhoff.TwinCAT.HMI.Scope.Meta": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.Meta.1.1.114",
+        "/Beckhoff.TwinCAT.HMI.ScopeControl": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ScopeControl.12.760.54\\runtimes\\native1.12-tchmi",
+        "/bin": "..\\..\\..\\BAUK_EK_BMS_HMI\\bin\\",
+        "/bin/framework": "..\\..\\..\\BAUK_EK_BMS_HMI\\bin\\framework",
+        "/framework": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Framework.12.760.54\\runtimes\\native1.12-tchmi"
     }
 }

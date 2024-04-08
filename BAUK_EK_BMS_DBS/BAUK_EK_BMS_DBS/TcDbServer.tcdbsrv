@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ServerSettings>
+  <TargetNetID>5.27.164.190.1.1</TargetNetID>
+  <LogMode>1</LogMode>
+  <LogPath>C:\TwinCAT\Functions\TF6420-Database-Server\Win32\Server</LogPath>
+  <LogMaxLength>10</LogMaxLength>
+  <Impersonate>False</Impersonate>
+  <DBNULLAllowed>False</DBNULLAllowed>
+  <DBCommandTimeout>30</DBCommandTimeout>
+  <DBConnectionTimeout>15</DBConnectionTimeout>
+  <MaxByteArrayLength>256</MaxByteArrayLength>
+  <MaxStringLength>256</MaxStringLength>
+  <WSTRINGSupportActive>False</WSTRINGSupportActive>
+  <TcDbSrvProject>
+    <tcdbsrvdbCompile Include="TcDbServer\DB\DB.tcdbsrvdb" />
+    <tcdbsrvautoCompile Include="TcDbServer\DB\AutoLogGroup\AutoLogGroup.tcdbsrvauto" />
+    <tcdbsrvadsCompile Include="TcDbServer\DB\AutoLogGroup\AdsDevice.tcdbsrvads" />
+    <tcdbsrvsymCompile Include="TcDbServer\DB\AutoLogGroup\Symbols.tcdbsrvsym" />
+    <tcdbsrvtblCompile Include="TcDbServer\DB\AutoLogGroup\DBTable.tcdbsrvtbl" />
+    <tcdbsrvautoCompile Include="TcDbServer\DB\AutoLogGroup1\AutoLogGroup1.tcdbsrvauto" />
+    <tcdbsrvadsCompile Include="TcDbServer\DB\AutoLogGroup1\AdsDevice.tcdbsrvads" />
+    <tcdbsrvsymCompile Include="TcDbServer\DB\AutoLogGroup1\Symbols.tcdbsrvsym" />
+    <tcdbsrvtblCompile Include="TcDbServer\DB\AutoLogGroup1\DBTable.tcdbsrvtbl" />
+  </TcDbSrvProject>
+</ServerSettings>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Latch" Id="{87088223-f9b4-435b-94c2-28d259e49779}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Latch
+VAR_INPUT
+	setState		:BOOL;
+	resetState		:BOOL;
+END_VAR
+VAR_OUTPUT
+	output			:BOOL;
+	invertOutput	:Bool;
+END_VAR
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[output := NOT(resetState OR invertOutput);
+
+invertOutput := NOT (setState OR output);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Latch">
+      <LineId Id="20" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

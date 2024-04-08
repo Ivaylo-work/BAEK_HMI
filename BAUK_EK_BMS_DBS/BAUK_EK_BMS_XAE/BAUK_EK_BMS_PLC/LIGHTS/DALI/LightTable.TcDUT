@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="LightTable" Id="{f26ec074-a48a-4c56-a574-754829e1912d}">
+    <Declaration><![CDATA[TYPE LightTable :
+STRUCT
+	
+sName				:	STRING(16);
+bOn					:	BOOL;
+bOff				:	BOOL;
+bToggle				:	BOOL;
+LigthStatus			:	BOOL;
+EnoceanLinkOn		:	BOOL;
+EnoceanLinkOff		:	BOOL;
+
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

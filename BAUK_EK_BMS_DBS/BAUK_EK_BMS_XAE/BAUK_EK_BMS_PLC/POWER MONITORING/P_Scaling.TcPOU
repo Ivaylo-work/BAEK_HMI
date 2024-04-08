@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="P_Scaling" Id="{215e4411-3dcc-410b-8cb7-a03c77897dfa}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM P_Scaling
+VAR
+
+	diScaledVoltage				: REAL;
+	diScaledCurrent 			: REAL;
+	diScaledCurrentAmps			: REAL;
+	diScaledActivePower 		: REAL;
+	diScaledFrequency			: REAL;
+
+	CTRatio 						: REAL := 10;
+
+	CollectKW					:TON;
+	KWHCase					:INT;
+
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CollectKW( PT:=  t#1s );
+
+diScaledVoltage := PrgMqttCom_PM_Subscriber.diVoltage * 0.0001;
+
+diScaledCurrent := PrgMqttCom_PM_Subscriber.diCurrent	* 0.001 * CTRatio;
+diScaledCurrentAmps := diScaledCurrent / 1000;
+
+IF diActivePower < 0 THEN
+diScaledActivePower := 0;
+ELSE
+diScaledActivePower := PrgMqttCom_PM_Subscriber.diActivePower * 0.00001 * CTRatio;
+END_IF
+
+diScaledFrequency := PrgMqttCom_PM_Subscriber.diVarientValue * 0.1;
+
+CASE KWHCase OF
+
+0:	CollectKW.IN := TRUE;
+	KWHCase := 10;
+
+10:	IF CollectKW.Q THEN
+		CollectKW.IN := FALSE;
+		KWHCase := 20;
+	END_IF
+
+20:	KWAccumulate := KWAccumulate + diScaledActivePower;
+	KWHReading := KWAccumulate / 3600;
+	Cost := 12.376 * KWHReading;
+	KWHCase := 0;
+
+END_CASE
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="P_Scaling">
+      <LineId Id="16" Count="33" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

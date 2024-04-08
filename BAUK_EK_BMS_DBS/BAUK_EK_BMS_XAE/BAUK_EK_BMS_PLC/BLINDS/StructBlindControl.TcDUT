@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="StructBlindControl" Id="{2ab26bfb-8583-4c48-b6a0-1b9e4f842997}">
+    <Declaration><![CDATA[TYPE StructBlindControl :
+
+STRUCT
+
+	SelectBlindsBulkCommand					:						ARRAY [1..16] OF BOOL;
+
+	xCommandUp								:						BOOL;
+	xCommandDown							:						BOOL;
+	xCommandStop							:						BOOL;
+
+	xCommandUpJog							:						BOOL;
+	xCommandDownJog							:						BOOL;
+
+	JogTime									:						TIME;
+	JogTimeInt								:						INT;
+
+END_STRUCT
+
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="EnOcean" Id="{3421a756-9055-48df-be7a-ba703cf96ec3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM EnOcean
+VAR
+	KL6581								:		FB_KL6581;
+	
+	KL6021FB							:		FB_EnOceanReceive;
+	
+	EnoceanData							:		ST_EnOceanReceivedData;
+	STEnOceanInData		AT %I*			:		ST_EnOceanInData;
+	STEnOceanOutData	AT %Q* 			:		ST_EnOceanOutData;
+	
+	//EnOcean Socket FBs
+	fbXplanarScreenPower					:		FB_Send_RPS_Switch; //KL6581 Send Enocen Signals
+	
+
+		
+	TEST : ARRAY [0..3] OF BYTE;
+	
+	i: INT;
+	
+	AllWindowsClosed				:	bool;
+	
+	ctudCountWindows				:	ARRAY [0..5] OF CTUD;
+	numberOfWindowsOpenTemp			:	ARRAY [0..5] OF WORD;
+	totalNumberOfWindowsOpen		:	WORD;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//FB_KL6581 - Control EnOcean Terminal for transmitting 
+KL6581(bInit:=TRUE, nIdx := , stKL6581_in:=stKL6581InData, stKL6581_out:= stKL6581OutData, str_KL6581=> EnOceanComms );
+//FB_EnOceanReceive - Control EnOcean Receiver KL6021
+KL6021FB(bEnable:= TRUE, stEnOceanReceivedData=> EnoceanData, stEnOceanInData:= STEnOceanInData, stEnOceanOutData:= STEnOceanOutData);	
+
+
+// Collect all switch data
+FOR i := 0 TO 3 DO
+	FBEnOceanPTM200[i](
+		bEnable:= TRUE, 
+		bSwitches =>  ,
+		nTransmitterId:= EnoceanTransmitterID[i], 
+		stEnOceanReceivedData:= EnoceanData);
+END_FOR
+
+FOR i := 0 TO 5 DO	
+	FBEnOceanSTM250[i](
+		bEnable:= TRUE, 
+		nTransmitterId:=EnoceanTransmitterIDWindows[i] , 
+		stEnOceanReceivedData:= EnoceanData, 
+		bState=> );
+END_FOR
+
+
+//Switches
+PTM200StrippedTables[0].Signal := FBEnOceanPTM200[0].bSwitches[0]; // Board Room Bottom Right Off
+PTM200StrippedTables[1].Signal := FBEnOceanPTM200[0].bSwitches[1]; // Board Room Bottm Left Off 
+PTM200StrippedTables[2].Signal := FBEnOceanPTM200[0].bSwitches[2]; // Board Room Top Right On
+PTM200StrippedTables[3].Signal := FBEnOceanPTM200[0].bSwitches[3]; // Board Room Top Left On 
+PTM200StrippedTables[4].Signal := FBEnOceanPTM200[1].bSwitches[0]; // Staff Room Bottom Right Off
+PTM200StrippedTables[5].Signal := FBEnOceanPTM200[1].bSwitches[1]; // Staff Room Bottom Left Off
+PTM200StrippedTables[6].Signal := FBEnOceanPTM200[1].bSwitches[2]; // Staff Room Top Right On
+PTM200StrippedTables[7].Signal := FBEnOceanPTM200[1].bSwitches[3]; // Staff Room Top Left On
+PTM200StrippedTables[8].Signal := FBEnOceanPTM200[2].bSwitches[0]; //Floating Switch 
+PTM200StrippedTables[9].Signal := FBEnOceanPTM200[2].bSwitches[1]; //Floating Switch 
+PTM200StrippedTables[10].Signal := FBEnOceanPTM200[2].bSwitches[2]; //Floating Switch 
+PTM200StrippedTables[11].Signal := FBEnOceanPTM200[2].bSwitches[3]; //Floating Switch 
+PTM200StrippedTables[12].Signal := FBEnOceanPTM200[3].bSwitches[0]; //Floating Switch 
+PTM200StrippedTables[13].Signal := FBEnOceanPTM200[3].bSwitches[1]; //Floating Switch 
+PTM200StrippedTables[14].Signal := FBEnOceanPTM200[3].bSwitches[2]; //Floating Switch 
+PTM200StrippedTables[15].Signal := FBEnOceanPTM200[3].bSwitches[3]; //Floating Switch 
+
+
+//Window States
+PTM250WindowSensor[0] := FBEnOceanSTM250[0].bState;
+PTM250WindowSensor[1] := FBEnOceanSTM250[1].bState;
+PTM250WindowSensor[2] := FBEnOceanSTM250[2].bState; //Window nearest big tele
+PTM250WindowSensor[3] := FBEnOceanSTM250[3].bState; //Window nearest coffee machine
+PTM250WindowSensor[4] := FBEnOceanSTM250[4].bState; //Window behind Alan's desk
+PTM250WindowSensor[5] := FBEnOceanSTM250[5].bState; //Window next to big whiteboard
+
+AllWindowsClosed := PTM250WindowSensor[0] AND PTM250WindowSensor[1] AND PTM250WindowSensor[2] AND PTM250WindowSensor[3] AND PTM250WindowSensor[4] AND PTM250WindowSensor[5];
+
+//Count Open Windows for Dashboard Display
+ctudCountWindows[0](
+	CU:= NOT PTM250WindowSensor[0], 
+	CD:= PTM250WindowSensor[0], 
+	PV:= 20, 
+	CV=> numberOfWindowsOpenTemp[0]);
+	
+ctudCountWindows[1](
+	CU:= NOT PTM250WindowSensor[1], 
+	CD:= PTM250WindowSensor[1], 
+	PV:= 20, 
+	CV=> numberOfWindowsOpenTemp[1]);
+	
+ctudCountWindows[2](
+	CU:= NOT PTM250WindowSensor[2], 
+	CD:= PTM250WindowSensor[2], 
+	PV:= 20, 
+	CV=> numberOfWindowsOpenTemp[2]);	
+	
+ctudCountWindows[3](
+	CU:= NOT PTM250WindowSensor[3], 
+	CD:= PTM250WindowSensor[3], 
+	PV:= 20, 
+	CV=> numberOfWindowsOpenTemp[3]);
+
+ctudCountWindows[4](
+	CU:= NOT PTM250WindowSensor[4], 
+	CD:= PTM250WindowSensor[4], 
+	PV:= 20, 
+	CV=> numberOfWindowsOpenTemp[4]);
+
+ctudCountWindows[5](
+	CU:= NOT PTM250WindowSensor[5], 
+	CD:= PTM250WindowSensor[5], 
+	PV:= 20, 
+	CV=> numberOfWindowsOpenTemp[5]);
+	
+totalNumberOfWindowsOpen := (numberOfWindowsOpenTemp[0] + 
+								numberOfWindowsOpenTemp[1] + 
+								numberOfWindowsOpenTemp[2] + 
+								numberOfWindowsOpenTemp[3] + 
+								numberOfWindowsOpenTemp[4] +
+								numberOfWindowsOpenTemp[5]);
+	
+//Collect Switch Data to be collected by CX8090 via ADS READ
+(*BlindCommandTable[0] := BOOL_TO_UINT(FBEnOceanPTM200[0].bSwitches[0]); 
+BlindCommandTable[1] := BOOL_TO_UINT(FBEnOceanPTM200[0].bSwitches[1]); 
+BlindCommandTable[2] := BOOL_TO_UINT(FBEnOceanPTM200[0].bSwitches[2]); 
+BlindCommandTable[3] := BOOL_TO_UINT(FBEnOceanPTM200[0].bSwitches[3]);  
+BlindCommandTable[4] := BOOL_TO_UINT(FBEnOceanPTM200[1].bSwitches[0]); 
+BlindCommandTable[5] := BOOL_TO_UINT(FBEnOceanPTM200[1].bSwitches[1]);  
+BlindCommandTable[6] := BOOL_TO_UINT(FBEnOceanPTM200[1].bSwitches[2]); 
+BlindCommandTable[7] := BOOL_TO_UINT(FBEnOceanPTM200[1].bSwitches[3]); 
+BlindCommandTable[8] := BOOL_TO_UINT(FBEnOceanPTM200[2].bSwitches[0]); 
+BlindCommandTable[9] := BOOL_TO_UINT(FBEnOceanPTM200[2].bSwitches[1]); 
+BlindCommandTable[10] := BOOL_TO_UINT(FBEnOceanPTM200[2].bSwitches[2]); 
+BlindCommandTable[11] := BOOL_TO_UINT(FBEnOceanPTM200[2].bSwitches[3]);  	*)
+
+//Transmit KL6581
+
+//Screen control test ///////////////////////////////////////////////////////////////////////////////////////
+//not used for screen anymore - used for display cabinet light
+fbXplanarScreenPower(
+	bStart:= , 
+	by_Node:= 1, 
+	bData:= , 
+	nRockerID:= 0, 
+	nEnOceanID:= 22, 
+	str_KL6581:= KL6581.str_KL6581, 
+	bBusy=> , 
+	bError=> , 
+	iErrorID=> );
+	
+	IF NOT fbXplanarScreenPower.bBusy AND fbXplanarScreenPower.bStart THEN
+		fbXplanarScreenPower.bStart := FALSE;
+	END_IF
+
+IF xXplanarScreenPowerOn THEN //not used for screen anymore - used for display cabinet light
+	fbXplanarScreenPower.bStart := TRUE;
+	fbXplanarScreenPower.bData := TRUE;
+	xXplanarScreenPowerOn := FALSE;
+END_IF
+
+IF xXplanarScreenPowerOff THEN //not used for screen anymore - used for display cabinet light
+	fbXplanarScreenPower.bStart := TRUE;
+	fbXplanarScreenPower.bData := FALSE;
+	xXplanarScreenPowerOff := FALSE;
+END_IF
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+
+		]]></ST>
+    </Implementation>
+    <LineIds Name="EnOcean">
+      <LineId Id="563" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="564" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="632" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="66" Count="1" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="346" Count="0" />
+      <LineId Id="370" Count="0" />
+      <LineId Id="381" Count="1" />
+      <LineId Id="384" Count="2" />
+      <LineId Id="352" Count="0" />
+      <LineId Id="530" Count="0" />
+      <LineId Id="389" Count="1" />
+      <LineId Id="148" Count="11" />
+      <LineId Id="325" Count="2" />
+      <LineId Id="324" Count="0" />
+      <LineId Id="406" Count="0" />
+      <LineId Id="392" Count="0" />
+      <LineId Id="391" Count="0" />
+      <LineId Id="395" Count="0" />
+      <LineId Id="400" Count="3" />
+      <LineId Id="405" Count="0" />
+      <LineId Id="410" Count="0" />
+      <LineId Id="409" Count="0" />
+      <LineId Id="429" Count="1" />
+      <LineId Id="463" Count="2" />
+      <LineId Id="468" Count="0" />
+      <LineId Id="442" Count="0" />
+      <LineId Id="471" Count="4" />
+      <LineId Id="437" Count="0" />
+      <LineId Id="476" Count="0" />
+      <LineId Id="480" Count="3" />
+      <LineId Id="477" Count="1" />
+      <LineId Id="484" Count="3" />
+      <LineId Id="479" Count="0" />
+      <LineId Id="489" Count="0" />
+      <LineId Id="493" Count="3" />
+      <LineId Id="490" Count="1" />
+      <LineId Id="497" Count="3" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="501" Count="6" />
+      <LineId Id="488" Count="0" />
+      <LineId Id="160" Count="2" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="177" Count="0" />
+      <LineId Id="185" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="179" Count="1" />
+      <LineId Id="596" Count="0" />
+      <LineId Id="582" Count="0" />
+      <LineId Id="620" Count="0" />
+      <LineId Id="647" Count="8" />
+      <LineId Id="621" Count="0" />
+      <LineId Id="656" Count="3" />
+      <LineId Id="628" Count="0" />
+      <LineId Id="583" Count="0" />
+      <LineId Id="624" Count="0" />
+      <LineId Id="623" Count="0" />
+      <LineId Id="622" Count="0" />
+      <LineId Id="599" Count="0" />
+      <LineId Id="629" Count="0" />
+      <LineId Id="605" Count="0" />
+      <LineId Id="625" Count="0" />
+      <LineId Id="606" Count="0" />
+      <LineId Id="618" Count="0" />
+      <LineId Id="602" Count="0" />
+      <LineId Id="630" Count="0" />
+      <LineId Id="595" Count="0" />
+      <LineId Id="181" Count="1" />
+      <LineId Id="598" Count="0" />
+      <LineId Id="174" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

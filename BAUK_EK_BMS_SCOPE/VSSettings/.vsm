@@ -5,12 +5,12 @@
   <Children>
     <Node>
       <Title>Analogue_Power</Title>
-      <Expanded>True</Expanded>
-      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
+      <Expanded>False</Expanded>
+      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_XAE_27032024\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -59,22 +59,22 @@
         </Node>
         <Node>
           <Title>Current</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Current</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
                   <Title>Current</Title>
-                  <Expanded>True</Expanded>
+                  <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children>
                     <Node>
                       <Title>Dynamic Style</Title>
-                      <Expanded>True</Expanded>
+                      <Expanded>False</Expanded>
                       <FileName></FileName>
                       <Children>
                         <Node>
@@ -87,7 +87,7 @@
                     </Node>
                     <Node>
                       <Title>Dynamic Style (1)</Title>
-                      <Expanded>True</Expanded>
+                      <Expanded>False</Expanded>
                       <FileName></FileName>
                       <Children>
                         <Node>
@@ -100,7 +100,7 @@
                     </Node>
                     <Node>
                       <Title>Dynamic Style (2)</Title>
-                      <Expanded>True</Expanded>
+                      <Expanded>False</Expanded>
                       <FileName></FileName>
                       <Children>
                         <Node>
@@ -119,12 +119,12 @@
         </Node>
         <Node>
           <Title>Power</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Power</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -139,12 +139,12 @@
         </Node>
         <Node>
           <Title>Voltage</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Voltage</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -159,12 +159,12 @@
         </Node>
         <Node>
           <Title>Frequency</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Frequency</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -179,12 +179,12 @@
         </Node>
         <Node>
           <Title>Office Light Control</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -213,12 +213,12 @@
     </Node>
     <Node>
       <Title>EnOcean Switches</Title>
-      <Expanded>True</Expanded>
-      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
+      <Expanded>False</Expanded>
+      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_XAE_27032024\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -243,12 +243,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>

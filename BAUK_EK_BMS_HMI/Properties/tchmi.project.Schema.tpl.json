@@ -25,6 +25,22 @@
       "frameworkUserControlConfig": "User Controls\\RoomOccupancy.usercontrol.json",
       "id": "tchmi:project#/definitions/RoomOccupancy",
       "type": "object"
+    },
+    "All-in-One_Shutdown": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\All-in-One Shutdown.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/All-in-One_Shutdown"
+    },
+    "WindowIsOpen": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\WindowIsOpen.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WindowIsOpen"
     }
   }
 }

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CoffeePredictionML" Id="{8567daec-686b-44fa-8640-e26365e13209}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CoffeePredictionML
+VAR
+	fbPredict : FB_MllPrediction;        // ML Interface
+	nInputDim, nOutputDim : UDINT := 1;  
+	iDataOut : INT;
+	
+	sModelName   : T_MaxString := 'C:/TwinCAT/Functions/TF38xx-Machine-Learning/ConvertToolFiles/KerasMLPExample_cos.xml';
+	hrErrorCode  : HRESULT;
+	bLoadModel   : BOOL;
+	nState       : INT := 0; 
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE nState OF
+	0: // idle state
+		IF bLoadModel THEN
+			bLoadModel := FALSE;
+			nState := 10;
+		END_IF
+	10: // Config state
+		fbPredict.stPredictionParameter.MlModelFilepath := sModelName; // provide model path and name
+		IF fbPredict.Configure() THEN // load model
+			IF fbPredict.bError THEN
+				nState := 999;
+				hrErrorCode := fbPredict.hrErrorCode;
+			ELSE // no error -> proceed to predict state
+				nState := 20; 
+			END_IF
+		END_IF 
+	20: // Predict state
+		fbPredict.Predict(
+			pDataInp := ADR(P_Scaling.diScaledCurrent),
+			nDataInpDim := nInputDim,
+			fmtDataInpType := ETcMllDataType.E_MLLDT_FP64_LREAL,
+			pDataOut := ADR(iDataOut),
+			nDataOutDim := nOutputDim,
+			fmtDataOutType := ETcMllDataType.E_MLLDT_INT32_DINT,
+			nEngineId := 0,
+			nConcurrencyId := 0);
+			
+		IF fbPredict.bError THEN // error handling
+			nState := 999;
+			hrErrorCode := fbPredict.hrErrorCode;			
+		ELSIF bLoadModel THEN // load (updated) model
+			bLoadModel := FALSE;
+			nState := 10;
+		END_IF;			
+	999: // Error state
+		 // add error handling here 		
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="CoffeePredictionML">
+      <LineId Id="15" Count="35" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

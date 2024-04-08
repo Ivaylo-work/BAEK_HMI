@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="VariableHandleForHmi" Id="{de9878e5-2b3a-4989-a664-6eb3d99a800d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM VariableHandleForHmi
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[numberOfOpenWindows := EnOcean.totalNumberOfWindowsOpen;
+boardroomModeIsProjector := LightControl.xBoardToom_Lights_ProjectorMode;
+boardroomModeIsFullOn := PTM200StrippedTables[3].Signal OR PTM200StrippedTables[2].Signal;
+communalOccupancy1 := Dali.CommunalAreaPIR_1_Occupancy;
+communalOccupancy2 := Dali.CommunalAreaPIR_2_Occupancy;
+staffOccupancy1 := Dali.StaffroomPIR_1_Occupancy;
+staffOccupancy2 := Dali.StaffroomPIR_2_Occupancy;
+boardOccupancy1 := Dali.BoardroomPIR_1_Occupancy;
+boardOccupancy2 := Dali.BoardroomPIR_2_Occupancy;
+communalLux1 := Dali.CommunalAreaPIR_1_LuxLevel;
+communalLux2 := Dali.CommunalAreaPIR_2_LuxLevel;
+staffLux1 := Dali.StaffroomPIR_1_LuxLevel;
+staffLux2 := Dali.StaffroomPIR_2_LuxLevel;
+boardLux1 := Dali.BoardroomPIR_1_LuxLevel;
+boardLux2 := Dali.BoardroomPIR_2_LuxLevel;]]></ST>
+    </Implementation>
+    <LineIds Name="VariableHandleForHmi">
+      <LineId Id="5" Count="1" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="17" Count="5" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

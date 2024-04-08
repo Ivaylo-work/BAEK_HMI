@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="BlindControl" Id="{6380aecc-c105-42d4-96a6-73158d964f02}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK BlindControl
+
+VAR
+
+	fbSendData						:						SendData;
+	fbReceiveData					:						ReceiveData;
+	CaseIndex						:						UINT;
+	BlindD1to8						:						BYTE;
+	BlindD9to16						:						BYTE;
+
+	SendThrice						:						INT;
+
+	SendDelay						:						TON;
+	JogDelay						:						TON;
+	Timeout							:						TON;
+
+END_VAR
+
+
+
+VAR_INPUT
+
+	BulkCommand						:						ARRAY [1..16] OF BOOL;
+
+
+
+END_VAR
+
+VAR_IN_OUT
+	aDataPacket						:						ARRAY [0..6] OF BYTE;
+
+
+	xCommandStop					:						BOOL;
+	xCommandUp						:						BOOL;
+	xCommandDown					:						BOOL;
+	xCommandUpJog					:						BOOL;
+	xCommandDownJog					:						BOOL;
+
+
+	HubTXBuffer						:						ComBuffer;
+	HubRXBuffer						:						ComBuffer;
+
+	JogTime							:						TIME;
+	JogTimeInt						:						INT;
+
+END_VAR
+
+VAR_OUTPUT
+	xBusy							:						BOOL;
+	xError							:						BOOL;
+	xTimeout						:						BOOL;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SendDelay(IN:= , PT:= T#300MS , Q=> , ET=> );
+JogTime := INT_TO_TIME(JogTimeInt);
+JogDelay(IN:= , PT:= JogTime , Q=> , ET=> );
+
+CASE CaseIndex OF
+
+0:		IF xCommandUp THEN
+			xCommandUp := FALSE;
+			xBusy := TRUE;
+			xError := FALSE;
+			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#DD;
+			CheckSum();
+			CaseIndex := 10;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+
+		ELSIF xCommandDown THEN
+			xCommandDown := FALSE;
+			xBusy := TRUE;
+			xError := FALSE;
+			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#EE;
+			CheckSum();
+			CaseIndex := 10;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+
+		ELSIF xCommandStop THEN
+			xCommandStop := FALSE;
+			xBusy := TRUE;
+			xError := FALSE;
+			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#CC;
+			CheckSum();
+			CaseIndex := 10;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+
+		ELSIF xCommandUpJog THEN
+			xBusy := TRUE;
+			xError := FALSE;
+			xCommandUpJog := FALSE;
+			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#DD;
+			CheckSum();
+			CaseIndex := 20;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+
+		ELSIF xCommandDownJog THEN
+			xBusy := TRUE;
+			xError := FALSE;
+			xCommandDownJog := FALSE;
+			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#EE;
+			CheckSum();
+			CaseIndex :=20;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+
+		END_IF
+
+10:
+
+
+
+			IF NOT fbSendData.Busy THEN
+
+				IF fbSendData.Error > 0 THEN
+					CaseIndex := 99;
+					xBusy := FALSE;
+				ELSE
+					CaseIndex := 11;
+					fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+				END_IF
+
+			END_IF
+
+
+11:		IF NOT fbSendData.Busy THEN
+
+			IF fbSendData.Error > 0 THEN
+				CaseIndex := 99;
+				xBusy := FALSE;
+				Timeout.IN := FALSE;
+			ELSE
+				fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+				CaseIndex := 0;
+				xBusy := FALSE;
+				xError := FALSE;
+				Timeout.IN := FALSE;
+			END_IF
+
+		END_IF
+
+
+
+20:	IF NOT fbSendData.Busy THEN
+
+		IF fbSendData.Error > 0 THEN
+			CaseIndex := 99;
+
+		ELSE
+			JogDelay.IN := TRUE;
+			CaseIndex := 30;
+
+		END_IF
+
+	END_IF
+
+30:		IF JogDelay.Q THEN
+			JogDelay.IN := FALSE;
+			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#CC;
+			CheckSum();
+			CaseIndex := 40;
+			xError := FALSE;
+			xBusy := FALSE;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+		END_IF
+
+40:			BuildBulkCommand();
+			aDataPacket[4] := 16#0A;
+			aDataPacket[5] := 16#CC;
+			CheckSum();
+			CaseIndex := 0;
+			xError := FALSE;
+			xBusy := FALSE;
+			fbSendData(pSendData:= ADR(aDataPacket) , Length:= SIZEOF(aDataPacket), TXbuffer:= HubTXBuffer );
+
+
+99:	CaseIndex := 0;
+	xError := TRUE;
+	xBusy := FALSE;
+
+END_CASE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Action Name="BuildBulkCommand" Id="{135484e4-01f7-4df5-96fe-2ea9a8b223f3}">
+      <Implementation>
+        <ST><![CDATA[
+aDataPacket[2].0 := BulkCommand[1];
+aDataPacket[2].1 := BulkCommand[2];
+aDataPacket[2].2 := BulkCommand[3];
+aDataPacket[2].3 := BulkCommand[4];
+aDataPacket[2].4 := BulkCommand[5];
+aDataPacket[2].5 := BulkCommand[6];
+aDataPacket[2].6 := BulkCommand[7];
+aDataPacket[2].7 := BulkCommand[8];
+
+aDataPacket[3].0 := BulkCommand[9];
+aDataPacket[3].1 := BulkCommand[10];
+aDataPacket[3].2 := BulkCommand[11];
+aDataPacket[3].3 := BulkCommand[12];
+aDataPacket[3].4 := BulkCommand[13];
+aDataPacket[3].5 := BulkCommand[14];
+aDataPacket[3].6 := BulkCommand[15];
+aDataPacket[3].6 := BulkCommand[16];
+
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Checksum" Id="{2d3106fd-daf3-4db8-ab64-a85c44a1c476}">
+      <Implementation>
+        <ST><![CDATA[aDataPacket[6] :=  aDataPacket[1] XOR aDataPacket[2] XOR aDataPacket[3] XOR aDataPacket[4] XOR aDataPacket[5];]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="BlindControl">
+      <LineId Id="54" Count="2" />
+      <LineId Id="58" Count="159" />
+    </LineIds>
+    <LineIds Name="BlindControl.BuildBulkCommand">
+      <LineId Id="0" Count="21" />
+    </LineIds>
+    <LineIds Name="BlindControl.Checksum">
+      <LineId Id="0" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

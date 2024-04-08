@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DataForEAP" Id="{182197af-4ef0-42d5-a7bd-a227be47756f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM DataForEAP
+VAR
+	accumlatedKw			AT%Q*	:	REAL;
+	readingOfKwh			AT%Q*	:	REAL;
+	costOfKwh				AT%Q*	:	REAL;
+	scaledVoltage			AT%Q*	:	REAL;
+	scaledCurrent 			AT%Q*	: 	REAL;
+	scaledCurrentAmps		AT%Q*	: 	REAL;
+	scaledActivePower		AT%Q*	: 	REAL;
+	scaledFrequency			AT%Q*	: 	REAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[accumlatedKw := KWAccumulate;
+readingOfKwh := KWHReading;
+costOfKwh := Cost;
+scaledVoltage := P_Scaling.diScaledVoltage;
+scaledCurrent := P_Scaling.diScaledCurrent;
+scaledCurrentAmps := P_Scaling.diScaledCurrentAmps;
+scaledActivePower := P_Scaling.diScaledActivePower;
+scaledFrequency := P_Scaling.diScaledFrequency;]]></ST>
+    </Implementation>
+    <LineIds Name="DataForEAP">
+      <LineId Id="11" Count="7" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

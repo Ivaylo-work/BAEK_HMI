@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MLtest" Id="{bcfd4a74-0468-4fcc-a53b-34467c6655ce}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MLtest
+VAR
+	fbPredict : FB_MllPrediction;        // ML Interface
+	iDataOut : INT;
+	
+	sModelName   : T_MaxString := 'C:/TwinCAT/Functions/TF38xx-Machine-Learning/ConvertToolFiles/rf_DTC.xml';
+	hrErrorCode  : HRESULT;
+	bLoadModel   : BOOL;
+	nState       : INT := 0; 
+	
+	fbFifo      : FB_CoffeeFifo := ( bOverwrite := TRUE );
+    newEntry    : REAL;
+    oldEntry    : REAL;
+    bSuccess    : BOOL;
+    nCount      : UDINT;
+    nLoad       : UDINT;
+
+    bReset      : BOOL := TRUE;
+    bAdd        : BOOL := TRUE;
+    bGet        : BOOL := TRUE;
+    bRemove     : BOOL := TRUE;
+	
+	fbTimer1 : TON := (PT:=T#0.9S);
+	fbTimer2 : TON := (PT:=T#0.9S);
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bReset THEN
+    bReset := FALSE;
+    (* reset fifo (clear all entries) *)
+    fbFifo.A_Reset( in := newEntry, bOk=>bSuccess, nCount=> nCount, nLoad => nLoad );
+END_IF
+
+fbTimer1(IN:=TRUE);
+IF fbTimer1.Q THEN
+	fbTimer1(IN:=FALSE);
+    
+    (* create new or modify data set entry *)
+    newEntry := P_Scaling.diScaledCurrent;
+
+    (* add new entry to the fifo *)
+    fbFifo.A_Add( in := newEntry, bOk=>bSuccess, nCount=> nCount, nLoad => nLoad );
+	fbFifo.A_Get( out => oldEntry, bOk => bSuccess, nCount => nCount, nLoad => nLoad );
+END_IF
+
+IF bGet THEN
+    bGet := FALSE;
+    (* get (but not delete) oldest entry *)
+    fbFifo.A_Get( out => oldEntry, bOk => bSuccess, nCount => nCount, nLoad => nLoad );
+END_IF
+
+//Timer2(IN:=TRUE);
+IF fbTimer2.Q THEN
+	//fbTimer2(IN:=FALSE);
+    //bRemove:= FALSE;
+    (* remove oldest entry *)
+    fbFifo.A_Remove( out => oldEntry, bOk => bSuccess, nCount => nCount, nLoad => nLoad );
+END_IF
+
+CASE nState OF
+	0: // idle state
+		IF bLoadModel THEN
+			bLoadModel := FALSE;
+			nState := 10;
+		END_IF
+	10: // Config state
+		fbPredict.stPredictionParameter.MlModelFilepath := sModelName; // provide model path and name
+		IF fbPredict.Configure() THEN // load model
+			IF fbPredict.bError THEN
+				nState := 999;
+				hrErrorCode := fbPredict.hrErrorCode;
+			ELSE // no error -> proceed to predict state
+				nState := 20; 
+			END_IF
+		END_IF 
+	20: // Predict state
+		fbPredict.Predict(
+			pDataInp := ADR(fbFifo.arrBuffer),//fDataIn),
+			nDataInpDim := 1,
+			fmtDataInpType := ETcMllDataType.E_MLLDT_FP64_LREAL,
+			pDataOut := ADR(iDataOut),
+			nDataOutDim := 1,
+			fmtDataOutType := ETcMllDataType.E_MLLDT_INT32_DINT, //E_MLLDT_INT16_INT - not working
+			nEngineId := 0,
+			nConcurrencyId := 0);
+			
+		IF fbPredict.bError THEN // error handling
+			nState := 999;
+			hrErrorCode := fbPredict.hrErrorCode;			
+		ELSIF bLoadModel THEN // load (updated) model
+			bLoadModel := FALSE;
+			nState := 10;
+		END_IF;			
+	999: // Error state
+		 // add error handling here 		
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="MLtest">
+      <LineId Id="73" Count="4" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="85" Count="3" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="89" Count="7" />
+      <LineId Id="107" Count="1" />
+      <LineId Id="97" Count="3" />
+      <LineId Id="20" Count="37" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

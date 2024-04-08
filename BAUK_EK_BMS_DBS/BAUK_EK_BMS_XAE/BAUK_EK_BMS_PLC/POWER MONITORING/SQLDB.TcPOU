@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="SQLDB" Id="{58d95aab-a363-43ff-b3e0-3c480eebfc95}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM SQLDB
+VAR
+	startRecord: FB_DBCyclicRdWrt;
+	startStop:BOOL;
+	fbLocalTime	: FB_LocalSystemTime := ( bEnable := TRUE, dwCycle := 1);
+	timeStr : STRING;
+	
+	coffe 		: CoffeType;
+	
+	Cappuccino 			:BOOL;
+	
+	Caffelatte 			:BOOL;
+	Latte				:BOOL;
+	flatWhite			:BOOL;
+	singleES			:BOOL;
+	doubleEs			:BOOL;
+	Milk				:BOOL;
+	
+	fbLatchCappuccino	: FB_Latch;
+	cappuccinoTrig		: R_TRIG;
+	
+	fbLatchCaffelatte	: FB_Latch;
+	caffeLatteTrig		: R_TRIG;
+	
+	fbLatchLatte		: FB_Latch;
+	latteTrig			: R_TRIG;
+	
+	fbLatchSingleES		: FB_Latch;
+	singleESTrig		: R_TRIG;
+	
+	fbLatchDoubleES		: FB_Latch;
+	doubleESTrig		: R_TRIG;
+	
+	fbLatchFlatWhite	: FB_Latch;
+	flatWhiteTrig		: R_TRIG;
+	
+	fbLatchMilk			: FB_Latch;
+	milkTrig			: R_TRIG;
+	
+	
+		R_TRIG1: R_TRIG;
+	bSTART: BOOL;
+
+	FB_FileDelete1: FB_FileDelete;
+	FB_DBCreate1: FB_DBCreate;
+	FB_DBConnectionAdd1: FB_DBConnectionAdd;
+	FB_DBTableCreate1: FB_DBTableCreate;
+
+	bBusy_Delete: BOOL;
+	bBusy_CreateDB: BOOL;
+	bBusy_ConnAdd: BOOL;
+	bBusy_CreateTable: BOOL;
+
+	bErr: BOOL;
+	nErrid: UDINT;
+
+	nDBid: UDINT;
+
+	arrTablestrc: ARRAY [0..3] OF ST_DBColumnCfg := [(sColumnName:='ID',sColumnProperty:='IDENTITY(1,1)',eColumnType:=EDBCOLUMN_BIGINT),
+					(sColumnName:='Timestamp',eColumnType:=EDBCOLUMN_DATETIME),
+					(sColumnName:='Name',eColumnType:=EDBCOLUMN_NTEXT),
+					(sColumnName:='Value',eColumnType:=EDBCOLUMN_FLOAT)];
+
+	nState:BYTE := 0;
+
+	standBy: BOOL;
+	off: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbLocalTime();
+timeStr := SYSTEMTIME_TO_STRING(fbLocalTime.systemTime);	
+(*startRecord(
+	sNetID:= '5.27.164.190.1.1', 
+	bExecute:= startStop, 
+	tTimeout:= , 
+	bBusy=> , 
+	bError=> , 
+	nErrID=> , 
+	sSQLState=> );*)
+	
+//fbLocalTime(sNetID := '', bEnable := true, dwCycle := 1, 
+
+cappuccinoTrig(CLK := Cappuccino);
+Cappuccino := FALSE;
+IF (cappuccinoTrig.Q AND NOT fbLatchCappuccino.output) THEN
+	fbLatchCappuccino(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (cappuccinoTrig.Q AND fbLatchCappuccino.output) THEN
+	fbLatchCappuccino(setState := false, resetState := TRUE);
+END_IF
+
+caffeLatteTrig(CLK := Caffelatte);
+Caffelatte := FALSE;
+IF (caffeLatteTrig.Q AND NOT fbLatchCaffelatte.output) THEN
+	fbLatchCaffelatte(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (caffeLatteTrig.Q AND fbLatchCaffelatte.output) THEN
+	fbLatchCaffelatte(setState := FALSE, resetState := TRUE);
+END_IF
+
+latteTrig(CLK := Latte);
+Caffelatte := FALSE;
+IF (latteTrig.Q AND NOT fbLatchLatte.output) THEN
+	fbLatchLatte(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (latteTrig.Q AND fbLatchLatte.output) THEN
+	fbLatchLatte(setState := FALSE, resetState := TRUE);
+END_IF
+
+singleESTrig(CLK := singleES);
+singleES := FALSE;
+IF (singleESTrig.Q AND NOT fbLatchSingleES.output) THEN
+	fbLatchSingleES(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (singleESTrig.Q AND fbLatchSingleES.output) THEN
+	fbLatchSingleES(setState := FALSE, resetState := TRUE);
+END_IF
+
+doubleESTrig(CLK := doubleES);
+doubleES := FALSE;
+IF (doubleESTrig.Q AND NOT fbLatchDoubleES.output) THEN
+	fbLatchDoubleES(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (doubleESTrig.Q AND fbLatchDoubleES.output) THEN
+	fbLatchDoubleES(setState := FALSE, resetState := TRUE);
+END_IF
+
+flatWhiteTrig(CLK := flatWhite);
+flatWhite := FALSE;
+IF (flatWhiteTrig.Q AND NOT fbLatchFlatWhite.output) THEN
+	fbLatchFlatWhite(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (flatWhiteTrig.Q AND fbLatchFlatWhite.output) THEN
+	fbLatchFlatWhite(setState := FALSE, resetState := TRUE);
+END_IF
+
+milkTrig(CLK := Milk);
+Milk := FALSE;
+IF (milkTrig.Q AND NOT fbLatchMilk.output) THEN
+	fbLatchMilk(setState := TRUE, resetState := FALSE);
+END_IF
+
+IF (milkTrig.Q AND fbLatchMilk.output) THEN
+	fbLatchMilk(setState := FALSE, resetState := TRUE);
+END_IF
+
+IF ((P_Scaling.diScaledCurrent > 6.0) AND (P_Scaling.diScaledCurrent < 20.0)) THEN
+	standBy := TRUE;
+ELSE
+	standBy := FALSE;
+END_IF
+
+IF (P_Scaling.diScaledCurrent < 6.0) THEN
+	off := TRUE;
+ELSE
+	off := FALSE;
+END_IF
+
+(*CASE nState OF
+ 	0:
+		(*To start this sample you have to set a rising edge to the variable bSTART*)
+		R_TRIG1(CLK:=bSTART);
+		IF R_TRIG1.Q THEN
+			nState := 1;
+			FB_FileDelete1(bExecute:=FALSE);
+			FB_DBCreate1(bExecute:=FALSE);
+			FB_DBConnectionAdd1(bExecute:=FALSE);
+			FB_DBTableCreate1(bExecute:=FALSE);
+			bSTART := FALSE;
+		END_IF
+	1:
+		(*It isn't possible to overwrite an existing database file. If the database file exist the FB_FileDelete block will delete the file*)
+		FB_FileDelete1(
+			sNetId:= ,
+			sPathName:= 'C:\TwinCAT\Functions\TF6420-Database-Server\Win32\Samples\TestDB1000SPS.mdb',
+			ePath:= PATH_GENERIC,
+			bExecute:= TRUE,
+			tTimeout:= T#5s,
+			bBusy=> bBusy_Delete,
+			bError=>,
+			nErrId=> );
+
+		IF NOT bBusy_Delete THEN
+			nState := 2;
+		END_IF
+
+	2:
+		(*The FB_DBCreate block will create the database file "C:\TwinCAT\TcDatabaseSrv\Samples\TestDB1000SPS.mdb"*)
+	    FB_DBCreate1(
+			sNetID:= ,
+			sPathName:= 'C:\TwinCAT\Functions\TF6420-Database-Server\Win32\Samples',
+			sDBName:= 'TestDB1000SPS',
+			eDBType:= eDBType_Access,
+			bExecute:= TRUE,
+			tTimeout:= T#15s,
+			bBusy=> bBusy_CreateDB,
+			bError=> bErr,
+			nErrID=> nErrid);
+
+		IF NOT bBusy_CreateDB AND NOT bErr THEN
+			nState := 3;
+		END_IF
+   	3:
+		(*The FB_DBConnectionAdd adds the connection information to the XML - configuration file*)
+		FB_DBConnectionAdd1(
+			sNetID:= ,
+			eDBType:= eDBType_Access,
+			eDBValueType:= eDBValue_Double,
+			sDBServer:= 'C:\TwinCAT\Functions\TF6420-Database-Server\Win32\Samples\TestDB1000SPS.mdb',
+			sDBProvider:= 'Microsoft.Jet.OLEDB.4.0',
+			sDBUrl:= ,
+			sDBTable:= 'myTable',
+			bExecute:= TRUE,
+			tTimeout:= T#15s,
+			bBusy=> bBusy_ConnAdd,
+			bError=> bErr,
+			nErrID=> nErrid,
+			hDBID=> nDBid);
+
+		IF NOT bBusy_ConnAdd AND NOT bErr THEN
+			nState := 4;
+		END_IF
+   	4:
+		(*The FB_DBTableCreate create the table "myTable"*)
+	    FB_DBTableCreate1(
+			sNetID:= ,
+			hDBID:= nDBid,
+			sTableName:= 'myTable',
+			cbTableCfg:= SIZEOF(arrTablestrc),
+			pTableCfg:= ADR(arrTablestrc),
+			bExecute:= TRUE,
+			tTimeout:= T#15s,
+			bBusy=> bBusy_CreateTable,
+			bError=> bErr,
+			nErrID=> nErrid);
+
+		IF NOT bBusy_CreateTable AND NOT bErr THEN
+			nState := 0;
+		END_IF
+END_CASE*)
+]]></ST>
+    </Implementation>
+    <LineIds Name="SQLDB">
+      <LineId Id="51" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="7" Count="6" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="40" Count="1" />
+      <LineId Id="80" Count="8" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="106" Count="8" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="90" Count="8" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="119" Count="8" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="132" Count="8" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="145" Count="8" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="407" Count="0" />
+      <LineId Id="406" Count="0" />
+      <LineId Id="408" Count="1" />
+      <LineId Id="411" Count="1" />
+      <LineId Id="414" Count="4" />
+      <LineId Id="413" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="260" Count="80" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="29" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

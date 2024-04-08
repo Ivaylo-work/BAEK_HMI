@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_SignInTable" Id="{d22bac8a-d0a2-40b4-8310-cae8c46871bc}">
+    <Declaration><![CDATA[TYPE ST_SignInTable :
+STRUCT
+	Name: STRING(255);
+	Company: STRING(255);
+	PersonVisiting: STRING(255);
+	Reason: STRING(255);
+	VehicleReg: STRING(10);
+	sDate: STRING(10);
+	sTimeIn: STRING(8);
+	sTimeOut: STRING(8);
+	SignOut: BOOL;
+	PCControl: BOOL;
+	Email: STRING(100);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

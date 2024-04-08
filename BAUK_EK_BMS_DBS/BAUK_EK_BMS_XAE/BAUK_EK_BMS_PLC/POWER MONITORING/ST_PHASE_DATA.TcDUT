@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_PHASE_DATA" Id="{b0abb7af-ea5a-492e-955b-4f6142a86c02}">
+    <Declaration><![CDATA[TYPE ST_PHASE_DATA :
+STRUCT
+	dtTimeStamp		:DT;
+	diCurrent			:DINT;
+	diVoltage		:DINT;
+	diActivePower	:DINT;
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{a3e1c45b-7b61-493c-b315-876295153612}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+	BasicTestingEnabled					: BOOL;
+                            			
+	FB_BlindControl						: ARRAY [0..2] OF BlindControl;
+                            			
+	i									: INT;
+                            			
+	bTest								: BOOL;
+	bLog								: BOOL;
+                    					
+	arrData								: ARRAY[0..BUFFER_SIZE] OF ST_PHASE_DATA;
+	arrSnapshotData						: ARRAY[0..BUFFER_SIZE] OF ST_PHASE_DATA;
+                    					
+	iState								: INT;
+	bExecute							: BOOL;
+	bBusy								: BOOL;
+                            	
+	bError 								: BOOL;
+	tonSampleRate						: TON;
+
+	aDataPacket1						: ARRAY [0..6] OF BYTE := [16#9A, 16#04, 16#00, 16#00, 16#0A, 16#00, 16#00]; 		(* Main office *)
+	aDataPacket2						: ARRAY [0..6] OF BYTE :=  [16#9A, 16#02, 16#00, 16#00, 16#0A, 16#00, 16#00];		(* Board Room*)
+	aDataPacket3						: ARRAY [0..6] OF BYTE := [16#9A, 16#03, 16#00, 16#00, 16#0A, 16#00, 16#00]; 		(* Reception *)
+	
+	
+	bStretch							: BOOL;
+	bStretchDone						: BOOL;
+	HowOftenTimer						: Ton := (PT:= T#31d);
+		
+	fbBlindsStretch						: BlindStretch;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[P_Scaling();
+BackgroundComms();
+ADSReadCX9020();
+DataForEAP();
+EnOcean();
+SQLDB();
+PrgMqttCom_PM_Subscriber();
+//PrgMqttCom_Blinds_Publisher();
+//CoffeePredictionML();
+MLtest();
+Dali();
+DMX();
+LightControl();
+//ReadCP67();
+FileHandle();
+TableTennisScoreCounter();
+VariableHandleForHmi();
+SleepModeCheck();
+
+FB_BlindControl[0](
+	BulkCommand:= BackgroundComms.BlindCommandTable[0].SelectBlindsBulkCommand ,
+	xCommandUp:= BackgroundComms.BlindCommandTable[0].xCommandUp,
+	xCommandDown:= BackgroundComms.BlindCommandTable[0].xCommandDown ,
+	xCommandStop:= BackgroundComms.BlindCommandTable[0].xCommandStop ,
+	HubTXBuffer:= BackgroundComms.HubTXBuffer[0] ,
+	HubRXBuffer:= BackgroundComms.HubRXBuffer[0] ,
+	aDataPacket := aDataPacket1,
+	xCommandUpJog := BackgroundComms.BlindCommandTable[0].xCommandUpJog ,
+	xCommandDownJog := BackgroundComms.BlindCommandTable[0].xCommandDownJog ,
+	JogTime :=  BackgroundComms.BlindCommandTable[0].JogTime,
+	JogTimeInt :=  BackgroundComms.BlindCommandTable[0].JogTimeInt,
+	xBusy => );
+
+FB_BlindControl[1](
+	BulkCommand:= BackgroundComms.BlindCommandTable[1].SelectBlindsBulkCommand ,
+	xCommandUp:= BackgroundComms.BlindCommandTable[1].xCommandUp,
+	xCommandDown:= BackgroundComms.BlindCommandTable[1].xCommandDown ,
+	xCommandStop:= BackgroundComms.BlindCommandTable[1].xCommandStop ,
+	HubTXBuffer:= BackgroundComms.HubTXBuffer[1] ,
+	HubRXBuffer:= BackgroundComms.HubRXBuffer[1] ,
+	aDataPacket :=  aDataPacket2,
+	xCommandUpJog := BackgroundComms.BlindCommandTable[1].xCommandUpJog ,
+	xCommandDownJog := BackgroundComms.BlindCommandTable[1].xCommandDownJog ,
+	JogTime :=  BackgroundComms.BlindCommandTable[1].JogTime,
+	JogTimeInt :=  BackgroundComms.BlindCommandTable[1].JogTimeInt,
+	xBusy => );
+
+FB_BlindControl[2](
+	BulkCommand:= BackgroundComms.BlindCommandTable[2].SelectBlindsBulkCommand ,
+	xCommandUp:= BackgroundComms.BlindCommandTable[2].xCommandUp,
+	xCommandDown:= BackgroundComms.BlindCommandTable[2].xCommandDown ,
+	xCommandStop:= BackgroundComms.BlindCommandTable[2].xCommandStop ,
+	HubTXBuffer:= BackgroundComms.HubTXBuffer[2] ,
+	HubRXBuffer:= BackgroundComms.HubRXBuffer[2] ,
+	aDataPacket :=  aDataPacket3,
+	xCommandUpJog := BackgroundComms.BlindCommandTable[2].xCommandUpJog ,
+	xCommandDownJog := BackgroundComms.BlindCommandTable[2].xCommandDownJog ,
+	JogTime :=  BackgroundComms.BlindCommandTable[2].JogTime,
+	JogTimeInt :=  BackgroundComms.BlindCommandTable[2].JogTimeInt,
+	xBusy => );
+	
+
+HowOftenTimer.IN:= TRUE;
+
+IF HowOftenTimer.Q THEN
+	bStretch := TRUE;
+	
+END_IF
+
+IF bStretchDone THEN
+	HowOftenTimer.IN := FALSE;
+	bStretchDone := FALSE;
+	bStretch := FALSE;
+END_IF
+	
+fbBlindsStretch(Start:= bStretch, StretchDone:= bStretchDone,Err=> );
+
+HowOftenTimer();
+
+
+]]></ST>
+    </Implementation>
+    <Action Name="SleepModeCheck" Id="{3f87cb06-794c-44e6-adeb-1113c47adff4}">
+      <Implementation>
+        <ST><![CDATA[IF Global_Variables.xSleepMode THEN
+	
+	// Set Socket State
+	xXplanarScreenPowerOff := TRUE;
+	
+		
+
+	xSleepMode := FALSE;						// Reset Sleep Call	
+	
+END_IF]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="MAIN">
+      <LineId Id="6" Count="3" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="117" Count="1" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="174" Count="0" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="82" Count="1" />
+      <LineId Id="85" Count="4" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="10" Count="41" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="215" Count="0" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="220" Count="0" />
+      <LineId Id="219" Count="0" />
+      <LineId Id="223" Count="0" />
+      <LineId Id="221" Count="1" />
+      <LineId Id="225" Count="0" />
+      <LineId Id="224" Count="0" />
+      <LineId Id="226" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="227" Count="0" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="206" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="52" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.SleepModeCheck">
+      <LineId Id="1" Count="1" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="5" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="3" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

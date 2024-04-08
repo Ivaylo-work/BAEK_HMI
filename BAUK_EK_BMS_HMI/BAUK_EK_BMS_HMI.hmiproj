@@ -12,7 +12,7 @@
     <HmiTitle>BAUK EK BMS</HmiTitle>
     <HmiVerboseLevel>2</HmiVerboseLevel>
     <HmiVersion>1.0.0.0</HmiVersion>
-    <HmiCommunicationServerPort>3000</HmiCommunicationServerPort>
+    <HmiCommunicationServerPort>3001</HmiCommunicationServerPort>
     <HmiLogTcHmiServerMessages>false</HmiLogTcHmiServerMessages>
     <HmiLogDesignerModeComMessages>false</HmiLogDesignerModeComMessages>
     <HmiServerVersion>Latest</HmiServerVersion>
@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10102</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10103</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -111,6 +111,20 @@
     <Content Include="Images\icons_presence-detector_normal.svg">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Java Script\WindowIsOpenSubscriber.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Java Script\WindowIsOpenSubscriber.js</DependentUpon>
+    </Content>
+    <Content Include="Java Script\WindowIsOpenSubscriber.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\All-in-One Shutdown.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\All-in-One Shutdown.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\All-in-One Shutdown.usercontrol</DependentUpon>
+    </Content>
     <Content Include="User Controls\BlindSelector.usercontrol">
       <SubType>Content</SubType>
     </Content>
@@ -125,6 +139,13 @@
       <SubType>Content</SubType>
       <DependentUpon>User Controls\RoomOccupancy.usercontrol</DependentUpon>
     </Content>
+    <Content Include="User Controls\WindowIsOpen.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\WindowIsOpen.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\WindowIsOpen.usercontrol</DependentUpon>
+    </Content>
     <Folder Include="Fonts\" />
     <Folder Include="Functions\" />
     <Folder Include="Images" />
@@ -136,6 +157,7 @@
     <Folder Include="Imports\Videos" />
     <Folder Include="KeyboardLayouts\" />
     <Folder Include="Localization" />
+    <Folder Include="Java Script" />
     <Folder Include="User Controls" />
     <Folder Include="Pages\" />
     <Folder Include="Server\ADS\" />
