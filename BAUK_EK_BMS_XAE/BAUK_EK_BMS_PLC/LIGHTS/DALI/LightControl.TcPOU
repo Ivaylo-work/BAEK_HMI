@@ -143,7 +143,10 @@ VAR
 	                                    	
 	OfficeLightLevel						:	UINT;
 	WorkshopLightLevel						:	UINT;
-
+	
+	BoardRoomTime							:	Ton;
+	BoardRoomTriggerOn						:	BOOL;
+	BoardRoomTriggerOff						:	BOOL;
 	
 	
 	bLightADS 					AT %MB100	:	BOOL;
@@ -409,6 +412,7 @@ ReceptionDoorTime();
 OfficePassageTime();
 WorkshopPassageTime();
 DeskAreaTime();
+BoardRoomTime();
 
 			
 //Reception Area**********************************************************
@@ -605,6 +609,22 @@ bLightsADSOff := 	PTM200StrippedTables[0].Signal;
 	eAddrType:= 1, 
 	stCommandBuffer:= stCommandBuffer );	
 
+	/////////////////////////// Boardroom area Occupancy handle //////////////////////////
+	IF 	Dali.BoardroomPIR_1_Occupancy  THEN
+		BoardRoomTriggerOn 		:= TRUE;
+		BoardRoomTriggerOff		:= FALSE;
+		BoardRoomTime.IN		:= FALSE;
+	END_IF
+	
+	IF NOT Dali.BoardroomPIR_2_Occupancy THEN
+		BoardRoomTime.IN			:= TRUE;
+		BoardRoomTime.PT			:= T#0.1H;	
+	END_IF
+	
+	IF BoardRoomTime.Q OR ResetOthers THEN
+		BoardRoomTriggerOn 		:= FALSE;
+		BoardRoomTriggerOff		:= TRUE;
+	END_IF
 	
 	//Projector Board room on*********************************************
 	
@@ -927,6 +947,7 @@ END_IF
       <LineId Id="1255" Count="0" />
       <LineId Id="991" Count="0" />
       <LineId Id="1066" Count="1" />
+      <LineId Id="4286" Count="0" />
       <LineId Id="1234" Count="0" />
       <LineId Id="1176" Count="0" />
       <LineId Id="1180" Count="0" />
@@ -1012,6 +1033,7 @@ END_IF
       <LineId Id="156" Count="5" />
       <LineId Id="168" Count="1" />
       <LineId Id="91" Count="0" />
+      <LineId Id="4267" Count="15" />
       <LineId Id="467" Count="0" />
       <LineId Id="180" Count="1" />
       <LineId Id="1707" Count="1" />
