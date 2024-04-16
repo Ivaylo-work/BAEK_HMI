@@ -70,7 +70,13 @@
       "url": "User Controls/BlindSelector.usercontrol"
     },
     {
+      "url": "User Controls/Projector Mode.usercontrol"
+    },
+    {
       "url": "User Controls/RoomOccupancy.usercontrol"
+    },
+    {
+      "url": "User Controls/Showroom Mode.usercontrol"
     },
     {
       "url": "User Controls/WindowIsOpen.usercontrol"

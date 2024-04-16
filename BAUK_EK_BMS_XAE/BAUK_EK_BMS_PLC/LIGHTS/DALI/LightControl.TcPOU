@@ -180,7 +180,14 @@ VAR
 	WorkshopLightLevelSetpoint				:	UINT := 1000;
 	
 	xBoardToom_Lights_ProjectorMode			:	BOOL;
-	rt_BoardToom_Lights_ProjectorMode		:	R_TRIG;
+	xBoardToom_Lights_ShowroomMode			:	BOOL;
+	rt_BoardRoom_Lights_ProjectorMode		:	R_TRIG;
+	rt_BoardRoom_Lights_ShowroomMode		:	R_TRIG;
+	
+	rt_BoardRoom_Lights_Switch0				:	R_TRIG := (CLK := PTM200StrippedTables[0].Signal);
+	rt_BoardRoom_Lights_Switch1				:	R_TRIG := (CLK := PTM200StrippedTables[1].Signal);
+	rt_BoardRoom_Lights_Switch2				:	R_TRIG := (CLK := PTM200StrippedTables[2].Signal);
+	rt_BoardRoom_Lights_Switch3				:	R_TRIG := (CLK := PTM200StrippedTables[3].Signal);
 	
 	TurnOnCabinetLights						:	BOOL;
 	IgnoreFront								:	BOOL;
@@ -569,111 +576,59 @@ TableTennisOff(
 //*******************************************************************************
 		
 	
-	/////////////////////////// Office Passage Occupancy handle //////////////////////////
-	IF 	Dali.StaffroomPIR_1_Occupancy OR Dali.StaffroomPIR_2_Occupancy  THEN
-		OfficePassageTriggerOn 		:= TRUE;
-		OfficePassageTriggerOFF		:= FALSE;
-		OfficePassageTime.IN		:= FALSE;
-	END_IF
-	
-	IF NOT Dali.StaffroomPIR_1_Occupancy AND NOT Dali.StaffroomPIR_2_Occupancy THEN
-		OfficePassageTime.IN		:= TRUE;
-		OfficePassageTime.PT		:= T#1H;	
-	END_IF
-	
-	IF OfficePassageTime.Q OR ResetOthers THEN
+/////////////////////////// Office Passage Occupancy handle //////////////////////////
+IF 	Dali.StaffroomPIR_1_Occupancy OR Dali.StaffroomPIR_2_Occupancy  THEN
+	OfficePassageTriggerOn 		:= TRUE;
+	OfficePassageTriggerOFF		:= FALSE;
+	OfficePassageTime.IN		:= FALSE;
+END_IF
 
-		OfficePassageTriggerOn 		:= FALSE;
-		OfficePassageTriggerOFF		:= TRUE;
-	END_IF
-	////////////////////////////////////////////////////////////////////////////////////
+IF NOT Dali.StaffroomPIR_1_Occupancy AND NOT Dali.StaffroomPIR_2_Occupancy THEN
+	OfficePassageTime.IN		:= TRUE;
+	OfficePassageTime.PT		:= T#1H;	
+END_IF
+
+IF OfficePassageTime.Q OR ResetOthers THEN
+
+	OfficePassageTriggerOn 		:= FALSE;
+	OfficePassageTriggerOFF		:= TRUE;
+END_IF
+////////////////////////////////////////////////////////////////////////////////////
 
 bLightADS := PTM200StrippedTables[3].Signal;
 bLightsADSOff := 	PTM200StrippedTables[1].Signal;
 bLightsADSOff := 	PTM200StrippedTables[0].Signal;
 
 //All Board room on********************************************************************
-	FBDALIV2Dimmer1SwitchBoarda(
-	bSwitchDimm:= , 
-	bOn:= PTM200StrippedTables[3].Signal OR PTM200StrippedTables[2].Signal OR BoardRoomTriggerOn, 
-	bOff:= PTM200StrippedTables[1].Signal OR PTM200StrippedTables[0].Signal OR BoardRoomTriggerOff, 
-	nAddr:= 3, 
-	eAddrType:= 1, 
-	stCommandBuffer:= stCommandBuffer); 
+BoardRoom_LightControl();	
+//Board table spots****************************************************
 
-	FBDALIV2Dimmer1SwitchBoardb(
-	bSwitchDimm:= , 
-	bOn:= PTM200StrippedTables[3].Signal OR PTM200StrippedTables[2].Signal OR BoardRoomTriggerOn, 
-	bOff:= PTM200StrippedTables[1].Signal  OR PTM200StrippedTables[0].Signal OR BoardRoomTriggerOff, 
-	nAddr:= 2, 
-	eAddrType:= 1, 
-	stCommandBuffer:= stCommandBuffer );	
+	FOR i := 10 TO 11 DO
+	FBDALIV2Light[i](
+		bOn:= PTM200StrippedTables[3].Signal, 
+		bOff:= PTM200StrippedTables[0].Signal, 
+		bToggle:= , 
+		nAddr:= i, 
+		eAddrType:= 0, 
+		nMasterDevAddr:= , 
+		tCycleActualLevelMasterDev:= , 
+		bLight=> , 
+		stCommandBuffer:= stCommandBuffer );
+	END_FOR	
+	
+	FOR i := 10 TO 11 DO
+	FBDALIV2Light[i](
+		bOn:= PTM200StrippedTables[3].Signal, 
+		bOff:= PTM200StrippedTables[0].Signal, 
+		bToggle:= , 
+		nAddr:= i, 
+		eAddrType:= 0, 
+		nMasterDevAddr:= , 
+		tCycleActualLevelMasterDev:= , 
+		bLight=> , 
+		stCommandBuffer:= stCommandBuffer );
+	END_FOR	
 
-	/////////////////////////// Boardroom area Occupancy handle //////////////////////////
-	IF 	Dali.BoardroomPIR_1_Occupancy  THEN
-		BoardRoomTriggerOn 		:= TRUE;
-		BoardRoomTriggerOff		:= FALSE;
-		BoardRoomTime.IN		:= FALSE;
-	END_IF
-	
-	IF NOT Dali.BoardroomPIR_2_Occupancy THEN
-		BoardRoomTime.IN			:= TRUE;
-		BoardRoomTime.PT			:= T#0.1H;	
-	END_IF
-	
-	IF BoardRoomTime.Q OR ResetOthers THEN
-		BoardRoomTriggerOn 		:= FALSE;
-		BoardRoomTriggerOff		:= TRUE;
-	END_IF
-	
-	//Projector Board room on*********************************************
-	
-	rt_BoardToom_Lights_ProjectorMode(CLK := xBoardToom_Lights_ProjectorMode);
-	
-	FBDALIV2Dimmer1SwitchBoardc(
-	bSwitchDimm:= , 
-	bOn:= , 
-	bOff:= PTM200StrippedTables[1].Signal OR rt_BoardToom_Lights_ProjectorMode.Q, //Bottom Left Switch
-	nAddr:= 3, 
-	eAddrType:= 1, 
-	stCommandBuffer:= stCommandBuffer );
-
-	FBDALIV2Dimmer1SwitchBoardd(
-	bSwitchDimm:= , 
-	bOn:= PTM200StrippedTables[0].Signal OR rt_BoardToom_Lights_ProjectorMode.Q, //Bottom Right Switch
-	bOff:= PTM200StrippedTables[1].Signal,  //Bottom Left Switch
-	nAddr:= 2, 
-	eAddrType:= 1, 
-	stCommandBuffer:= stCommandBuffer );
-	
-	//Board table spots****************************************************
-	
-		FOR i := 10 TO 11 DO
-		FBDALIV2Light[i](
-			bOn:= PTM200StrippedTables[3].Signal, 
-			bOff:= PTM200StrippedTables[0].Signal, 
-			bToggle:= , 
-			nAddr:= i, 
-			eAddrType:= 0, 
-			nMasterDevAddr:= , 
-			tCycleActualLevelMasterDev:= , 
-			bLight=> , 
-			stCommandBuffer:= stCommandBuffer );
-		END_FOR	
-		
-		FOR i := 10 TO 11 DO
-		FBDALIV2Light[i](
-			bOn:= PTM200StrippedTables[3].Signal, 
-			bOff:= PTM200StrippedTables[0].Signal, 
-			bToggle:= , 
-			nAddr:= i, 
-			eAddrType:= 0, 
-			nMasterDevAddr:= , 
-			tCycleActualLevelMasterDev:= , 
-			bLight=> , 
-			stCommandBuffer:= stCommandBuffer );
-		END_FOR	
-	
 				
 
 	/////////////////////////// Office Passage Occupancy handle //////////////////////////
@@ -743,6 +698,82 @@ bLightsADSOff := 	PTM200StrippedTables[0].Signal;
 	
 ]]></ST>
     </Implementation>
+    <Action Name="BoardRoom_LightControl" Id="{ac116910-a881-45b7-a93b-548235819be2}">
+      <Implementation>
+        <ST><![CDATA[/////////////////////////// Boardroom area Occupancy handle //////////////////////////
+IF 	Dali.BoardroomPIR_1_Occupancy OR Dali.BoardroomPIR_2_Occupancy THEN
+	BoardRoomTriggerOn 		:= TRUE;
+	BoardRoomTriggerOff		:= FALSE;
+	BoardRoomTime.IN		:= FALSE;
+END_IF
+
+IF (NOT Dali.BoardroomPIR_2_Occupancy) OR (NOT Dali.BoardroomPIR_1_Occupancy) OR rt_BoardRoom_Lights_ProjectorMode.Q OR rt_BoardRoom_Lights_ShowroomMode.Q THEN
+	BoardRoomTime.IN			:= TRUE;
+	BoardRoomTime.PT			:= T#0.1H;	
+END_IF
+
+IF BoardRoomTime.Q OR ResetOthers OR rt_BoardRoom_Lights_Switch0.Q OR rt_BoardRoom_Lights_Switch1.Q THEN	//OR PTM200StrippedTables[1].Signal or PTM200StrippedTables[0].Signal 
+	BoardRoomTriggerOn 		:= FALSE;
+	BoardRoomTriggerOff		:= TRUE;
+END_IF
+
+//Showroom Board room on*********************************************
+
+rt_BoardRoom_Lights_ShowroomMode(CLK := xBoardToom_Lights_ShowroomMode);
+
+IF  rt_BoardRoom_Lights_ShowroomMode.Q THEN
+	xBoardToom_Lights_ShowroomMode := FALSE;
+	BoardRoomTriggerOn		:= TRUE;
+	BoardRoomTriggerOff		:= FALSE;
+	BoardRoomTime.IN		:= FALSE;
+END_IF
+
+FBDALIV2Dimmer1SwitchBoarda(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[2].Signal OR BoardRoomTriggerOn, 
+	bOff:= PTM200StrippedTables[0].Signal OR BoardRoomTriggerOff OR rt_BoardRoom_Lights_ProjectorMode.Q , 
+	nAddr:= 3, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer); 
+
+FBDALIV2Dimmer1SwitchBoardb(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[2].Signal OR BoardRoomTriggerOn, 
+	bOff:= PTM200StrippedTables[0].Signal OR BoardRoomTriggerOff, 
+	nAddr:= 2, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer );	
+
+
+
+//Projector Board room on*********************************************
+
+rt_BoardRoom_Lights_ProjectorMode(CLK := xBoardToom_Lights_ProjectorMode);
+
+IF  rt_BoardRoom_Lights_ProjectorMode.Q THEN
+	xBoardToom_Lights_ProjectorMode := FALSE;
+	BoardRoomTriggerOff		:= FALSE;
+	BoardRoomTime.IN		:= FALSE;
+END_IF
+
+FBDALIV2Dimmer1SwitchBoardc(
+	bSwitchDimm:= , 
+	bOn:= rt_BoardRoom_Lights_ShowroomMode.Q, 
+	bOff:= PTM200StrippedTables[1].Signal OR rt_BoardRoom_Lights_ProjectorMode.Q OR BoardRoomTriggerOff, //Bottom Left Switch
+	nAddr:= 3, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer );
+
+FBDALIV2Dimmer1SwitchBoardd(
+	bSwitchDimm:= , 
+	bOn:= PTM200StrippedTables[3].Signal OR rt_BoardRoom_Lights_ProjectorMode.Q, //Bottom Right Switch
+	bOff:= PTM200StrippedTables[1].Signal or BoardRoomTriggerOff,  //Bottom Left Switch
+	nAddr:= 2, 
+	eAddrType:= 1, 
+	stCommandBuffer:= stCommandBuffer );
+	]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="ReceptionDoor_LightControl" Id="{0f0141a0-0212-4e00-aeaa-81885379793f}">
       <Implementation>
         <ST><![CDATA[//Reception Door light control**********************************************************
@@ -817,8 +848,27 @@ END_IF
       </Implementation>
     </Action>
     <LineIds Name="LightControl">
-      <LineId Id="4473" Count="551" />
+      <LineId Id="4453" Count="403" />
+      <LineId Id="4909" Count="95" />
       <LineId Id="75" Count="0" />
+    </LineIds>
+    <LineIds Name="LightControl.BoardRoom_LightControl">
+      <LineId Id="62" Count="12" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="84" Count="2" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="87" Count="1" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="2" Count="15" />
+      <LineId Id="33" Count="26" />
+      <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="LightControl.ReceptionDoor_LightControl">
       <LineId Id="2" Count="0" />

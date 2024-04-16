@@ -41,6 +41,22 @@
       "frameworkUserControlConfig": "User Controls\\WindowIsOpen.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/WindowIsOpen"
+    },
+    "Projector_Mode": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\Projector Mode.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Projector_Mode"
+    },
+    "Showroom_Mode": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\Showroom Mode.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Showroom_Mode"
     }
   }
 }
