@@ -20,7 +20,7 @@ Confidential/
 *.bootinfo
 *.bootinfo_guids
 *.library
-*.project.~u
+BAUK_EK_BMS_XAE.project.~u
 *.tsproj.bak
 *.xti.bak
 LineIDs.dbg
