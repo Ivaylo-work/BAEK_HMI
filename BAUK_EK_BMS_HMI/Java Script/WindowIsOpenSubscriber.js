@@ -19,6 +19,11 @@
                         "color": "rgba(255, 0, 0, 1)",
                     };
 
+                    var TextColorDark = {
+
+                        "color": "rgba(27, 27, 31, 1)",
+                    };
+
                     var commands = [
                         {
                             'symbol': 'PLC1.EnOcean.AllWindowsClosed'
@@ -56,6 +61,9 @@
                                 //Product stucked between conveupr sensors
                                 if (command.readValue == false) {
                                     textIndicator.setTextColor(TextColorRed);
+                                }
+                                else {
+                                    textIndicator.setTextColor(TextColorDark);
                                 }
                             }
                         }

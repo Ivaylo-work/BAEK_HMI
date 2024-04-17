@@ -136,7 +136,9 @@
         ]
       </script>
 
-    </div>
+    <div id="Projector_Mode_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/Projector Mode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+</div>
+</div>
 
     <div data-tchmi-grid-column-index="3" id="TcHmiContainer_Overview_4" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-right-unit="px" data-tchmi-right="0" data-tchmi-bottom="0">
 
@@ -147,7 +149,9 @@
         ]
       </script>
 
-    </div>
+    <div id="Showroom_Mode_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/Showroom Mode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+</div>
+</div>
 
     <div data-tchmi-grid-column-index="5" id="TcHmiContainer_Overview_5" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width-unit="px" data-tchmi-right-unit="px" data-tchmi-right="0" data-tchmi-bottom="0">
 

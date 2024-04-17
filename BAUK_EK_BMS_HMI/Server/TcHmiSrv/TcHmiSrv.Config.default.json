@@ -3116,6 +3116,26 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.LightControl.xBoardToom_Lights_ProjectorMode": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::xBoardToom_Lights_ProjectorMode",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.LightControl.xBoardToom_Lights_ShowroomMode": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::xBoardToom_Lights_ShowroomMode",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MLtest.iDataOut": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -9203,6 +9223,8 @@
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandUpJog": 3,
                 "PLC1.EnOcean.AllWindowsClosed": 3,
                 "PLC1.LightControl.GoHomeHoldActivated": 3,
+                "PLC1.LightControl.xBoardToom_Lights_ProjectorMode": 3,
+                "PLC1.LightControl.xBoardToom_Lights_ShowroomMode": 3,
                 "PLC1.MLtest.iDataOut": 3,
                 "PLC1.P_Scaling.diScaledFrequency": 3,
                 "PLC1.PrgMqttCom_Blinds_Publisher.bCommandDown": 3,

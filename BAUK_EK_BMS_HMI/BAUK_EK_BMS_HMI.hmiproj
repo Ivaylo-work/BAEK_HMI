@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10103</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10102</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -132,12 +132,26 @@
       <SubType>Content</SubType>
       <DependentUpon>User Controls\BlindSelector.usercontrol</DependentUpon>
     </Content>
+    <Content Include="User Controls\Projector Mode.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\Projector Mode.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\Projector Mode.usercontrol</DependentUpon>
+    </Content>
     <Content Include="User Controls\RoomOccupancy.usercontrol">
       <SubType>Content</SubType>
     </Content>
     <Content Include="User Controls\RoomOccupancy.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>User Controls\RoomOccupancy.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="User Controls\Showroom Mode.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\Showroom Mode.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\Showroom Mode.usercontrol</DependentUpon>
     </Content>
     <Content Include="User Controls\WindowIsOpen.usercontrol">
       <SubType>Content</SubType>
