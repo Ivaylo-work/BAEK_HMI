@@ -1,5 +1,5 @@
 {
-  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/TchmiConfig.Schema.json",
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework/Schema/TchmiConfig.Schema.json",
   "basePath": "./framework",
   "scaleMode": "ScaleToFit",
   "startupView": "Desktop.view",
@@ -157,44 +157,7 @@
   "binding": {
     "symbolError": "Ignore"
   },
-  "packages": [
-    {
-      "name": "Beckhoff.TwinCAT.HMI.BA.Controls",
-      "basePath": "/Beckhoff.TwinCAT.HMI.BA.Controls"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.BA.Framework",
-      "basePath": "/Beckhoff.TwinCAT.HMI.BA.Framework"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.BA.Icons",
-      "basePath": "/Beckhoff.TwinCAT.HMI.BA.Icons"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.Controls",
-      "basePath": "/Beckhoff.TwinCAT.HMI.Controls"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.EcDiagnosticsControl",
-      "basePath": "/Beckhoff.TwinCAT.HMI.EcDiagnosticsControl"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.Framework",
-      "basePath": "/framework"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.Functions",
-      "basePath": "/Beckhoff.TwinCAT.HMI.Functions"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.ResponsiveNavigation",
-      "basePath": "/Beckhoff.TwinCAT.HMI.ResponsiveNavigation"
-    },
-    {
-      "name": "Beckhoff.TwinCAT.HMI.ScopeControl",
-      "basePath": "/Beckhoff.TwinCAT.HMI.ScopeControl"
-    }
-  ],
+  "packages": [],
   "keyboardLayouts": [
     {
       "url": "KeyboardLayouts/German - compact.keyboard.json"
