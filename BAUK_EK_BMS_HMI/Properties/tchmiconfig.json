@@ -86,6 +86,9 @@
     },
     {
       "url": "User Controls/EcoMode.usercontrol"
+    },
+    {
+      "url": "User Controls/KitchenBlindsControl.usercontrol"
     }
   ],
   "content": [

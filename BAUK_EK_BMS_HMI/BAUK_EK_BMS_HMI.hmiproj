@@ -145,6 +145,13 @@
       <SubType>Content</SubType>
       <DependentUpon>User Controls\EcoMode.usercontrol</DependentUpon>
     </Content>
+    <Content Include="User Controls\KitchenBlindsControl.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\KitchenBlindsControl.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\KitchenBlindsControl.usercontrol</DependentUpon>
+    </Content>
     <Content Include="User Controls\OfficeBlindsControl.usercontrol">
       <SubType>Content</SubType>
     </Content>
