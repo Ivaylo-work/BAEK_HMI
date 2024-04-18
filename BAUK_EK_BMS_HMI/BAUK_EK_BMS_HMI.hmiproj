@@ -132,6 +132,13 @@
       <SubType>Content</SubType>
       <DependentUpon>User Controls\BlindSelector.usercontrol</DependentUpon>
     </Content>
+    <Content Include="User Controls\OfficeBlindsControl.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\OfficeBlindsControl.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\OfficeBlindsControl.usercontrol</DependentUpon>
+    </Content>
     <Content Include="User Controls\Projector Mode.usercontrol">
       <SubType>Content</SubType>
     </Content>

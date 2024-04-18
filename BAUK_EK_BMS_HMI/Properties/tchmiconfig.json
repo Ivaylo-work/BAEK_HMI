@@ -80,6 +80,9 @@
     },
     {
       "url": "User Controls/WindowIsOpen.usercontrol"
+    },
+    {
+      "url": "User Controls/OfficeBlindsControl.usercontrol"
     }
   ],
   "content": [

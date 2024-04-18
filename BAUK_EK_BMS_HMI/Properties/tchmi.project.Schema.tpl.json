@@ -57,6 +57,14 @@
       "frameworkUserControlConfig": "User Controls\\Showroom Mode.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/Showroom_Mode"
+    },
+    "OfficeBlindsControl": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\OfficeBlindsControl.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/OfficeBlindsControl"
     }
   }
 }

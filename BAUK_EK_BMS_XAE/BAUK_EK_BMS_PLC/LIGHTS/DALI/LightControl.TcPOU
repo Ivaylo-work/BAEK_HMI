@@ -709,7 +709,7 @@ END_IF
 
 IF (NOT Dali.BoardroomPIR_2_Occupancy) OR (NOT Dali.BoardroomPIR_1_Occupancy) OR rt_BoardRoom_Lights_ProjectorMode.Q OR rt_BoardRoom_Lights_ShowroomMode.Q THEN
 	BoardRoomTime.IN			:= TRUE;
-	BoardRoomTime.PT			:= T#0.1H;	
+	BoardRoomTime.PT			:= T#0.4H;	
 END_IF
 
 IF BoardRoomTime.Q OR ResetOthers OR rt_BoardRoom_Lights_Switch0.Q OR rt_BoardRoom_Lights_Switch1.Q THEN	//OR PTM200StrippedTables[1].Signal or PTM200StrippedTables[0].Signal 
