@@ -4,7 +4,7 @@
 <script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
 [
   {
-    "width": 1.25,
+    "width": 1.2,
     "widthUnit": "factor",
     "widthMode": "Value",
     "maxWidthUnit": "px",

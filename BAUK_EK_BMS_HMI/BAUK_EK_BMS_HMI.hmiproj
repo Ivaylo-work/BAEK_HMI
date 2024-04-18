@@ -111,6 +111,12 @@
     <Content Include="Images\icons_presence-detector_normal.svg">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\leaf.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\leaf_green.svg">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Java Script\WindowIsOpenSubscriber.function.json">
       <SubType>Content</SubType>
       <DependentUpon>Java Script\WindowIsOpenSubscriber.js</DependentUpon>
@@ -131,6 +137,13 @@
     <Content Include="User Controls\BlindSelector.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>User Controls\BlindSelector.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="User Controls\EcoMode.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\EcoMode.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\EcoMode.usercontrol</DependentUpon>
     </Content>
     <Content Include="User Controls\OfficeBlindsControl.usercontrol">
       <SubType>Content</SubType>
