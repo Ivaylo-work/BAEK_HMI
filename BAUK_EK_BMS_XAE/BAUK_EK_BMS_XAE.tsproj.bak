@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.55">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.53">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{18DDFF9C-471B-4495-BB64-A0634DBB99A6}">ETcMllDataType</Name>
@@ -121,6 +121,35 @@
 			</SubItem>
 		</DataType>
 		<DataType>
+			<Name GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI" AutoDeleteType="true">ST_DALIV2InData</Name>
+			<Comment><![CDATA[ Communication interface for the KL6811]]></Comment>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>nStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nDummy</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<Properties>
+				<Property>
+					<Name>obsolete</Name>
+					<Value>Use the structure ST_KL6811InData instead!</Value>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
 			<Name GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean" AutoDeleteType="true">KL6581_Input</Name>
 			<BitSize>96</BitSize>
 			<SubItem>
@@ -195,35 +224,6 @@
 				<BitSize>8</BitSize>
 				<BitOffs>88</BitOffs>
 			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI" AutoDeleteType="true">ST_DALIV2InData</Name>
-			<Comment><![CDATA[ Communication interface for the KL6811]]></Comment>
-			<BitSize>32</BitSize>
-			<SubItem>
-				<Name>nStatus</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>nDummy</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>nData</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>16</BitOffs>
-			</SubItem>
-			<Properties>
-				<Property>
-					<Name>obsolete</Name>
-					<Value>Use the structure ST_KL6811InData instead!</Value>
-				</Property>
-			</Properties>
 		</DataType>
 		<DataType>
 			<Name GUID="{5FB7B499-AA4D-FE44-3AD2-C9F733008481}" Namespace="Tc2_DMX" AutoDeleteType="true">ST_EL6851InData</Name>
@@ -602,7 +602,7 @@
 		<ImageData Id="1006">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c00000ffc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c00000ffc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c000ff00c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff</ImageData>
 		<ImageData Id="1007">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c00000c00000c00000c00000c00000c0ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c600ffffc6c6c60000c0c6c6c600ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6ff0000c6c6c60000c0c6c6c6ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c60000ffc6c6c60000c0c6c6c60000ff808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6008400c6c6c60000c0c6c6c6008400808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{18D042FF-B2FD-40FE-A9D8-CEA29DF4933A}" ShowHideConfigurations="#x6">
+	<Project ProjectGUID="{18D042FF-B2FD-40FE-A9D8-CEA29DF4933A}" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
 			<Licenses>
 				<Target BkhfOrder="RESTORE">
@@ -823,7 +823,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{C653EB4F-879B-4BFA-81EA-FD3B382D1A99}" Name="BAUK_EK_BMS_PLC" PrjFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.plcproj" TmcFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{B8758DCA-17E7-9ACC-F6BB-2902C0989A67}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{DB4795AC-88A1-6936-7CFB-A0AF55A025B5}">
 					<Name>BAUK_EK_BMS_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -889,12 +889,12 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.stKL6581InData</Name>
-							<Type GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean">KL6581_Input</Type>
-						</Var>
-						<Var>
 							<Name>.stDALIInData</Name>
 							<Type GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI">ST_DALIV2InData</Type>
+						</Var>
+						<Var>
+							<Name>.stKL6581InData</Name>
+							<Type GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean">KL6581_Input</Type>
 						</Var>
 						<Var>
 							<Name>.stDMXInDataLinie01</Name>
@@ -913,55 +913,19 @@
 							<Type GUID="{3B767DB5-6AA2-C99A-8994-BD7A72CEA114}">ARRAY [0..2] OF Tc2_SerialCom.KL6outData22B</Type>
 						</Var>
 						<Var>
-							<Name>DataForEAP.accumlatedKw</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.readingOfKwh</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.costOfKwh</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.scaledVoltage</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.scaledCurrent</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.scaledCurrentAmps</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.scaledActivePower</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>DataForEAP.scaledFrequency</Name>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
 							<Name>EnOcean.STEnOceanOutData</Name>
 							<Type GUID="{0B7591CE-879A-4F3D-4546-149ECAE9DCE9}" Namespace="Tc2_EnOcean">ST_EnOceanOutData</Type>
-						</Var>
-						<Var>
-							<Name>.numberOfOpenWindows</Name>
-							<Type>WORD</Type>
 						</Var>
 						<Var>
 							<Name>.boardroomModeIsProjector</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.boardroomModeIsFullOn</Name>
-							<Type>BOOL</Type>
+							<Name>.numberOfOpenWindows</Name>
+							<Type>WORD</Type>
 						</Var>
 						<Var>
-							<Name>.communalOccupancy1</Name>
+							<Name>.boardroomModeIsFullOn</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -973,11 +937,11 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.communalOccupancy2</Name>
+							<Name>.communalOccupancy1</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.staffOccupancy1</Name>
+							<Name>.communalOccupancy2</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -989,11 +953,11 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.staffOccupancy2</Name>
+							<Name>.staffOccupancy1</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.boardOccupancy1</Name>
+							<Name>.staffOccupancy2</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -1003,6 +967,10 @@
 						<Var>
 							<Name>.boardLux2</Name>
 							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.boardOccupancy1</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.boardOccupancy2</Name>

@@ -33,9 +33,6 @@
     <Compile Include="BLINDS\ConvertBoolArrayToString.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BLINDS\DataForEAP.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="BLINDS\fConvertBoolArrayToString.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -114,10 +111,10 @@
     <Compile Include="POWER MONITORING\PrgMqttCom_PM_Subscriber.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POWER MONITORING\P_Scaling.TcPOU">
+    <Compile Include="POWER MONITORING\SQLDB.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POWER MONITORING\SQLDB.TcPOU">
+    <Compile Include="POWER MONITORING\ST_EL3403_Data.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POWER MONITORING\ST_PHASE_DATA.TcDUT">
