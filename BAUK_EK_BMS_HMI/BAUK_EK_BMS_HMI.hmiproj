@@ -152,6 +152,13 @@
       <SubType>Content</SubType>
       <DependentUpon>User Controls\KitchenBlindsControl.usercontrol</DependentUpon>
     </Content>
+    <Content Include="User Controls\BoardroomBlindsControl.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\BoardroomBlindsControl.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\BoardroomBlindsControl.usercontrol</DependentUpon>
+    </Content>
     <Content Include="User Controls\OfficeBlindsControl.usercontrol">
       <SubType>Content</SubType>
     </Content>

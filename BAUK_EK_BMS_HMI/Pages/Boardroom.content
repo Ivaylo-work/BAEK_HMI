@@ -1,6 +1,6 @@
 <div id="Boardroom" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-height-mode="Content">
 
-<div id="BlindSelector_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="344" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/BlindSelector.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="461" data-tchmi-width-unit="px" data-tchmi-blindselect="%s%PLC1.BackgroundComms.BlindCommandTable.0.SelectBlindsBulkCommand.0%/s%" data-tchmi-blindselection="%s%PLC1.BackgroundComms.BlindCommandTable.2.SelectBlindsBulkCommand%/s%" data-tchmi-blindupcommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandUp%/s%" data-tchmi-blinddowncommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandDown%/s%" data-tchmi-blindstopcommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandStop%/s%" data-tchmi-blindtiltcommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandUpJog%/s%">
+<div id="BlindSelector_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="344" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/BlindSelector.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="461" data-tchmi-width-unit="px" data-tchmi-blindselect="%s%PLC1.BackgroundComms.BlindCommandTable.0.SelectBlindsBulkCommand.0%/s%" data-tchmi-blindselection="%s%PLC1.BackgroundComms.BlindCommandTable.2.SelectBlindsBulkCommand%/s%" data-tchmi-blindupcommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandUp%/s%" data-tchmi-blinddowncommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandDown%/s%" data-tchmi-blindstopcommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandStop%/s%" data-tchmi-blindtiltcommand="%s%PLC1.BackgroundComms.BlindCommandTable.2.xCommandUpJog%/s%" data-tchmi-visibility="Collapsed">
 
 <script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
 [
@@ -23,6 +23,341 @@
 ]
 </script>
 </div>
-<div id="RoomOccupancy_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="344" data-tchmi-height-unit="px" data-tchmi-left="481" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/RoomOccupancy.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="406" data-tchmi-width-unit="px" data-tchmi-occupancy_pir1="%s%PLC1..boardOccupancy1%/s%" data-tchmi-occupancy_pir2="%s%PLC1..boardOccupancy2%/s%">
+<div id="TcHmiGrid_19" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="720" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
+[
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 720.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  },
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-row-options" type="application/json">
+[
+  {
+    "height": 1.0,
+    "heightUnit": "factor",
+    "heightMode": "Value",
+    "maxHeightUnit": "px",
+    "minHeight": 480.0,
+    "minHeightUnit": "px",
+    "overflow": false
+  },
+  {
+    "height": 1.0,
+    "heightUnit": "factor",
+    "heightMode": "Value",
+    "maxHeightUnit": "px",
+    "minHeight": 480.0,
+    "minHeightUnit": "px",
+    "overflow": false
+  }
+]
+</script>
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="1" id="TcHmiGrid_20" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
+[
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  },
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  },
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  }
+]
+</script>
+<div id="TcHmiContainer_20" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+<div id="EcoMode_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/EcoMode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+</div>
+</div>
+<div id="TcHmiContainer_21" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+<div id="RoomOccupancy_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/RoomOccupancy.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-occupancy_pir1="%s%PLC1..boardOccupancy1%/s%" data-tchmi-occupancy_pir2="%s%PLC1..boardOccupancy2%/s%" data-tchmi-visibility="Visible">
+</div>
+</div>
+<div id="TcHmiContainer_22" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="2" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-cell-options" type="application/json">
+[
+  {
+    "columnIndex": 0,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  },
+  {
+    "columnIndex": 1,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  },
+  {
+    "columnIndex": 2,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  }
+]
+</script>
+</div>
+<div data-tchmi-grid-row-index="1" data-tchmi-grid-column-index="0" id="TcHmiGrid_21" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
+[
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  },
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  },
+  {
+    "width": 1.0,
+    "widthUnit": "factor",
+    "widthMode": "Value",
+    "maxWidthUnit": "px",
+    "minWidth": 320.0,
+    "minWidthUnit": "px",
+    "overflow": false
+  }
+]
+</script>
+<div id="TcHmiContainer_23" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+</div>
+<div id="TcHmiContainer_24" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+</div>
+<div id="TcHmiContainer_25" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="2" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-cell-options" type="application/json">
+[
+  {
+    "columnIndex": 0,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  },
+  {
+    "columnIndex": 1,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  },
+  {
+    "columnIndex": 2,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  }
+]
+</script>
+</div>
+<div id="TcHmiContainer_19" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "background-container"
+]
+</script>
+<div id="OfficeBlindsControl_5" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/BoardroomBlindsControl.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+</div>
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-cell-options" type="application/json">
+[
+  {
+    "columnIndex": 0,
+    "rowIndex": 0,
+    "padding": {
+      "left": 16,
+      "right": 16,
+      "top": 16,
+      "bottom": 16,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  },
+  {
+    "columnIndex": 1,
+    "rowIndex": 0,
+    "padding": {
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "bottom": 0,
+      "leftUnit": "px",
+      "rightUnit": "px",
+      "topUnit": "px",
+      "bottomUnit": "px"
+    },
+    "backgroundImageWidthUnit": "px",
+    "backgroundImageHeightUnit": "px",
+    "backgroundImageHorizontalAlignment": "Center",
+    "backgroundImageVerticalAlignment": "Center"
+  }
+]
+</script>
 </div>
 </div>

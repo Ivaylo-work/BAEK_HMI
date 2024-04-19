@@ -70,6 +70,12 @@
       "url": "User Controls/BlindSelector.usercontrol"
     },
     {
+      "url": "User Controls/EcoMode.usercontrol"
+    },
+    {
+      "url": "User Controls/KitchenBlindsControl.usercontrol"
+    },
+    {
       "url": "User Controls/OfficeBlindsControl.usercontrol"
     },
     {
@@ -85,10 +91,7 @@
       "url": "User Controls/WindowIsOpen.usercontrol"
     },
     {
-      "url": "User Controls/EcoMode.usercontrol"
-    },
-    {
-      "url": "User Controls/KitchenBlindsControl.usercontrol"
+      "url": "User Controls/BoardroomBlindsControl.usercontrol"
     }
   ],
   "content": [
