@@ -211,13 +211,13 @@ scaledPowerData.voltage         := (powerData.voltage * 0.0001);
 scaledPowerData.frequency       := (powerData.frequency * 0.1);    
 
 //Scaled to W
-scaledPowerData.activePower     := (powerData.activePower * 0.001);   
+scaledPowerData.activePower     := (powerData.activePower * 0.01);   
 
 //Scaled to W  
-scaledPowerData.apparentPower   := (powerData.apparentPower * 0.001); 
+scaledPowerData.apparentPower   := (powerData.apparentPower * 0.01); 
 
 //Scaled to VAr  
-scaledPowerData.reactivePower   := (powerData.reactivePower * 0.001);  
+scaledPowerData.reactivePower   := (powerData.reactivePower * 0.01);  
 
 //Scaled to Wh  
 scaledPowerData.positiveEnergy  := (powerData.positiveEnergy * 0.001);  

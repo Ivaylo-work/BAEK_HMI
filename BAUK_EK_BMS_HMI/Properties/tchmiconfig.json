@@ -1,28 +1,28 @@
 {
   "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/TchmiConfig.Schema.json",
   "basePath": "./framework",
-  "scaleMode": "ScaleToFit",
-  "startupView": "Desktop.view",
+  "scaleMode": "None",
+  "startupView": null,
   "loginPage": "/Pages/LoginPage.html",
   "tcHmiServer": {
-    "websocketIntervalTime": 500,
-    "websocketTimeout": 20000,
-    "websocketSystemTimeout": 60000,
+    "websocketIntervalTime": 0,
+    "websocketTimeout": 0,
+    "websocketSystemTimeout": 0,
     "websocketSubscriptionMode": "Change"
   },
-  "activeTheme": "Base-Dark",
+  "activeTheme": "",
   "themes": {
     "Base-Dark": {
       "resources": [
         {
-          "name": "Themes/Base-Dark/Base-DarkStyle.css",
-          "description": "",
-          "type": "Stylesheet"
-        },
-        {
           "name": "Themes/Base-Dark/Base-Dark.theme",
           "description": "",
           "type": "ThemedValues"
+        },
+        {
+          "name": "Themes/Base-Dark/Base-DarkStyle.css",
+          "description": "",
+          "type": "Stylesheet"
         }
       ],
       "replacesThemeForControls": [],
@@ -70,6 +70,12 @@
       "url": "User Controls/BlindSelector.usercontrol"
     },
     {
+      "url": "User Controls/EcoMode.usercontrol"
+    },
+    {
+      "url": "User Controls/KitchenBlindsControl.usercontrol"
+    },
+    {
       "url": "User Controls/OfficeBlindsControl.usercontrol"
     },
     {
@@ -83,12 +89,6 @@
     },
     {
       "url": "User Controls/WindowIsOpen.usercontrol"
-    },
-    {
-      "url": "User Controls/EcoMode.usercontrol"
-    },
-    {
-      "url": "User Controls/KitchenBlindsControl.usercontrol"
     }
   ],
   "content": [
@@ -179,8 +179,8 @@
   "disableLoadingOptimization": false,
   "creatorSettings": {
     "viewport": {
-      "defaultWidth": 1920,
-      "defaultHeight": 1080
+      "defaultWidth": 0,
+      "defaultHeight": 0
     }
   },
   "binding": {
@@ -235,22 +235,23 @@
       "url": "KeyboardLayouts/US - compact.keyboard.json"
     }
   ],
+  "tcSpeech": {},
   "systemKeyboard": {
     "providerName": "",
     "projectKeyboardMapping": {
       "de": {
-        "text": "KeyboardLayouts/German - compact.keyboard.json",
-        "decimal": "KeyboardLayouts/Numpad (plusminus).keyboard.json",
+        "text": "",
+        "decimal": "",
         "numeric": ""
       },
       "en": {
-        "text": "KeyboardLayouts/US - compact.keyboard.json",
-        "decimal": "KeyboardLayouts/Numpad (plusminus).keyboard.json",
+        "text": "",
+        "decimal": "",
         "numeric": ""
       }
     }
   },
   "systemPopups": {
-    "providerName": "Beckhoff.TcHmiPopups"
+    "providerName": ""
   }
 }
