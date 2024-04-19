@@ -6,7 +6,7 @@
     <Node>
       <Title>Analogue_Power</Title>
       <Expanded>False</Expanded>
-      <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
+      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_XAE_27032024\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -214,7 +214,7 @@
     <Node>
       <Title>EnOcean Switches</Title>
       <Expanded>False</Expanded>
-      <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
+      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_XAE_27032024\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>

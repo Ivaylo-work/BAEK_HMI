@@ -556,18 +556,18 @@ ReceptionPassage_LightControl();
 				
 
 //Table Tennis Group 5**********************************************************
-LightControlGroup5_TableTennis(
-			bOn:= PTM200StrippedTables[12].Signal, 
-			bOff:= ,
-			nAddr:= 5, 
-			eAddrType:= eDALIV2AddrTypeGroup, 
-			stCommandBuffer:= stCommandBuffer);		
+//LightControlGroup5_TableTennis(
+//			bOn:= PTM200StrippedTables[12].Signal, 
+//			bOff:= ,
+//			nAddr:= 5, 
+//			eAddrType:= eDALIV2AddrTypeGroup, 
+//			stCommandBuffer:= stCommandBuffer);		
 			
-RecallMinLevelGroup5_TableTennis(
-			bStart:= PTM200StrippedTables[13].Signal, 
-			nAddr:= 5, 
-			eAddrType:= eDALIV2AddrTypeGroup, 
-			stCommandBuffer:= stCommandBuffer );
+//RecallMinLevelGroup5_TableTennis(
+//			bStart:= PTM200StrippedTables[13].Signal, 
+//			nAddr:= 5, 
+//			eAddrType:= eDALIV2AddrTypeGroup, 
+//			stCommandBuffer:= stCommandBuffer );
 TableTennisOff(
 	bStart:= , 
 	nAddr:= 55, 
