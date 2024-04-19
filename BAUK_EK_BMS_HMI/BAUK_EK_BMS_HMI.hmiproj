@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10102</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10103</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -115,6 +115,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\leaf_green.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\RedBeer.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Java Script\WindowIsOpenSubscriber.function.json">
@@ -232,9 +235,6 @@
       <DependentUpon>Functions\UpdateLanguageIcon.js</DependentUpon>
     </Content>
     <Content Include="Functions\UpdateLanguageIcon.js">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\Coffee Machine.png">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\icons_blinds_normal.svg">

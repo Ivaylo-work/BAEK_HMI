@@ -83,6 +83,110 @@
                 }
             ],
             "type": "integer"
+        },
+        "PLC1.ST_EL3403_Data": {
+            "properties": {
+                "activePower": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.01 W",
+                            "propertyOrder": 3
+                        }
+                    ]
+                },
+                "apparentPower": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.01 VA",
+                            "propertyOrder": 4
+                        }
+                    ]
+                },
+                "cosPhi": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.001",
+                            "propertyOrder": 7
+                        }
+                    ]
+                },
+                "current": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.000001 A",
+                            "propertyOrder": 1
+                        }
+                    ]
+                },
+                "frequency": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.1 Hz",
+                            "propertyOrder": 8
+                        }
+                    ]
+                },
+                "negativeEnergy": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.001 Wh",
+                            "propertyOrder": 9
+                        }
+                    ]
+                },
+                "positiveEnergy": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.001 Wh",
+                            "propertyOrder": 6
+                        }
+                    ]
+                },
+                "reactivePower": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.01 VAR",
+                            "propertyOrder": 5
+                        }
+                    ]
+                },
+                "voltage": {
+                    "allOf": [
+                        {
+                            "$ref": "tchmi:general#/definitions/REAL"
+                        },
+                        {
+                            "comment": "0.0001 V",
+                            "propertyOrder": 2
+                        }
+                    ]
+                }
+            },
+            "type": "object"
         }
     },
     "DEFLATECOMPRESSIONLEVEL": 5,
@@ -3237,6 +3341,16 @@
                         "comment": "sTopicSelectBoardroom : STRING(255) := 'Boardroom';"
                     }
                 ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.PrgMqttCom_PM_Subscriber.scaledPowerData": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::PrgMqttCom_PM_Subscriber::scaledPowerData",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.ST_EL3403_Data"
             },
             "USEMAPPING": true
         },
@@ -9234,6 +9348,7 @@
                 "PLC1.PrgMqttCom_Blinds_Publisher.bSelectBoardroom": 3,
                 "PLC1.PrgMqttCom_Blinds_Publisher.bSelectCommunalArea": 3,
                 "PLC1.PrgMqttCom_Blinds_Publisher.bSelectStaffRoom": 3,
+                "PLC1.PrgMqttCom_PM_Subscriber.scaledPowerData": 3,
                 "PLC1.SQLDB.Caffelatte": 3,
                 "PLC1.SQLDB.Cappuccino": 3,
                 "PLC1.SQLDB.Latte": 3,

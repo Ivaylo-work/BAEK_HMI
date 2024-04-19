@@ -37,16 +37,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[P_Scaling();
-BackgroundComms();
+      <ST><![CDATA[BackgroundComms();
 ADSReadCX9020();
-DataForEAP();
 EnOcean();
-SQLDB();
+//SQLDB();
 PrgMqttCom_PM_Subscriber();
 //PrgMqttCom_Blinds_Publisher();
 //CoffeePredictionML();
-MLtest();
+//MLtest();
 Dali();
 DMX();
 LightControl();
@@ -134,7 +132,7 @@ END_IF]]></ST>
       </Implementation>
     </Action>
     <LineIds Name="MAIN">
-      <LineId Id="6" Count="3" />
+      <LineId Id="7" Count="1" />
       <LineId Id="79" Count="0" />
       <LineId Id="117" Count="1" />
       <LineId Id="146" Count="0" />
