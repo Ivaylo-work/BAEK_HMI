@@ -1,34 +1,5 @@
 <div id="StaffRoom" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-height-mode="Content">
-<div id="BlindSelector_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="344" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/BlindSelector.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="461" data-tchmi-width-unit="px" data-tchmi-blindselect="%s%PLC1.BackgroundComms.BlindCommandTable.0.SelectBlindsBulkCommand.0%/s%" data-tchmi-blindselection="%s%PLC1.BackgroundComms.BlindCommandTable.0.SelectBlindsBulkCommand%/s%" data-tchmi-blinddowncommand="%s%PLC1.BackgroundComms.BlindCommandTable.0.xCommandDown%/s%" data-tchmi-blindstopcommand="%s%PLC1.BackgroundComms.BlindCommandTable.0.xCommandStop%/s%" data-tchmi-blindtiltcommand="%s%PLC1.BackgroundComms.BlindCommandTable.1.xCommandUpJog%/s%" data-tchmi-blindupcommand="%s%PLC1.BackgroundComms.BlindCommandTable.0.xCommandUp%/s%" data-tchmi-blindroomcommand="false" data-tchmi-visibility="Collapsed" data-tchmi-creator-visibility="Collapsed">
-
-
-
-
-
-<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
-[
-  {
-    "event": "BlindSelector_1.onAttached",
-    "actions": [
-      {
-        "objectType": "WriteToSymbol",
-        "active": true,
-        "symbolExpression": "%s%PLC1.PrgMqttCom_Blinds_Publisher.bSelectStaffRoom%/s%",
-        "value": {
-          "objectType": "StaticValue",
-          "valueType": "tchmi:general#/definitions/BOOL",
-          "value": true
-        },
-        "asyncWait": true
-      }
-    ]
-  }
-]
-</script>
-</div>
-<div id="RoomOccupancy_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="344" data-tchmi-height-unit="px" data-tchmi-left="481" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/RoomOccupancy.usercontrol" data-tchmi-top="10" data-tchmi-top-unit="px" data-tchmi-width="406" data-tchmi-width-unit="px" data-tchmi-occupancy_pir1="%s%PLC1..staffOccupancy1%/s%" data-tchmi-occupancy_pir2="%s%PLC1..staffOccupancy2%/s%" data-tchmi-visibility="Collapsed" data-tchmi-creator-visibility="Collapsed">
-</div>
-<div id="TcHmiGrid_1" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="720" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+<div id="TcHmiGrid_1" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="720" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-creator-visibility="Visible" data-tchmi-visibility="Visible">
 
 <script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
 [
@@ -37,7 +8,7 @@
     "widthUnit": "factor",
     "widthMode": "Value",
     "maxWidthUnit": "px",
-    "minWidth": 320.0,
+    "minWidth": 720.0,
     "minWidthUnit": "px",
     "overflow": false
   },
@@ -60,7 +31,7 @@
     "heightUnit": "factor",
     "heightMode": "Value",
     "maxHeightUnit": "px",
-    "minHeight": 320.0,
+    "minHeight": 480.0,
     "minHeightUnit": "px",
     "overflow": false
   },
@@ -69,7 +40,7 @@
     "heightUnit": "factor",
     "heightMode": "Value",
     "maxHeightUnit": "px",
-    "minHeight": 320.0,
+    "minHeight": 480.0,
     "minHeightUnit": "px",
     "overflow": false
   }
@@ -100,118 +71,10 @@
     "columnIndex": 1,
     "rowIndex": 0,
     "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
-      "leftUnit": "px",
-      "rightUnit": "px",
-      "topUnit": "px",
-      "bottomUnit": "px"
-    },
-    "backgroundImageWidthUnit": "px",
-    "backgroundImageHeightUnit": "px",
-    "backgroundImageHorizontalAlignment": "Center",
-    "backgroundImageVerticalAlignment": "Center"
-  },
-  {
-    "columnIndex": 2,
-    "rowIndex": 0,
-    "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
-      "leftUnit": "px",
-      "rightUnit": "px",
-      "topUnit": "px",
-      "bottomUnit": "px"
-    },
-    "backgroundImageWidthUnit": "px",
-    "backgroundImageHeightUnit": "px",
-    "backgroundImageHorizontalAlignment": "Center",
-    "backgroundImageVerticalAlignment": "Center"
-  },
-  {
-    "columnIndex": 3,
-    "rowIndex": 0,
-    "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
-      "leftUnit": "px",
-      "rightUnit": "px",
-      "topUnit": "px",
-      "bottomUnit": "px"
-    },
-    "backgroundImageWidthUnit": "px",
-    "backgroundImageHeightUnit": "px",
-    "backgroundImageHorizontalAlignment": "Center",
-    "backgroundImageVerticalAlignment": "Center"
-  },
-  {
-    "columnIndex": 4,
-    "rowIndex": 0,
-    "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
-      "leftUnit": "px",
-      "rightUnit": "px",
-      "topUnit": "px",
-      "bottomUnit": "px"
-    },
-    "backgroundImageWidthUnit": "px",
-    "backgroundImageHeightUnit": "px",
-    "backgroundImageHorizontalAlignment": "Center",
-    "backgroundImageVerticalAlignment": "Center"
-  },
-  {
-    "columnIndex": 5,
-    "rowIndex": 0,
-    "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
-      "leftUnit": "px",
-      "rightUnit": "px",
-      "topUnit": "px",
-      "bottomUnit": "px"
-    },
-    "backgroundImageWidthUnit": "px",
-    "backgroundImageHeightUnit": "px",
-    "backgroundImageHorizontalAlignment": "Center",
-    "backgroundImageVerticalAlignment": "Center"
-  },
-  {
-    "columnIndex": 6,
-    "rowIndex": 0,
-    "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
-      "leftUnit": "px",
-      "rightUnit": "px",
-      "topUnit": "px",
-      "bottomUnit": "px"
-    },
-    "backgroundImageWidthUnit": "px",
-    "backgroundImageHeightUnit": "px",
-    "backgroundImageHorizontalAlignment": "Center",
-    "backgroundImageVerticalAlignment": "Center"
-  },
-  {
-    "columnIndex": 7,
-    "rowIndex": 0,
-    "padding": {
-      "left": 16,
-      "right": 16,
-      "top": 16,
-      "bottom": 16,
+      "left": 0,
+      "right": 0,
+      "top": 0,
+      "bottom": 0,
       "leftUnit": "px",
       "rightUnit": "px",
       "topUnit": "px",
@@ -234,15 +97,7 @@
 <div id="OfficeBlindsControl_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/OfficeBlindsControl.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 </div>
 </div>
-<div id="TcHmiContainer_12" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
-
-<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
-[
-  "background-container"
-]
-</script>
-</div>
-<div id="TcHmiGrid_2" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-grid-column-index="0" data-tchmi-grid-row-index="1" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+<div id="TcHmiGrid_2" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 <script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
 [
   {
@@ -333,17 +188,15 @@
   }
 ]
 </script>
-<div id="TcHmiContainer_5" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="0" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+<div id="TcHmiContainer_5" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 
 <script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
 [
   "background-container"
 ]
 </script>
-
-
-
-
+<div id="RoomOccupancy_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/RoomOccupancy.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-occupancy_pir1="%s%PLC1..staffOccupancy1%/s%" data-tchmi-occupancy_pir2="%s%PLC1..staffOccupancy2%/s%" data-tchmi-visibility="Visible" data-tchmi-creator-visibility="Visible">
+</div>
 </div>
 <div id="TcHmiContainer_7" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="2" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 
@@ -353,16 +206,17 @@
 ]
 </script>
 </div>
-<div id="TcHmiContainer_6" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
-
+<div id="TcHmiContainer_6" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="0" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 <script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
 [
   "background-container"
 ]
 </script>
+<div id="EcoMode_1" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/EcoMode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 </div>
 </div>
-<div id="TcHmiGrid_3" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="1" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+</div>
+<div id="TcHmiGrid_3" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-grid-column-index="0" data-tchmi-grid-row-index="1" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 <script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
 [
   {
@@ -453,7 +307,7 @@
   }
 ]
 </script>
-<div id="TcHmiContainer_8" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+<div id="TcHmiContainer_8" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="0" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 
 <script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
 [
@@ -469,8 +323,7 @@
 ]
 </script>
 </div>
-<div id="TcHmiContainer_11" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="0" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
-
+<div id="TcHmiContainer_11" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 <script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
 [
   "background-container"

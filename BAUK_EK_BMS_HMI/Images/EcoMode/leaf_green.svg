@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" version="1.1" xml:space="preserve">
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <polyline fill="none" id="svg_2" points="   649,137.999 675,137.999 675,155.999 661,155.999  " stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+   <polyline fill="none" id="svg_3" points="   653,155.999 649,155.999 649,141.999  " stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+   <polyline fill="none" id="svg_4" points="   661,156 653,162 653,156  " stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <path d="m29.7,2.77c-0.11,-0.45 -0.51,-0.77 -0.97,-0.77c0,0 -0.01,0 -0.01,0c-5.26,0.03 -18.07,0.92 -23.24,8.38c-2.69,3.88 -2.92,8.91 -0.69,14.96c0.02,0.05 0.05,0.08 0.07,0.13c-0.79,1.97 -1.1,3.28 -1.11,3.32c-0.12,0.54 0.23,1.07 0.77,1.19c0.07,0.01 0.14,0.02 0.21,0.02c0.46,0 0.88,-0.32 0.98,-0.79c0.02,-0.1 2.57,-10.37 11.57,-16.38c0.46,-0.3 0.59,-0.92 0.28,-1.38s-0.93,-0.59 -1.39,-0.28c-5.1,3.4 -8.25,8.01 -10.1,11.65c-1.32,-4.57 -0.98,-8.37 1.05,-11.3c3.99,-5.76 13.47,-7.15 19.18,-7.45c-1.23,1.8 -2.57,5.1 -2.57,10.93c0,3.12 -0.89,5.52 -2.63,7.14c-2.8,2.59 -7.34,2.83 -10.66,2.58c-0.55,-0.04 -1.03,0.37 -1.07,0.93c-0.05,0.55 0.37,1.03 0.92,1.07c0.66,0.05 1.37,0.08 2.11,0.08c3.38,0 7.33,-0.66 10.06,-3.19c2.17,-2.01 3.27,-4.91 3.27,-8.61c0,-9.1 3.43,-11.09 3.44,-11.1c0.42,-0.21 0.64,-0.68 0.53,-1.13z" fill="#95c22b" id="svg_5"/>
+ </g>
+</svg>

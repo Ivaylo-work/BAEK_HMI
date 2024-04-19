@@ -65,6 +65,22 @@
       "frameworkUserControlConfig": "User Controls\\OfficeBlindsControl.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/OfficeBlindsControl"
+    },
+    "EcoMode": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\EcoMode.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/EcoMode"
+    },
+    "OfficeBlindsControl_-_Copy": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\KitchenBlindsControl.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/OfficeBlindsControl_-_Copy"
     }
   }
 }
