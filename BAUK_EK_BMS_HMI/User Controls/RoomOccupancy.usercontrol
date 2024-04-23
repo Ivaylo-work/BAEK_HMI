@@ -51,16 +51,16 @@
   }
 ]
 </script>
-<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="1" id="TcHmiStateImage_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiStateImage" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-state="%pp%Occupancy_PIR2%/pp%" data-tchmi-left="0">
+<div data-tchmi-grid-row-index="0" data-tchmi-grid-column-index="1" id="TcHmiStateImage_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiStateImage" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-state="%pp%Occupancy_PIR2%/pp%" data-tchmi-left="0" data-tchmi-width-mode="Value" data-tchmi-height-mode="Value">
 <script data-tchmi-target-attribute="data-tchmi-state-list" type="application/json">
 [
   {
     "state": false,
-    "stateIcon": "Images/icons_presence-detector_normal.svg"
+    "stateIcon": "Images/Room Occupancy/people-sensor-normal.svg"
   },
   {
     "state": true,
-    "stateIcon": "Images/icons_presence-detector_active.svg"
+    "stateIcon": "Images/Room Occupancy/people-sensor-active.svg"
   }
 ]
 </script>
@@ -76,17 +76,39 @@
   "color": "None"
 }
 </script>
+
+<script data-tchmi-target-attribute="data-tchmi-transform" type="application/json">
+[
+  {
+    "transformType": "Scale",
+    "x": 1.1,
+    "y": 1.1,
+    "z": 1.1
+  }
+]
+</script>
 </div>
 <div id="TcHmiStateImage" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiStateImage" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-state="%pp%Occupancy_PIR1%/pp%">
 <script data-tchmi-target-attribute="data-tchmi-state-list" type="application/json">
 [
   {
     "state": false,
-    "stateIcon": "Images/icons_presence-detector_normal.svg"
+    "stateIcon": "Images/Room Occupancy/people-sensor-normal.svg"
   },
   {
     "state": true,
-    "stateIcon": "Images/icons_presence-detector_active.svg"
+    "stateIcon": "Images/Room Occupancy/people-sensor-active.svg"
+  }
+]
+</script>
+
+<script data-tchmi-target-attribute="data-tchmi-transform" type="application/json">
+[
+  {
+    "transformType": "Scale",
+    "x": 1.1,
+    "y": 1.1,
+    "z": 1.1
   }
 ]
 </script>

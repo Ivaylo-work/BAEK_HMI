@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10104</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10105</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -120,6 +120,12 @@
     <Content Include="Images\RedBeer.png">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\Room Occupancy\people-sensor-active.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Room Occupancy\people-sensor-normal.svg">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\Tennis Table\ping-pong-table-tennis-black.svg">
       <SubType>Content</SubType>
     </Content>
@@ -160,6 +166,13 @@
     <Content Include="User Controls\BlindSelector.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>User Controls\BlindSelector.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="User Controls\Current.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\Current.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\Current.usercontrol</DependentUpon>
     </Content>
     <Content Include="User Controls\EcoMode.usercontrol">
       <SubType>Content</SubType>
@@ -229,6 +242,7 @@
     <Folder Include="Images" />
     <Folder Include="Images\Manifest" />
     <Folder Include="Images\EcoMode" />
+    <Folder Include="Images\Room Occupancy" />
     <Folder Include="Images\Tennis Table" />
     <Folder Include="Images\PLC\" />
     <Folder Include="Images\TwinCAT\" />

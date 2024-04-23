@@ -5,7 +5,7 @@
   <Children>
     <Node>
       <Title>Analogue_Power</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
       <Children>
         <Node>
@@ -27,6 +27,12 @@
             </Node>
             <Node>
               <Title>BusyOffice (2)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>current</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -77,17 +83,17 @@
         </Node>
         <Node>
           <Title>Current</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Current</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
                   <Title>Current</Title>
-                  <Expanded>False</Expanded>
+                  <Expanded>True</Expanded>
                   <FileName></FileName>
                   <Children>
                     <Node>
@@ -177,7 +183,7 @@
         </Node>
         <Node>
           <Title>Frequency</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -323,7 +329,7 @@
     </Node>
     <Node>
       <Title>EnOcean Switches</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
       <Children>
         <Node>
@@ -358,7 +364,7 @@
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>

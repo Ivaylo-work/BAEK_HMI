@@ -250,7 +250,7 @@
         "TcHmiScope": {
             "ENABLED": true,
             "NAME": "TcHmiScope",
-            "PATH": "..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.14.1.114\\runtimes\\win\\net472\\",
+            "PATH": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.14.1.114\\runtimes\\win\\net472\\",
             "REQUIRED": false,
             "STARTUPTYPE": 1
         },
@@ -2908,6 +2908,16 @@
                         }
                     }
                 ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1..diCurrent": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::.diCurrent",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/DINT"
             },
             "USEMAPPING": true
         },
@@ -9474,6 +9484,7 @@
                 "PLC1..boardOccupancy2": 3,
                 "PLC1..communalOccupancy1": 3,
                 "PLC1..communalOccupancy2": 3,
+                "PLC1..diCurrent": 3,
                 "PLC1..diFrequency": 3,
                 "PLC1..staffOccupancy1": 3,
                 "PLC1..staffOccupancy2": 3,
