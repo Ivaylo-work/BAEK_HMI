@@ -28,6 +28,30 @@
     "DEFAULTTIMEZONE": "client",
     "DEFAULTUSERGROUP": "__SystemUsers",
     "DEFINITIONS": {
+        "PLC1.ARRAY_0..1_OF-BOOL": {
+            "items": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+        },
+        "PLC1.ARRAY_0..2_OF-BOOL": {
+            "items": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+        },
+        "PLC1.ARRAY_0..50_OF-STRING-80": {
+            "items": {
+                "$ref": "tchmi:general#/definitions/STRING%2880%29"
+            },
+            "maxItems": 51,
+            "minItems": 51,
+            "type": "array"
+        },
         "PLC1.ARRAY_1..16_OF-BOOL": {
             "items": {
                 "$ref": "tchmi:general#/definitions/BOOL"
@@ -3200,6 +3224,36 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.BackgroundComms.BoardroomBlindSellection": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::BackgroundComms::BoardroomBlindSellection",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.ARRAY_0..1_OF-BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.BackgroundComms.KitchenBlindSelection": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::BackgroundComms::KitchenBlindSelection",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.BackgroundComms.OfficeBlindSellection": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::BackgroundComms::OfficeBlindSellection",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.ARRAY_0..2_OF-BOOL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.EnOcean.AllWindowsClosed": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -3210,6 +3264,52 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.LightControl.AllLightsOff": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::AllLightsOff",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.LightControl.BoardRoomTime.Q": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::BoardRoomTime::Q",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "gets TRUE, delay time (PT) after a rising edge at IN",
+                        "propertyOrder": 3
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.LightControl.DeskAreaTime.Q": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::DeskAreaTime::Q",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "gets TRUE, delay time (PT) after a rising edge at IN",
+                        "propertyOrder": 3
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
         "PLC1.LightControl.GoHomeHoldActivated": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -3217,6 +3317,24 @@
             "MAPPING": "PLC1::LightControl::GoHomeHoldActivated",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.LightControl.OfficeTimer.Q": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::OfficeTimer::Q",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "gets TRUE, delay time (PT) after a rising edge at IN",
+                        "propertyOrder": 3
+                    }
+                ]
             },
             "USEMAPPING": true
         },
@@ -3550,6 +3668,46 @@
             "MAPPING": "PLC1::SQLDB::singleES",
             "SCHEMA": {
                 "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.TableTennisScoreCounter.gameMode5s": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::TableTennisScoreCounter::gameMode5s",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.TableTennisScoreCounter.nPlayerOne": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::TableTennisScoreCounter::nPlayerOne",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/INT"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.TableTennisScoreCounter.nPlayerTwo": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::TableTennisScoreCounter::nPlayerTwo",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/INT"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.TableTennisScoreCounter.sPlayerList": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::TableTennisScoreCounter::sPlayerList",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.ARRAY_0..50_OF-STRING-80"
             },
             "USEMAPPING": true
         },
@@ -9335,8 +9493,15 @@
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandStop": 3,
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandUp": 3,
                 "PLC1.BackgroundComms.BlindCommandTable.2.xCommandUpJog": 3,
+                "PLC1.BackgroundComms.BoardroomBlindSellection": 3,
+                "PLC1.BackgroundComms.KitchenBlindSelection": 3,
+                "PLC1.BackgroundComms.OfficeBlindSellection": 3,
                 "PLC1.EnOcean.AllWindowsClosed": 3,
+                "PLC1.LightControl.AllLightsOff": 3,
+                "PLC1.LightControl.BoardRoomTime.Q": 3,
+                "PLC1.LightControl.DeskAreaTime.Q": 3,
                 "PLC1.LightControl.GoHomeHoldActivated": 3,
+                "PLC1.LightControl.OfficeTimer.Q": 3,
                 "PLC1.LightControl.xBoardToom_Lights_ProjectorMode": 3,
                 "PLC1.LightControl.xBoardToom_Lights_ShowroomMode": 3,
                 "PLC1.MLtest.iDataOut": 3,
@@ -9364,6 +9529,10 @@
                 "PLC1.SQLDB.fbLatchSingleES.invertOutput": 3,
                 "PLC1.SQLDB.flatWhite": 3,
                 "PLC1.SQLDB.singleES": 3,
+                "PLC1.TableTennisScoreCounter.gameMode5s": 3,
+                "PLC1.TableTennisScoreCounter.nPlayerOne": 3,
+                "PLC1.TableTennisScoreCounter.nPlayerTwo": 3,
+                "PLC1.TableTennisScoreCounter.sPlayerList": 3,
                 "SetLocale": 3,
                 "SubscribeEvents": 3,
                 "TcHmiEcDiagnostics.Diagnostics": 1,

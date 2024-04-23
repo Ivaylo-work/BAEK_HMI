@@ -55,7 +55,7 @@
     "heightUnit": "factor",
     "heightMode": "Value",
     "maxHeightUnit": "px",
-    "minHeight": 480.0,
+    "minHeight": 490.0,
     "minHeightUnit": "px",
     "overflow": false
   },
@@ -110,7 +110,7 @@
   "background-container"
 ]
 </script>
-<div id="EcoMode_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/EcoMode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+<div id="Showroom_Mode_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/Showroom Mode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 </div>
 </div>
 <div id="TcHmiContainer_21" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
@@ -120,7 +120,7 @@
   "background-container"
 ]
 </script>
-<div id="RoomOccupancy_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/RoomOccupancy.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-occupancy_pir1="%s%PLC1..boardOccupancy1%/s%" data-tchmi-occupancy_pir2="%s%PLC1..boardOccupancy2%/s%" data-tchmi-visibility="Visible">
+<div id="EcoMode_Boardroom" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/EcoMode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 </div>
 </div>
 <div id="TcHmiContainer_22" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="2" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
@@ -130,6 +130,8 @@
   "background-container"
 ]
 </script>
+<div id="Projector_Mode_2" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/Projector Mode.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+</div>
 </div>
 
 <script data-tchmi-target-attribute="data-tchmi-cell-options" type="application/json">
@@ -231,6 +233,8 @@
   "background-container"
 ]
 </script>
+<div id="RoomOccupancy_3" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/RoomOccupancy.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-occupancy_pir1="%s%PLC1..boardOccupancy1%/s%" data-tchmi-occupancy_pir2="%s%PLC1..boardOccupancy2%/s%" data-tchmi-visibility="Visible">
+</div>
 </div>
 <div id="TcHmiContainer_24" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-grid-column-index="1" data-tchmi-grid-row-index="0" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
 
@@ -315,7 +319,7 @@
   "background-container"
 ]
 </script>
-<div id="OfficeBlindsControl_5" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/BoardroomBlindsControl.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%">
+<div id="OfficeBlindsControl_5" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControlHost" data-tchmi-height="100" data-tchmi-height-unit="%" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-target-user-control="User Controls/BoardroomBlindsControl.usercontrol" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-blindselector="%s%PLC1.BackgroundComms.BoardroomBlindSellection%/s%" data-tchmi-blindupcommand="%s%PLC1.BackgroundComms.BlindCommandTable.1.xCommandUp%/s%" data-tchmi-blinddowncommand="%s%PLC1.BackgroundComms.BlindCommandTable.1.xCommandDown%/s%" data-tchmi-blindstopcommand="%s%PLC1.BackgroundComms.BlindCommandTable.1.xCommandStop%/s%" data-tchmi-blindtiltcommand="%s%PLC1.BackgroundComms.BlindCommandTable.1.xCommandUpJog%/s%">
 </div>
 </div>
 
@@ -360,4 +364,37 @@
 ]
 </script>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "Boardroom.onAttached",
+    "actions": [
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.BAUK_EK_BMS_HMI.EcoModeHandler",
+        "fnParams": [
+          {
+            "objectType": "StaticValue",
+            "valueType": "tchmi:general#/definitions/String",
+            "value": "EcoMode_Boardroom"
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
 </div>

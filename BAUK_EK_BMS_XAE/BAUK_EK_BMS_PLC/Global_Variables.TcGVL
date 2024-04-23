@@ -87,7 +87,7 @@ VAR_GLOBAL
 	FBDALIV2QueryLightState					:	ARRAY [0..57] 	OF FB_DALIV2QueryLampPowerOn;
 	tLightTable								:	ARRAY [0..57] 	OF LightTable;
 	
-	BlindCX7000UserTable					:	ARRAY [0..2] 	OF StructBlindControl;
+	BlindCX7000UserTable					: 	ARRAY [0..2] 	OF StructBlindControl := [(JogTimeInt:=3000)];
 	BlindCommandTable 				AT%MB0	:	ARRAY [0..19] 	OF UINT;		
 
 	CP67BoardRoomLightsOn			AT%MB40	:	BYTE;

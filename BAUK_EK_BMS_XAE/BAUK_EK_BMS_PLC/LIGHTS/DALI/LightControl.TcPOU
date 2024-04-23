@@ -193,6 +193,7 @@ VAR
 	IgnoreFront								:	BOOL;
 	
 	CouchLightStepUp: BOOL;
+	AllLightsOff: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -335,6 +336,7 @@ IF PTM200StrippedTables[5].Signal THEN  // hold in to turn off all before going 
 			IF GoHomeHold.Q THEN
 				GoHomeHold.IN := FALSE;	
 				GoHomeHoldActivated := TRUE;
+				AllLightsOff := TRUE;
 			END_IF	
 		xSleepMode := TRUE;		
 		
@@ -569,7 +571,7 @@ ReceptionPassage_LightControl();
 //			eAddrType:= eDALIV2AddrTypeGroup, 
 //			stCommandBuffer:= stCommandBuffer );
 TableTennisOff(
-	bStart:= , 
+	bStart:= TRUE, 
 	nAddr:= 55, 
 	eAddrType:= eDALIV2AddrTypeShort,  
 	stCommandBuffer:= stCommandBuffer);
@@ -795,7 +797,7 @@ IF NOT IgnoreFront THEN
 		ReceptionDoorTriggerOFF		:= FALSE;
 		ReceptionDoorTime.IN		:= FALSE;
 		TurnOnCabinetLights			:= TRUE;
-		
+		AllLightsOff				:= FALSE;
 	END_IF
 	
 	IF NOT Dali.CommunalAreaPIR_1_Occupancy  THEN
@@ -848,7 +850,9 @@ END_IF
       </Implementation>
     </Action>
     <LineIds Name="LightControl">
-      <LineId Id="4453" Count="403" />
+      <LineId Id="4453" Count="138" />
+      <LineId Id="5198" Count="0" />
+      <LineId Id="4592" Count="264" />
       <LineId Id="4909" Count="95" />
       <LineId Id="75" Count="0" />
     </LineIds>

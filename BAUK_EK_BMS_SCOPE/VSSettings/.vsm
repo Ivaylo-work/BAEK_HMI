@@ -6,13 +6,31 @@
     <Node>
       <Title>Analogue_Power</Title>
       <Expanded>False</Expanded>
-      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_XAE_27032024\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
+      <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
+            <Node>
+              <Title>BusyOffice</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>BusyOffice (1)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>BusyOffice (2)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
             <Node>
               <Title>diScaledActivePower</Title>
               <Expanded>False</Expanded>
@@ -204,6 +222,98 @@
           </Children>
         </Node>
         <Node>
+          <Title>YT Chart</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (1)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>BusyOffice</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (1)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (2)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>BusyOffice (1)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (2)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (3)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>BusyOffice (2)</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>Trigger</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children />
+        </Node>
+      </Children>
+    </Node>
+    <Node>
+      <Title>Blinds</Title>
+      <Expanded>False</Expanded>
+      <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Blinds.tcscopex</FileName>
+      <Children>
+        <Node>
+          <Title>DataPool</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children />
+        </Node>
+        <Node>
+          <Title>YT Chart</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+          </Children>
+        </Node>
+        <Node>
           <Title>Trigger</Title>
           <Expanded>False</Expanded>
           <FileName></FileName>
@@ -213,8 +323,8 @@
     </Node>
     <Node>
       <Title>EnOcean Switches</Title>
-      <Expanded>False</Expanded>
-      <FileName>C:\Users\Ivayloi\Documents\Office\Building Automation\BAUK_EK_BMS_XAE_27032024\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -248,7 +358,7 @@
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>

@@ -12,6 +12,9 @@
     <Content Include="Analogue_Power.tcscopex">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Blinds.tcscopex">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="EnOcean Switches.tcscopex">
       <SubType>Content</SubType>
     </Content>

@@ -34,6 +34,7 @@ VAR
 		
 	fbBlindsStretch						: BlindStretch;
 
+	hmiStrech: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -110,7 +111,7 @@ IF bStretchDone THEN
 	bStretch := FALSE;
 END_IF
 	
-fbBlindsStretch(Start:= bStretch, StretchDone:= bStretchDone,Err=> );
+fbBlindsStretch(Start:= bStretch AND hmiStrech, StretchDone:= bStretchDone,Err=> );
 
 HowOftenTimer();
 

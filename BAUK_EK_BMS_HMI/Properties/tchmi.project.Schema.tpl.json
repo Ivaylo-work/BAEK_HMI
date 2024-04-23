@@ -63,8 +63,8 @@
       "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
       "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
       "frameworkUserControlConfig": "User Controls\\OfficeBlindsControl.usercontrol.json",
-      "type": "object",
-      "id": "tchmi:project#/definitions/OfficeBlindsControl"
+      "id": "tchmi:project#/definitions/OfficeBlindsControl",
+      "type": "object"
     },
     "EcoMode": {
       "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
@@ -81,6 +81,46 @@
       "frameworkUserControlConfig": "User Controls\\KitchenBlindsControl.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/OfficeBlindsControl_-_Copy"
+    },
+    "Array(0..2) OF BOOL": {
+      "items": {
+        "$ref": "tchmi:general#/definitions/BOOL"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "KitchenBlindsControl": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\KitchenBlindsControl.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/KitchenBlindsControl"
+    },
+    "Array(0..1) OF BOOL": {
+      "items": {
+        "$ref": "tchmi:general#/definitions/BOOL"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "BoardroomBlindsControl": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\BoardroomBlindsControl.usercontrol.json",
+      "id": "tchmi:project#/definitions/BoardroomBlindsControl",
+      "type": "object"
+    },
+    "TableTennisCounter": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\TableTennisCounter.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TableTennisCounter"
     }
   }
 }

@@ -8,7 +8,8 @@ END_VAR
 VAR_OUTPUT              	  
 	Err						: BOOL;
 END_VAR                 	  
-VAR                     	  
+VAR               
+	UpdateInterval			:BYTE;      	  
 	fbBlindsControl			: BlindControl;
 	GetBusyBitOffice		: ADSREADEX := ( NETID := '5.129.86.232.1.1', PORT := 851, TMOUT := T#5S );
 	GetBusyBitKitchen		: ADSREADEX := ( NETID := '5.129.86.232.1.1', PORT := 851, TMOUT := T#5S );
@@ -32,18 +33,16 @@ VAR_IN_OUT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF Start THEN
+      <ST><![CDATA[UpdateInterval := UpdateInterval + 1;
 
-CASE nState OF
-	0: //Check Busy state if busy for 30+s 100 err or 10
 		GetBusyBitOffice(
 			NETID:= '5.129.86.232.1.1',
 			PORT:= 851 ,
 			IDXGRP:=16#4040,//16#4020 ,
-			IDXOFFS:= 16#6AB61,//0,
+			IDXOFFS:= 16#6B7F9,//0,
 			LEN:= 4,//40,
 			DESTADDR:= ADR(BusyOffice),
-			READ:= TRUE,
+			READ:= UpdateInterval.0,
 			TMOUT:= t#5s,
 			BUSY=> ,
 			ERR=> ,
@@ -54,10 +53,10 @@ CASE nState OF
 			NETID:= '5.129.86.232.1.1',
 			PORT:= 851 ,
 			IDXGRP:=16#4040,//16#4020 ,
-			IDXOFFS:= 16#6AB81,//0,
+			IDXOFFS:= 16#6B819,//0,
 			LEN:= 4,//40,
 			DESTADDR:= ADR(BusyKitchen),
-			READ:= TRUE,
+			READ:= UpdateInterval.0,
 			TMOUT:= t#5s,
 			BUSY=> ,
 			ERR=> ,
@@ -68,16 +67,22 @@ CASE nState OF
 			NETID:= '5.129.86.232.1.1',
 			PORT:= 851 ,
 			IDXGRP:=16#4040,//16#4020 ,
-			IDXOFFS:= 16#6AB81,//0,
+			IDXOFFS:= 16#6B839,//0,
 			LEN:= 4,//40,
 			DESTADDR:= ADR(BusyBoardroom),
-			READ:= TRUE,
+			READ:= UpdateInterval.0,
 			TMOUT:= t#5s,
 			BUSY=> ,
 			ERR=> ,
 			ERRID=> ,
 			COUNT_R=> );
 		
+
+IF Start THEN
+
+CASE nState OF
+	0: //Check Busy state if busy for 30+s 100 err or 10
+
 		
 		BlindSelector := 0;
 		nState := 10;
@@ -210,14 +215,23 @@ CASE nState OF
 	20://Strech up for X seconds
 		TonUpCommand.IN := TRUE;
 		TonUpCommand.PT := T#90S;
+
 		BlindCX7000UserTable[BlindSelector].xCommandUp := TRUE;
+		IF(BusyOffice) THEN
+			BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
+		END_IF
+		
 		IF TonUpCommand.Q THEN
 			BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
 			BlindCX7000UserTable[BlindSelector].xCommandStop := TRUE;
-			TonUpCommand.IN := FALSE;
-			nState := 21;
+			IF(BusyOffice) THEN
+				BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
+			END_IF
+			BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
+			//TonUpCommand.IN := FALSE;
+			//nState := 21;
 		END_IF
-//		nState := 21;
+
 	21://Check if busy
 		IF BlindSelector = 0 THEN
 			IF NOT BusyOffice THEN
@@ -235,10 +249,13 @@ CASE nState OF
 	30://Strech down for Y seconds
 		TonDownCommand.IN := TRUE;
 		TonDownCommand.PT := T#90S;
+		//BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
 		BlindCX7000UserTable[BlindSelector].xCommandDown := TRUE;
+		BlindCX7000UserTable[BlindSelector].xCommandDown := FALSE;
 		IF TonDownCommand.Q THEN
 			BlindCX7000UserTable[BlindSelector].xCommandDown := FALSE;
 			BlindCX7000UserTable[BlindSelector].xCommandStop := TRUE;
+			BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
 			TonDownCommand.IN := FALSE;
 			nState := 31;
 		END_IF
@@ -260,10 +277,13 @@ CASE nState OF
 	40://Strech up for X seconds
 		TonUpCommand.IN := TRUE;
 		TonUpCommand.PT := T#30S;
+		BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
 		BlindCX7000UserTable[BlindSelector].xCommandUp := TRUE;
+		BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
 		IF TonUpCommand.Q THEN
 			BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
 			BlindCX7000UserTable[BlindSelector].xCommandStop := TRUE;
+			BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
 			TonUpCommand.IN := FALSE;
 			nState := 41;
 		END_IF
@@ -302,20 +322,26 @@ TonUpCommand();
 TonDownCommand();]]></ST>
     </Implementation>
     <LineIds Name="BlindStretch">
+      <LineId Id="426" Count="0" />
+      <LineId Id="430" Count="41" />
+      <LineId Id="429" Count="0" />
+      <LineId Id="427" Count="0" />
       <LineId Id="51" Count="0" />
-      <LineId Id="53" Count="44" />
+      <LineId Id="53" Count="2" />
+      <LineId Id="97" Count="0" />
       <LineId Id="350" Count="0" />
       <LineId Id="293" Count="0" />
       <LineId Id="111" Count="2" />
       <LineId Id="280" Count="2" />
       <LineId Id="284" Count="8" />
       <LineId Id="114" Count="1" />
-      <LineId Id="247" Count="15" />
-      <LineId Id="131" Count="0" />
+      <LineId Id="396" Count="16" />
       <LineId Id="264" Count="15" />
       <LineId Id="263" Count="0" />
       <LineId Id="296" Count="1" />
-      <LineId Id="132" Count="17" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="380" Count="15" />
+      <LineId Id="133" Count="0" />
       <LineId Id="347" Count="0" />
       <LineId Id="305" Count="14" />
       <LineId Id="304" Count="0" />
@@ -326,17 +352,36 @@ TonDownCommand();]]></ST>
       <LineId Id="348" Count="0" />
       <LineId Id="324" Count="16" />
       <LineId Id="323" Count="0" />
-      <LineId Id="167" Count="6" />
+      <LineId Id="167" Count="2" />
+      <LineId Id="417" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="428" Count="0" />
+      <LineId Id="472" Count="1" />
+      <LineId Id="418" Count="0" />
+      <LineId Id="171" Count="2" />
+      <LineId Id="475" Count="1" />
+      <LineId Id="474" Count="0" />
       <LineId Id="345" Count="0" />
+      <LineId Id="421" Count="0" />
       <LineId Id="298" Count="0" />
       <LineId Id="174" Count="0" />
       <LineId Id="299" Count="0" />
-      <LineId Id="175" Count="20" />
+      <LineId Id="175" Count="16" />
+      <LineId Id="413" Count="0" />
+      <LineId Id="192" Count="0" />
+      <LineId Id="423" Count="0" />
+      <LineId Id="193" Count="2" />
+      <LineId Id="420" Count="0" />
       <LineId Id="344" Count="0" />
       <LineId Id="301" Count="0" />
       <LineId Id="196" Count="0" />
       <LineId Id="300" Count="0" />
-      <LineId Id="197" Count="20" />
+      <LineId Id="197" Count="16" />
+      <LineId Id="415" Count="0" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="424" Count="0" />
+      <LineId Id="215" Count="2" />
+      <LineId Id="422" Count="0" />
       <LineId Id="349" Count="0" />
       <LineId Id="302" Count="0" />
       <LineId Id="218" Count="0" />

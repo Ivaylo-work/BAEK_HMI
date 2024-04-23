@@ -11,7 +11,7 @@ VAR
 	sPlayerOne			:	STRING;
 	sPlayerTwo			:	STRING;
 	
-	sPlayerList: ARRAY [0..nMaxTableLength] OF STRING := ['Adam', 'Alan', 'Astrid', 'Jamie', 'Guest'];
+	sPlayerList: ARRAY [0..nMaxTableLength] OF STRING := ['Adam', 'Alan', 'Astrid', 'Jamie', 'Ivo', 'Guest'];
 		
 	sWinner 			: 	STRING;	
 	
@@ -23,6 +23,7 @@ VAR
 	rtResetOne			:	R_TRIG;
 	rtResetTwo			:	R_TRIG;
 	
+	gameMode5s			:	BOOL;
 	
 	i: INT;
 END_VAR
@@ -49,6 +50,12 @@ END_IF
 
 IF rtResetTwo.Q THEN
 	nPlayerTwo := 0;
+END_IF
+
+IF gameMode5s THEN
+	Play5s();
+ELSE
+	Play11s();
 END_IF
 
 nPlayerScoreDiff := ABS(nPlayerOne - nPlayerTwo);
@@ -80,6 +87,16 @@ END_FOR
 
 ]]></ST>
     </Implementation>
+    <Action Name="Play11s" Id="{dc62f77a-2645-45c3-84aa-a9111567b17c}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Play5s" Id="{3f4e4df5-95f4-4973-8294-4fd554bd3829}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
     <LineIds Name="TableTennisScoreCounter">
       <LineId Id="10" Count="0" />
       <LineId Id="37" Count="0" />
@@ -97,6 +114,10 @@ END_FOR
       <LineId Id="51" Count="0" />
       <LineId Id="20" Count="0" />
       <LineId Id="68" Count="2" />
+      <LineId Id="185" Count="1" />
+      <LineId Id="188" Count="0" />
+      <LineId Id="190" Count="1" />
+      <LineId Id="189" Count="0" />
       <LineId Id="73" Count="0" />
       <LineId Id="78" Count="1" />
       <LineId Id="21" Count="0" />
@@ -118,6 +139,12 @@ END_FOR
       <LineId Id="122" Count="3" />
       <LineId Id="26" Count="2" />
       <LineId Id="12" Count="0" />
+    </LineIds>
+    <LineIds Name="TableTennisScoreCounter.Play11s">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="TableTennisScoreCounter.Play5s">
+      <LineId Id="1" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

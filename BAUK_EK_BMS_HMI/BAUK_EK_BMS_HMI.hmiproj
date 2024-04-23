@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10103</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10104</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -105,19 +105,39 @@
   <Target Name="Clean" DependsOnTargets="$(CleanDependsOn)" />
   <Target Name="ReBuild" DependsOnTargets="Clean; Build" />
   <ItemGroup>
+    <Content Include="Images\EcoMode\leaf.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\EcoMode\leaf_green.svg">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\icons_presence-detector_active.svg">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\icons_presence-detector_normal.svg">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Images\leaf.svg">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="Images\leaf_green.svg">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Images\RedBeer.png">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Tennis Table\ping-pong-table-tennis-black.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Tennis Table\ping-pong-table-tennis-white.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Java Script\EcoModeHandler.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Java Script\EcoModeHandler.js</DependentUpon>
+    </Content>
+    <Content Include="Java Script\EcoModeHandler.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Java Script\TennisTableHandler.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Java Script\TennisTableHandler.js</DependentUpon>
+    </Content>
+    <Content Include="Java Script\TennisTableHandler.js">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Java Script\WindowIsOpenSubscriber.function.json">
@@ -190,6 +210,13 @@
       <SubType>Content</SubType>
       <DependentUpon>User Controls\Showroom Mode.usercontrol</DependentUpon>
     </Content>
+    <Content Include="User Controls\TableTennisCounter.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\TableTennisCounter.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\TableTennisCounter.usercontrol</DependentUpon>
+    </Content>
     <Content Include="User Controls\WindowIsOpen.usercontrol">
       <SubType>Content</SubType>
     </Content>
@@ -201,6 +228,8 @@
     <Folder Include="Functions\" />
     <Folder Include="Images" />
     <Folder Include="Images\Manifest" />
+    <Folder Include="Images\EcoMode" />
+    <Folder Include="Images\Tennis Table" />
     <Folder Include="Images\PLC\" />
     <Folder Include="Images\TwinCAT\" />
     <Folder Include="Imports" />

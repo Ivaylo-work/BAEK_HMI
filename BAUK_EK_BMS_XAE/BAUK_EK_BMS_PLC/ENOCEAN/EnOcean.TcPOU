@@ -12,10 +12,11 @@ VAR
 	STEnOceanOutData	AT %Q* 			:		ST_EnOceanOutData;
 	
 	//EnOcean Socket FBs
-	fbXplanarScreenPower					:		FB_Send_RPS_Switch; //KL6581 Send Enocen Signals
+	fbXplanarScreenPower				:		FB_Send_RPS_Switch; //KL6581 Send Enocen Signals
 	
-
-		
+	OpenTennisHMI						:		TON :=(PT := T#2S);;
+	TennisHMIOpened						: 		BOOL;	
+	
 	TEST : ARRAY [0..3] OF BYTE;
 	
 	i: INT;
@@ -25,6 +26,8 @@ VAR
 	ctudCountWindows				:	ARRAY [0..5] OF CTUD;
 	numberOfWindowsOpenTemp			:	ARRAY [0..5] OF WORD;
 	totalNumberOfWindowsOpen		:	WORD;
+	
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[//FB_KL6581 - Control EnOcean Terminal for transmitting 
@@ -64,10 +67,10 @@ PTM200StrippedTables[8].Signal := FBEnOceanPTM200[2].bSwitches[0]; //Floating Sw
 PTM200StrippedTables[9].Signal := FBEnOceanPTM200[2].bSwitches[1]; //Floating Switch 
 PTM200StrippedTables[10].Signal := FBEnOceanPTM200[2].bSwitches[2]; //Floating Switch 
 PTM200StrippedTables[11].Signal := FBEnOceanPTM200[2].bSwitches[3]; //Floating Switch 
-PTM200StrippedTables[12].Signal := FBEnOceanPTM200[3].bSwitches[0]; //Floating Switch 
-PTM200StrippedTables[13].Signal := FBEnOceanPTM200[3].bSwitches[1]; //Floating Switch 
-PTM200StrippedTables[14].Signal := FBEnOceanPTM200[3].bSwitches[2]; //Floating Switch 
-PTM200StrippedTables[15].Signal := FBEnOceanPTM200[3].bSwitches[3]; //Floating Switch 
+PTM200StrippedTables[12].Signal := FBEnOceanPTM200[3].bSwitches[0]; //Tennis Table Left Bottom 
+PTM200StrippedTables[13].Signal := FBEnOceanPTM200[3].bSwitches[1]; //Tennis Table Right Bottom  
+PTM200StrippedTables[14].Signal := FBEnOceanPTM200[3].bSwitches[2]; //Tennis Table Left Top  
+PTM200StrippedTables[15].Signal := FBEnOceanPTM200[3].bSwitches[3]; //Tennis Table Right Top  
 
 
 //Window States
@@ -171,10 +174,23 @@ END_IF
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
+TableTennisSwitchHandling();
 
 		]]></ST>
     </Implementation>
+    <Action Name="TableTennisSwitchHandling" Id="{5f929d36-fa5b-4b95-b11c-585dbc243666}">
+      <Implementation>
+        <ST><![CDATA[IF PTM200StrippedTables[12].Signal THEN  // hold in to turn off all before going home
+	
+	OpenTennisHMI.IN := TRUE;		
+	IF OpenTennisHMI.Q THEN
+		OpenTennisHMI.IN := FALSE;	
+		TennisHMIOpened := TRUE;
+	END_IF	
+				
+END_IF]]></ST>
+      </Implementation>
+    </Action>
     <LineIds Name="EnOcean">
       <LineId Id="563" Count="0" />
       <LineId Id="7" Count="0" />
@@ -259,6 +275,13 @@ END_IF
       <LineId Id="181" Count="1" />
       <LineId Id="598" Count="0" />
       <LineId Id="174" Count="0" />
+    </LineIds>
+    <LineIds Name="EnOcean.TableTennisSwitchHandling">
+      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="1" />
+      <LineId Id="8" Count="3" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="1" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

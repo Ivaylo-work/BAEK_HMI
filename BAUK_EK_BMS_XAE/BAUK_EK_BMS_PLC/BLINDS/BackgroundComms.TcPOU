@@ -15,6 +15,12 @@ VAR
 	i							:				INT;
 
 	BlindCommandTable 			:		ARRAY [0..2] OF StructBlindControl := [(JogTimeInt:=3000)];
+	
+	OfficeBlindSellection		:		ARRAY [0..2] OF BOOL;
+	
+	KitchenBlindSelection		:		BOOL;
+	
+	BoardroomBlindSellection	:		ARRAY [0..1] OF BOOL;
 
 	StaffRoomTempDownButton		:		BOOL;
 	StaffRoomTempUpButton		:		BOOL;
@@ -26,12 +32,12 @@ VAR
 
 	UseStaffRoomVisu 			: 		BOOL;
 
-	Up:BOOL;
-	Down:BOOL;
+	Up							:		BOOL;
+	Down						:		BOOL;
 
-	rtBlindsBoardRoomUp					:		R_TRIG;
-	rtBlindsBoardRoomDown				:		R_TRIG;
-	rtBlindsBoardRoomStop				:		R_TRIG;
+	rtBlindsBoardRoomUp			:		R_TRIG;
+	rtBlindsBoardRoomDown		:		R_TRIG;
+	rtBlindsBoardRoomStop		:		R_TRIG;
 
 
 	rtBlindsOfficeAreaWall1_3				:		R_TRIG;
@@ -123,89 +129,145 @@ IF rtBlindsBoardRoomUp.Q THEN
 	BlindCommandTable[1].xCommandUp := TRUE;
 END_IF
 
-
-
-
-	(*Boardroom Blind Modes***********************************************************************)
+(*Desk Area Blinds selection******************************************************************)
+(*Select Office Blinds for End Wall and combitanions*)
+IF OfficeBlindSellection[0] THEN
+	SetOfficeAreaBlinds1_3();
 	
-	(*Board Room Privacy Mode *)
-	rtBoardRoom_PrivacyMode(CLK:= BoardRoom_PrivacyMode , Q=> );
-	IF rtBoardRoom_PrivacyMode.Q THEN
-		SetBoardRoomBlinds1_7();
-		BlindCommandTable[1].xCommandDown := TRUE;
-		BoardRoom_PrivacyMode	:= FALSE;
+	IF OfficeBlindSellection[2] THEN
+		SetOfficeAreaBlinds1_3_10_13();
 	END_IF
 	
-	(*Board Room Scenery Mode *)
-	rtBoardRoom_SceneryMode(CLK:= BoardRoom_SceneryMode , Q=> );
-	IF rtBoardRoom_SceneryMode.Q THEN
-		SetBoardRoomBlinds8_16();
-		BlindCommandTable[1].xCommandUp := TRUE;
-		BoardRoom_SceneryMode	:= FALSE;
-	END_IF
-	
-	(*Board Room Projector Mode *)
-	rtBoardRoom_ProjectorMode(CLK:= BoardRoom_ProjectorMode , Q=> );
-	IF rtBoardRoom_ProjectorMode.Q THEN
-		SetBoardroomAreaBlindsAll();
-		BlindCommandTable[1].xCommandDown := TRUE;
-		BoardRoom_ProjectorMode	:= FALSE;
-	END_IF
-	
-	(*Meeting Room  Mode *)
-	rtBoardRoom_ProjectorMode(CLK:= BoardRoom_ProjectorMode , Q=> );
-	IF rtBoardRoom_ProjectorMode.Q THEN
-		SetBoardRoomBlinds1_7();
-		BlindCommandTable[1].xCommandDown := TRUE;
-		BoardRoom_ProjectorMode	:= FALSE;
-	END_IF
-	
-	
-	(*Desk Area Blind Modes***********************************************************************)
-	
-	(* Desk Area Privacy Mode*)
-	rtDeskArea_PrivacyMode(CLK:= DeskArea_PrivacyMode OR PassADSBlindInfo[8].0  , Q=> );
-	IF rtDeskArea_PrivacyMode.Q THEN
-		SetOfficeAreaBlinds10_13();
-		BlindCommandTable[0].xCommandDown := TRUE;
-		DeskArea_PrivacyMode	:= FALSE;
-	END_IF
-
-	(* Desk Area Scenery Mode*)
-	rtDeskArea_SceneryMode(CLK:= DeskArea_SceneryMode OR  PassADSBlindInfo[11].0  , Q=> );
-	IF rtDeskArea_SceneryMode.Q THEN
-		SetOfficeAreaBlinds4_9();
-		BlindCommandTable[0].xCommandUp := TRUE;
-		DeskArea_SceneryMode	:= FALSE;
-	END_IF
-
-	(* Desk Area Night Mode*)
-	rtDeskArea_NightMode(CLK:= DeskArea_NightMode OR  PassADSBlindInfo[9].0 , Q=> );
-	IF rtDeskArea_NightMode.Q THEN
+	IF OfficeBlindSellection[1] THEN
 		SetOfficeAreaBlinds1_9();
-		BlindCommandTable[0].xCommandDown := TRUE;
-		DeskArea_NightMode	:= FALSE;
+		
+		IF OfficeBlindSellection[2] THEN
+			SetOfficeAreaBlindsAll();
+		END_IF
 	END_IF
-
-	(* Desk Area Morning Mode*)
-	rtDeskArea_MorningMode(CLK:= DeskArea_MorningMode OR  PassADSBlindInfo[10].0 , Q=> );
-	IF rtDeskArea_MorningMode.Q THEN
-		SetOfficeAreaBlinds1_3();
-		BlindCommandTable[0].xCommandDown := TRUE;
-		DeskArea_MorningMode	:= FALSE;
-	END_IF
-
-	(*Kitchen Area Blind Modes***********************************************************************)
+END_IF
 	
-	(* Kitchen Area Privacy Mode*)
-	rtKitchenArea_PrivacyMode(CLK:= KitchenArea_PrivacyMode , Q=> );
-	IF rtKitchenArea_PrivacyMode.Q THEN
-		SetOfficeAreaBlinds10_13();
-		SetBoardRoomBlinds1_7();
-		BlindCommandTable[0].xCommandDown := TRUE;
-		BlindCommandTable[1].xCommandDown := TRUE;
-		KitchenArea_PrivacyMode	:= FALSE;
+
+(*Select Office Blinds for Lond Wall*)
+IF (NOT OfficeBlindSellection[0]) AND OfficeBlindSellection[1] THEN
+	SetOfficeAreaBlinds4_9();
+
+(*Select Office Blinds for Lond Wall and Partition*)
+	IF OfficeBlindSellection[2] THEN
+		SetOfficeAreaBlinds4_13();
 	END_IF
+END_IF
+
+(*Select Office Blinds for Partition*)
+IF(NOT OfficeBlindSellection[0]) AND (NOT OfficeBlindSellection[1]) AND OfficeBlindSellection[2] THEN
+	SetOfficeAreaBlinds10_13();
+END_IF 
+(*Deselect All Office Blinds*)
+IF(NOT OfficeBlindSellection[0]) AND (NOT OfficeBlindSellection[1]) AND (NOT OfficeBlindSellection[2]) THEN
+	SetOfficeAreaBlindsAllFalse();
+END_IF 
+
+(*Kitchen Area Blinds selection******************************************************************)
+(*Select Kitchen Blinds for Lond Wall*)
+IF KitchenBlindSelection THEN
+	SetKitchenAreaBlindsAll();
+END_IF
+
+(*Boardroom Area Blinds selection******************************************************************)
+
+(*Select Boardroom Blinds for Lond Wall*)
+IF BoardroomBlindSellection[0] THEN
+	SetBoardRoomBlinds8_16();
+	IF BoardroomBlindSellection[1] THEN
+		SetBoardroomAreaBlindsAll();
+	END_IF
+END_IF
+
+(*Select Boardroom Blinds for Partition*)
+IF(NOT BoardroomBlindSellection[0]) AND BoardroomBlindSellection[1] THEN
+	SetBoardRoomBlinds1_7();
+END_IF
+
+(*Boardroom Blind Modes**************************************************************************)
+                                                                                        	
+(*Board Room Privacy Mode *)                                                            	
+rtBoardRoom_PrivacyMode(CLK:= BoardRoom_PrivacyMode , Q=> );                            	
+IF rtBoardRoom_PrivacyMode.Q THEN                                                       	
+	SetBoardRoomBlinds1_7();                                                            	
+	BlindCommandTable[1].xCommandDown := TRUE;                                          	
+	BoardRoom_PrivacyMode	:= FALSE;                                                   	
+END_IF                                                                                  	
+                                                                                        	
+(*Board Room Scenery Mode *)                                                            	
+rtBoardRoom_SceneryMode(CLK:= BoardRoom_SceneryMode , Q=> );                            	
+IF rtBoardRoom_SceneryMode.Q THEN                                                       	
+	SetBoardRoomBlinds8_16();                                                           	
+	BlindCommandTable[1].xCommandUp := TRUE;                                            	
+	BoardRoom_SceneryMode	:= FALSE;                                                   	
+END_IF                                                                                  	
+                                                                                        	
+(*Board Room Projector Mode *)                                                          	
+rtBoardRoom_ProjectorMode(CLK:= BoardRoom_ProjectorMode , Q=> );                        	
+IF rtBoardRoom_ProjectorMode.Q THEN                                                     	
+	SetBoardroomAreaBlindsAll();                                                        	
+	BlindCommandTable[1].xCommandDown := TRUE;                                          	
+	BoardRoom_ProjectorMode	:= FALSE;                                                   	
+END_IF                                                                                  	
+                                                                                        	
+(*Meeting Room Mode *)                                                                 	
+rtBoardRoom_ProjectorMode(CLK:= BoardRoom_ProjectorMode , Q=> );                        	
+IF rtBoardRoom_ProjectorMode.Q THEN                                                     	
+	SetBoardRoomBlinds1_7();                                                            	
+	BlindCommandTable[1].xCommandDown := TRUE;                                          	
+	BoardRoom_ProjectorMode	:= FALSE;                                                   	
+END_IF                                                                                  	
+                                                                                        	
+                                                                                        	
+(*Desk Area Blind Modes*****************************************************************	******)
+                                                                                        	
+(* Desk Area Privacy Mode*)                                                             	
+rtDeskArea_PrivacyMode(CLK:= DeskArea_PrivacyMode OR PassADSBlindInfo[8].0  , Q=> );    	
+IF rtDeskArea_PrivacyMode.Q THEN                                                        	
+	SetOfficeAreaBlinds10_13();                                                         	
+	BlindCommandTable[0].xCommandDown := TRUE;                                          	
+	DeskArea_PrivacyMode	:= FALSE;                                                   	
+END_IF                                                                                  	
+                                                                                        	
+(* Desk Area Scenery Mode*)                                                             	
+rtDeskArea_SceneryMode(CLK:= DeskArea_SceneryMode OR  PassADSBlindInfo[11].0  , Q=> );  	
+IF rtDeskArea_SceneryMode.Q THEN                                                        	
+	SetOfficeAreaBlinds4_9();                                                           	
+	BlindCommandTable[0].xCommandUp := TRUE;                                            	
+	DeskArea_SceneryMode	:= FALSE;                                                   	
+END_IF                                                                                  	
+                                                                                        	
+(* Desk Area Night Mode*)                                                               	
+rtDeskArea_NightMode(CLK:= DeskArea_NightMode OR  PassADSBlindInfo[9].0 , Q=> );        	
+IF rtDeskArea_NightMode.Q THEN                                                          	
+	SetOfficeAreaBlinds1_9();                                                           	
+	BlindCommandTable[0].xCommandDown := TRUE;                                          	
+	DeskArea_NightMode	:= FALSE;                                                       	
+END_IF                                                                                  	
+                                                                                        	
+(* Desk Area Morning Mode*)                                                             	
+rtDeskArea_MorningMode(CLK:= DeskArea_MorningMode OR  PassADSBlindInfo[10].0 , Q=> );   	
+IF rtDeskArea_MorningMode.Q THEN                                                        	
+	SetOfficeAreaBlinds1_3();                                                           	
+	BlindCommandTable[0].xCommandDown := TRUE;
+	DeskArea_MorningMode	:= FALSE;
+END_IF
+
+(*Kitchen Area Blind Modes***********************************************************************)
+
+(* Kitchen Area Privacy Mode*)
+rtKitchenArea_PrivacyMode(CLK:= KitchenArea_PrivacyMode , Q=> );
+IF rtKitchenArea_PrivacyMode.Q THEN
+	SetOfficeAreaBlinds10_13();
+	SetBoardRoomBlinds1_7();
+	BlindCommandTable[0].xCommandDown := TRUE;
+	BlindCommandTable[1].xCommandDown := TRUE;
+	KitchenArea_PrivacyMode	:= FALSE;
+END_IF
 
 
 
@@ -404,6 +466,26 @@ BlindCommandTable[1].SelectBlindsBulkCommand[15] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
       </Implementation>
     </Action>
+    <Action Name="SetKitchenAreaBlindsAll" Id="{7f73ed70-cc1f-4322-ab0d-76f38bd8dafa}">
+      <Implementation>
+        <ST><![CDATA[BlindCommandTable[2].SelectBlindsBulkCommand[1] :=TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[2] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[3] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[4] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[5] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[6] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[7] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[8] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[9] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[10] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[11] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[12] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[13] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[14] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[15] := TRUE;
+BlindCommandTable[2].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="SetOfficeAreaBlinds1_3" Id="{9de6c562-f932-41b5-bc96-13a917d982e2}">
       <Implementation>
         <ST><![CDATA[BlindCommandTable[0].SelectBlindsBulkCommand[1] :=TRUE;
@@ -422,6 +504,26 @@ BlindCommandTable[0].SelectBlindsBulkCommand[13] := FALSE;
 BlindCommandTable[0].SelectBlindsBulkCommand[14] := FALSE;
 BlindCommandTable[0].SelectBlindsBulkCommand[15] := FALSE;
 BlindCommandTable[0].SelectBlindsBulkCommand[16] := FALSE;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="SetOfficeAreaBlinds1_3_10_13" Id="{0c0b75d5-104c-424e-bcfc-bc4dc857c78b}">
+      <Implementation>
+        <ST><![CDATA[BlindCommandTable[0].SelectBlindsBulkCommand[1] :=TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[2] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[3] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[4] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[5] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[6] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[7] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[8] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[9] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[10] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[11] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[12] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[13] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[14] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[15] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
       </Implementation>
     </Action>
     <Action Name="SetOfficeAreaBlinds1_9" Id="{2a155af5-7235-45ba-9ba9-33f356fc9d0b}">
@@ -455,6 +557,26 @@ BlindCommandTable[0].SelectBlindsBulkCommand[6] := FALSE;
 BlindCommandTable[0].SelectBlindsBulkCommand[7] := FALSE;
 BlindCommandTable[0].SelectBlindsBulkCommand[8] := FALSE;
 BlindCommandTable[0].SelectBlindsBulkCommand[9] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[10] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[11] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[12] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[13] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[14] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[15] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="SetOfficeAreaBlinds4_13" Id="{e0f7e0b2-6695-492a-a137-e8959a0c75e3}">
+      <Implementation>
+        <ST><![CDATA[BlindCommandTable[0].SelectBlindsBulkCommand[1] :=FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[2] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[3] := false;
+BlindCommandTable[0].SelectBlindsBulkCommand[4] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[5] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[6] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[7] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[8] := TRUE;
+BlindCommandTable[0].SelectBlindsBulkCommand[9] := TRUE;
 BlindCommandTable[0].SelectBlindsBulkCommand[10] := TRUE;
 BlindCommandTable[0].SelectBlindsBulkCommand[11] := TRUE;
 BlindCommandTable[0].SelectBlindsBulkCommand[12] := TRUE;
@@ -504,8 +626,51 @@ BlindCommandTable[0].SelectBlindsBulkCommand[15] := TRUE;
 BlindCommandTable[0].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
       </Implementation>
     </Action>
+    <Action Name="SetOfficeAreaBlindsAllFalse" Id="{4c355a43-c0fd-4760-9c16-fad2f00b6698}">
+      <Implementation>
+        <ST><![CDATA[BlindCommandTable[0].SelectBlindsBulkCommand[1] :=FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[2] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[3] := false;
+BlindCommandTable[0].SelectBlindsBulkCommand[4] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[5] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[6] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[7] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[8] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[9] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[10] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[11] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[12] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[13] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[14] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[15] := FALSE;
+BlindCommandTable[0].SelectBlindsBulkCommand[16] := FALSE;]]></ST>
+      </Implementation>
+    </Action>
     <LineIds Name="BackgroundComms">
-      <LineId Id="75" Count="265" />
+      <LineId Id="495" Count="49" />
+      <LineId Id="807" Count="0" />
+      <LineId Id="821" Count="1" />
+      <LineId Id="819" Count="1" />
+      <LineId Id="808" Count="1" />
+      <LineId Id="815" Count="3" />
+      <LineId Id="810" Count="2" />
+      <LineId Id="790" Count="0" />
+      <LineId Id="547" Count="6" />
+      <LineId Id="800" Count="0" />
+      <LineId Id="823" Count="0" />
+      <LineId Id="830" Count="0" />
+      <LineId Id="805" Count="1" />
+      <LineId Id="803" Count="0" />
+      <LineId Id="554" Count="0" />
+      <LineId Id="829" Count="0" />
+      <LineId Id="827" Count="1" />
+      <LineId Id="555" Count="12" />
+      <LineId Id="832" Count="1" />
+      <LineId Id="831" Count="0" />
+      <LineId Id="568" Count="0" />
+      <LineId Id="834" Count="0" />
+      <LineId Id="569" Count="220" />
+      <LineId Id="340" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetBoardroomAreaBlindsAll">
       <LineId Id="0" Count="15" />
@@ -516,8 +681,17 @@ BlindCommandTable[0].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
     <LineIds Name="BackgroundComms.SetBoardRoomBlinds8_16">
       <LineId Id="0" Count="15" />
     </LineIds>
+    <LineIds Name="BackgroundComms.SetKitchenAreaBlindsAll">
+      <LineId Id="2" Count="14" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
     <LineIds Name="BackgroundComms.SetOfficeAreaBlinds1_3">
       <LineId Id="0" Count="15" />
+    </LineIds>
+    <LineIds Name="BackgroundComms.SetOfficeAreaBlinds1_3_10_13">
+      <LineId Id="2" Count="4" />
+      <LineId Id="17" Count="9" />
+      <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetOfficeAreaBlinds1_9">
       <LineId Id="0" Count="15" />
@@ -525,11 +699,19 @@ BlindCommandTable[0].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
     <LineIds Name="BackgroundComms.SetOfficeAreaBlinds10_13">
       <LineId Id="0" Count="15" />
     </LineIds>
+    <LineIds Name="BackgroundComms.SetOfficeAreaBlinds4_13">
+      <LineId Id="2" Count="14" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
     <LineIds Name="BackgroundComms.SetOfficeAreaBlinds4_9">
       <LineId Id="0" Count="15" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetOfficeAreaBlindsAll">
       <LineId Id="0" Count="15" />
+    </LineIds>
+    <LineIds Name="BackgroundComms.SetOfficeAreaBlindsAllFalse">
+      <LineId Id="2" Count="14" />
+      <LineId Id="1" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
