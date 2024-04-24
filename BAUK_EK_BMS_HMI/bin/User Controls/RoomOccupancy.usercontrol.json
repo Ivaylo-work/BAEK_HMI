@@ -1,0 +1,41 @@
+{
+  "parameters": [
+    {
+      "name": "data-tchmi-occupancy_pir1",
+      "displayName": "Occupancy_PIR1",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:general#/definitions/BOOL",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Occupancy_PIR1",
+      "propertySetterName": "setOccupancy_PIR1",
+      "propertyGetterName": "getOccupancy_PIR1",
+      "refTo": ""
+    },
+    {
+      "name": "data-tchmi-occupancy_pir2",
+      "displayName": "Occupancy_PIR2",
+      "allowSymbolExpressionsInObject": false,
+      "visible": true,
+      "type": "tchmi:general#/definitions/BOOL",
+      "category": "",
+      "description": "",
+      "requiredOnCompile": false,
+      "readOnly": false,
+      "bindable": true,
+      "heritable": true,
+      "propertyName": "Occupancy_PIR2",
+      "propertySetterName": "setOccupancy_PIR2",
+      "propertyGetterName": "getOccupancy_PIR2",
+      "refTo": ""
+    }
+  ],
+  "virtualRights": [],
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/UserControlConfig.Schema.json",
+  "description": ""
+}

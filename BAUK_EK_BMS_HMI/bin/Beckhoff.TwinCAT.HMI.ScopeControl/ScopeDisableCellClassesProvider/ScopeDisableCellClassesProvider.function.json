@@ -1,0 +1,63 @@
+{
+    "$schema": "../../TcHmiFramework/Schema/FunctionDescription.Schema.json",
+    "apiVersion": 1,
+    "version": {
+        "full": "1.12.760.54",
+        "major": 1,
+        "minor": 12,
+        "build": 760,
+        "revision": 54
+    },
+    "dependencyFiles": [
+        {
+            "name": "ScopeDisableCellClassesProvider.js",
+            "type": "JavaScript",
+            "description": ""
+        }
+    ],
+    "function": {
+        "name": "ScopeDisableCellClassesProvider",
+        "namespace": "TcHmi.Functions.Beckhoff",
+        "displayName": "ScopeDisableCellClassesProvider",
+        "visible": false,
+        "description": "Provides classes for datagrid lines depending on file format.",
+        "category": "Data Conversion",
+        "returnValue": {
+            "type": "tchmi:general#/definitions/Array"
+        },
+        "arguments": [
+            {
+                "name": "rowData",
+                "displayName": "rowData",
+                "type": "tchmi:general#/definitions/Any",
+                "description": "The value of the row",
+                "required": true,
+                "bindable": true
+            },
+            {
+                "name": "rowIndex",
+                "displayName": "rowIndex",
+                "type": "tchmi:general#/definitions/Number",
+                "description": "The index of the row in the srcData",
+                "required": false,
+                "bindable": true
+            },
+            {
+                "name": "rowNumber",
+                "displayName": "rowNumber",
+                "type": "tchmi:general#/definitions/Number",
+                "description": "The rowNumber of the row after sorting",
+                "required": false,
+                "bindable": true
+            },
+            {
+                "name": "controlId",
+                "displayName": "controlId",
+                "type": "tchmi:general#/definitions/String",
+                "description": "The id of the control",
+                "required": true,
+                "bindable": true
+            }
+        ]
+    }
+}

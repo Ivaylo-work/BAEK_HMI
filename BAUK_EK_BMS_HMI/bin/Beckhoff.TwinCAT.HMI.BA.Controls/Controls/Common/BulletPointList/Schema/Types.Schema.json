@@ -1,0 +1,19 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.Common.BulletPointList": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.TextControl",
+      "frameworkControlType": "BulletPointList",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.Common"
+    },
+    "TcHmi.BuildingAutomation.Controls.Common.BulletPointList.Entries": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "title": "Entries",
+      "items": {
+        "$ref": "tchmi:general#/definitions/String"
+      }
+    }
+  }
+}

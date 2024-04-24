@@ -1,0 +1,12 @@
+.TcHmi_BuildingAutomation_Controls_RoomAutomation_HeatingCooling.show-displays > div.tchmi-ba-text-handler {
+    align-items: flex-end;
+}
+
+.TcHmi_BuildingAutomation_Controls_RoomAutomation_HeatingCooling.show-displays > div.tchmi-ba-text-handler > span {
+    z-index: 2;
+}
+
+.TcHmi_BuildingAutomation_Controls_RoomAutomation_HeatingCooling .tchmi-ba-control-container > div.tchmi-ba-text-handler.slider,
+.TcHmi_BuildingAutomation_Controls_RoomAutomation_HeatingCooling .tchmi-ba-control-container > div.tchmi-ba-text-handler.slider.round-knob {
+    margin: 0 20px 0 20px;
+}

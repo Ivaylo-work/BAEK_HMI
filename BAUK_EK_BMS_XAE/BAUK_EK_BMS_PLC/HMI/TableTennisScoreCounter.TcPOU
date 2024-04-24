@@ -11,7 +11,7 @@ VAR
 	sPlayerOne			:	STRING;
 	sPlayerTwo			:	STRING;
 	
-	sPlayerList: ARRAY [0..nMaxTableLength] OF STRING := ['Adam', 'Alan', 'Astrid', 'Jamie', 'Ivo', 'Guest'];
+	sPlayerList: ARRAY [0..nMaxTableLength] OF STRING := ['Adam', 'Alan', 'Astrid', 'Jamie', 'Ivo', 'Guest', 'Guest'];
 		
 	sWinner 			: 	STRING;	
 	

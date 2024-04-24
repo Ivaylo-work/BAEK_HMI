@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "Array(0..15) OF BOOL": {
+      "items": {
+        "$ref": "tchmi:general#/definitions/BOOL"
+      },
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "title": "Blind Selection"
+    },
+    "BlindSelector": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\BlindSelector.usercontrol.json",
+      "id": "tchmi:project#/definitions/BlindSelector",
+      "type": "object"
+    },
+    "RoomOccupancy": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\RoomOccupancy.usercontrol.json",
+      "id": "tchmi:project#/definitions/RoomOccupancy",
+      "type": "object"
+    },
+    "All-in-One_Shutdown": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\All-in-One Shutdown.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/All-in-One_Shutdown"
+    },
+    "WindowIsOpen": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\WindowIsOpen.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/WindowIsOpen"
+    },
+    "Projector_Mode": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\Projector Mode.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Projector_Mode"
+    },
+    "Showroom_Mode": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\Showroom Mode.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Showroom_Mode"
+    },
+    "OfficeBlindsControl": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\OfficeBlindsControl.usercontrol.json",
+      "id": "tchmi:project#/definitions/OfficeBlindsControl",
+      "type": "object"
+    },
+    "EcoMode": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\EcoMode.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/EcoMode"
+    },
+    "OfficeBlindsControl_-_Copy": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\KitchenBlindsControl.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/OfficeBlindsControl_-_Copy"
+    },
+    "Array(0..2) OF BOOL": {
+      "items": {
+        "$ref": "tchmi:general#/definitions/BOOL"
+      },
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "KitchenBlindsControl": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\KitchenBlindsControl.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/KitchenBlindsControl"
+    },
+    "Array(0..1) OF BOOL": {
+      "items": {
+        "$ref": "tchmi:general#/definitions/BOOL"
+      },
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "BoardroomBlindsControl": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\BoardroomBlindsControl.usercontrol.json",
+      "id": "tchmi:project#/definitions/BoardroomBlindsControl",
+      "type": "object"
+    },
+    "TableTennisCounter": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\TableTennisCounter.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/TableTennisCounter"
+    },
+    "Current": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\Current.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/Current"
+    }
+  }
+}

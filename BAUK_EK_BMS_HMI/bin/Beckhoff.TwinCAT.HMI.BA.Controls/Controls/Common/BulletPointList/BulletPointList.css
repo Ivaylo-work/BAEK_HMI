@@ -1,0 +1,21 @@
+﻿/* General theme independed control css. */
+
+.TcHmi_BuildingAutomation_Controls_Common_BulletPointList {
+    overflow: visible;
+}
+
+    .TcHmi_BuildingAutomation_Controls_Common_BulletPointList > ul {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+
+        .TcHmi_BuildingAutomation_Controls_Common_BulletPointList > ul.use-list-style-image {
+            list-style-image: var(--list-style-image);
+        }
+
+        .TcHmi_BuildingAutomation_Controls_Common_BulletPointList > ul > li {
+            line-height: 43px;
+            padding-left: 10px;
+        }

@@ -1,0 +1,170 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Window": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.BaseRoomControl",
+      "frameworkControlType": "Window",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.RoomAutomation"
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Window.DisplayMode": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "string",
+      "enum": [
+        0,
+        1
+      ],
+      "options": [
+        {
+          "label": "standard",
+          "value": 0
+        },
+        {
+          "label": "roofDome",
+          "value": 1
+        }
+      ]
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Window.OperationState": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "options": [
+        {
+          "label": "autoActive",
+          "value": 1
+        },
+        {
+          "label": "manual",
+          "value": 2
+        },
+        {
+          "label": "autoInactive",
+          "value": 3
+        },
+        {
+          "label": "maintenance",
+          "value": 4
+        },
+        {
+          "label": "safetyPosition",
+          "value": 5
+        }
+      ]
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Window.BaTemplateDescription": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaTemplateDescription",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "commandOpen",
+          "displayName": "Command open",
+          "description": "The command that opens the window. (Default: CommandOpen, DataType: Binary)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "commandClose",
+          "displayName": "Command close",
+          "description": "The command that closes the window. (Default: CommandClose, DataType: Binary)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "feedback",
+          "displayName": "Feedback",
+          "description": "The feedback for the window. (Default: Feedback, DataType: Binary/Analog)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "commandOpen": {
+          "type": "string"
+        },
+        "commandClose": {
+          "type": "string"
+        },
+        "feedback": {
+          "type": "string"
+        }
+      }
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Window.BaInterfaceSymbolNames": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaInterfaceSymbolNames",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "name",
+          "displayName": "Name",
+          "description": "Name of the window. (Default: sName, DataType: string)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "commandOpen",
+          "displayName": "Command open",
+          "description": "Command to open the window. (Default: cmdOpen, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "commandClose",
+          "displayName": "Command close",
+          "description": "Command to close the window. (Default: cmdClose, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "feedback",
+          "displayName": "Feedback",
+          "description": "Feedback about the window position. (Default: feedback, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "operationState",
+          "displayName": "Operation State",
+          "description": "The operation state of the window. (Default: operationState, DataType: integer)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "reset",
+          "displayName": "Reset",
+          "description": "Symbol to reset the window into automtic mode. (Default: reset, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "commandOpen": {
+          "type": "string"
+        },
+        "commandClose": {
+          "type": "string"
+        },
+        "feedback": {
+          "type": "string"
+        },
+        "operationState": {
+          "type": "string"
+        },
+        "reset": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

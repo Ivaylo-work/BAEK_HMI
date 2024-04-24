@@ -1,0 +1,201 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.BuildingGeneral.Legend": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.BaseControl",
+      "frameworkControlType": "Legend",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.BuildingGeneral"
+    },
+    "TcHmi.BuildingAutomation.Controls.BuildingGeneral.Legend.LegendDialogOptions": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "modal",
+          "displayName": "Modal",
+          "description": "Defines if the legend dialog is opened modal or not."
+        },
+        {
+          "name": "buttons",
+          "displayName": "Buttons",
+          "description": "Buttons for the legend dialog."
+        },
+        {
+          "name": "width",
+          "displayName": "Width",
+          "description": "Width of the legend dialog."
+        },
+        {
+          "name": "widthUnit",
+          "displayName": "WidthUnit",
+          "description": "Unit for width of the legend dialog.",
+          "refTo": "width"
+        },
+        {
+          "name": "height",
+          "displayName": "Height",
+          "description": "Height of the legend dialog."
+        },
+        {
+          "name": "heightUnit",
+          "displayName": "HeightUnit",
+          "description": "Unit for height of the legend dialog.",
+          "refTo": "height"
+        },
+        {
+          "name": "entryWidth",
+          "displayName": "EntryWidth",
+          "description": "Width of an entry."
+        },
+        {
+          "name": "entryWidthUnit",
+          "displayName": "EntryWidthUnit",
+          "description": "Unit for width of an entry.",
+          "refTo": "entryWidth"
+        },
+        {
+          "name": "tabPosition",
+          "displayName": "TabPosition",
+          "description": "Position of the tabs."
+        },
+        {
+          "name": "iconDataSource",
+          "displayName": "IconDataSource",
+          "description": "Source of icons to be displayed."
+        },
+        {
+          "name": "iconDataCustom",
+          "displayName": "IconDataCustom",
+          "description": "List of custom icons."
+        }
+      ],
+      "properties": {
+        "modal": {
+          "type": "boolean"
+        },
+        "buttons": {
+          "$ref": "tchmi:framework#/definitions/TcHmi.BuildingAutomation.DialogWindowButtons"
+        },
+        "width": {
+          "$ref": "tchmi:framework#/definitions/MeasurementValue"
+        },
+        "widthUnit": {
+          "$ref": "tchmi:framework#/definitions/MeasurementUnit"
+        },
+        "height": {
+          "$ref": "tchmi:framework#/definitions/MeasurementValue"
+        },
+        "heightUnit": {
+          "$ref": "tchmi:framework#/definitions/MeasurementUnit"
+        },
+        "entryWidth": {
+          "$ref": "tchmi:framework#/definitions/MeasurementValue"
+        },
+        "entryWidthUnit": {
+          "$ref": "tchmi:framework#/definitions/MeasurementUnit"
+        },
+        "tabPosition": {
+          "$ref": "tchmi:framework#/definitions/TcHmi.BuildingAutomation.Position"
+        },
+        "iconDataSource": {
+          "$ref": "tchmi:framework#/definitions/TcHmi.BuildingAutomation.Controls.BuildingGeneral.Legend.IconDataSource"
+        },
+        "iconDataCustom": {
+          "$ref": "tchmi:framework#/definitions/TcHmi.BuildingAutomation.Controls.BuildingGeneral.Legend.IconDataList"
+        }
+      }
+    },
+    "TcHmi.BuildingAutomation.Controls.BuildingGeneral.Legend.IconDataSource": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "integer",
+      "enum": [ 0, 1, 2, 3, 4, 5, 6 ],
+      "options": [
+        {
+          "label": "All",
+          "value": 0
+        },
+        {
+          "label": "OnlyBa",
+          "value": 1
+        },
+        {
+          "label": "OnlyCustom",
+          "value": 2
+        },
+        {
+          "label": "OnlyCustomGlobal",
+          "value": 3
+        },
+        {
+          "label": "BaAndCustom",
+          "value": 4
+        },
+        {
+          "label": "BaAndCustomGlobal",
+          "value": 5
+        },
+        {
+          "label": "CustomAndCustomGlobal",
+          "value": 6
+        }
+      ]
+    },
+    "TcHmi.BuildingAutomation.Controls.BuildingGeneral.Legend.IconDataList": {
+      "title": "IconDataList",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Icon",
+            "type": "object",
+            "additionalProperties": false,
+            "engineeringColumns": [
+              "Name"
+            ],
+            "propertiesMeta": [
+              {
+                "name": "path",
+                "displayName": "Path",
+                "category": "Common",
+                "displayPriority": 10,
+                "description": "Path of the icon.",
+                "defaultValue": null,
+                "defaultValueInternal": null
+              },
+              {
+                "name": "category",
+                "displayName": "Category",
+                "category": "Common",
+                "displayPriority": 10,
+                "description": "Category of the icon.",
+                "defaultValue": null,
+                "defaultValueInternal": null
+              },
+              {
+                "name": "description",
+                "displayName": "Description",
+                "category": "Common",
+                "displayPriority": 10,
+                "description": "Description of the icon.",
+                "defaultValue": null,
+                "defaultValueInternal": null
+              }
+            ],
+            "properties": {
+              "path": {
+                "type": [ "string", "null" ]
+              },
+              "category": {
+                "type": [ "string", "null" ]
+              },
+              "description": {
+                "type": [ "string", "null" ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

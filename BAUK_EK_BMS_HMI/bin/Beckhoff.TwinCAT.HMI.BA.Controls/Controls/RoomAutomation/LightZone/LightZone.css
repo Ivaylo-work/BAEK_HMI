@@ -1,0 +1,56 @@
+﻿/* General theme independed control css. */
+
+.TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone {
+    overflow: visible;
+    color: var(--tchmi-ba-global-text-color);
+}
+
+    .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+
+        .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group {
+            min-width: 170px;
+            background-color: var(--tchmi-ba-global-input-background);
+            margin: 0 10px 10px 0;
+            border: var(--tchmi-ba-global-control-border);
+            box-sizing: border-box;
+        }
+
+            .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.header {
+                background-color: var(--tchmi-ba-global-tchmi-blue);
+                padding-left: 5px;
+            }
+
+            .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.body {
+                display: flex;
+            }
+
+                .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.body > .tchmi-ba-base {
+                    position: relative;
+                    box-sizing: border-box;
+                    height: 30px;
+                    margin: 5px;
+                }
+
+                    .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.body > .tchmi-ba-base.input-box.manual-value-input {
+                        width: 80px;
+                    }
+
+                    .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.body > .tchmi-ba-base.button.write-manual-value-button {
+                        width: 30px;
+                    }
+
+                    .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.body > .tchmi-ba-base.button.reset-control-mode-button {
+                        width: 30px;
+                    }
+
+                    .TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone > div.container > div.group > div.body > .tchmi-ba-base.combobox.activation-mode-combobox {
+                        width: 120px;
+                    }
+
+.TcHmi_BuildingAutomation_Controls_RoomAutomation_LightZone.in-dialog {
+    position: relative;
+}

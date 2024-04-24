@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.Plants.SensorAnalog": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.UiIconFdbStp",
+      "frameworkControlType": "SensorAnalog",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.Plants"
+    },
+    "TcHmi.BuildingAutomation.Controls.Plants.SensorAnalog.DisplayMode": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Type",
+      "type": "integer",
+      "enum": [
+        0,
+        1,
+        2,
+        999
+      ],
+      "options": [
+        {
+          "label": "temperature",
+          "value": 0
+        },
+        {
+          "label": "pressure",
+          "value": 1
+        },
+        {
+          "label": "humidity",
+          "value": 2
+        },
+        {
+          "label": "custom",
+          "value": 999
+        }
+      ]
+    },
+    "TcHmi.BuildingAutomation.Controls.Plants.SensorAnalog.BaTemplateDescription": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaTemplateDescription",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "feedback",
+          "displayName": "Feedback",
+          "description": "The feedback of the sensor. (Default: MV, DataType: Analog)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "feedback": {
+          "type": "string"
+        }
+      },
+      "required": [ "feedback" ]
+    },
+    "TcHmi.BuildingAutomation.Controls.Plants.SensorAnalog.SubBaTemplateDescription": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "SubBaTemplateDescription",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "identifier",
+          "displayName": "Identifier",
+          "description": "Identifier of the sensor.",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "subTemplate",
+          "displayName": "Sensor Analog",
+          "description": "The template description of the sensor.",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "subTemplate": {
+          "$ref": "tchmi:framework#/definitions/TcHmi.BuildingAutomation.Controls.Plants.SensorAnalog.BaTemplateDescription"
+        }
+      }
+    }
+  }
+}

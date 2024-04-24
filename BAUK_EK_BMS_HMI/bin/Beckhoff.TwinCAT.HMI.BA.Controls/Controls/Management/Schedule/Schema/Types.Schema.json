@@ -1,0 +1,54 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.Management.Schedule": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.BaseControl",
+      "frameworkControlType": "Schedule",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.Management"
+    },
+    "TcHmi.BuildingAutomation.Conrols.Schedule.StateColors": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "StateColors",
+      "type": "array",
+      "items": {
+        "$schema": "http://json-schema.org/draft-04/schema",
+        "title": "StateColor",
+        "type": "object",
+        "engineeringColumns": [
+          "value",
+          "color"
+        ],
+        "propertiesMeta": [
+          {
+            "name": "value",
+            "category": "Common",
+            "displayName": "Value",
+            "displayPriority": 10,
+            "description": "The value for the color.",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          },
+          {
+            "name": "color",
+            "category": "Colors",
+            "displayName": "Color",
+            "displayPriority": 10,
+            "description": "The color which will be the background color of a schedule entry when the value was reached.",
+            "defaultValue": null,
+            "defaultValueInternal": null
+          }
+        ],
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "color": {
+            "$ref": "tchmi:framework#/definitions/SolidColor"
+          }
+        },
+        "required": [ "value", "color" ]
+      }
+    }
+  }
+}

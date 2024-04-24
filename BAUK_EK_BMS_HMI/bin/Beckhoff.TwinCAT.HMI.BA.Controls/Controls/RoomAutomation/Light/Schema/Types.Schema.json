@@ -1,0 +1,215 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Light": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.BaseRoomControl",
+      "frameworkControlType": "Light",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.RoomAutomation"
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Light.DisplayMode": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "string",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "options": [
+        {
+          "label": "lightBulb",
+          "value": 0
+        },
+        {
+          "label": "lightBulbFilled",
+          "value": 1
+        },
+        {
+          "label": "filled",
+          "value": 2
+        }
+      ]
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Light.OperationState": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3
+      ],
+      "options": [
+        {
+          "label": "autoActive",
+          "value": 1
+        },
+        {
+          "label": "manual",
+          "value": 2
+        },
+        {
+          "label": "autoInactive",
+          "value": 3
+        }
+      ]
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Light.BaTemplateDescription": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaTemplateDescription",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "command",
+          "displayName": "Command",
+          "description": "The command for the light. (Default: Command, DataType: Binary/Analog)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "feedback",
+          "displayName": "Feedback",
+          "description": "The feedback for the light. (Default: Feedback, DataType: Binary/Analog )",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "reset",
+          "displayName": "Reset",
+          "description": "The object to reset the light into automatic mode. (Default: ResetState, DataType: Binary)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "state",
+          "displayName": "State",
+          "description": "The state of the light (autoActive, hand, autoInactive). (Default: StateMI, DataType: Multistate)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "feedback": {
+          "type": "string"
+        },
+        "reset": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      }
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.Light.BaInterfaceSymbolNames": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaInterfaceSymbolNames",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "name",
+          "displayName": "Name",
+          "description": "Name of the light. (Default: sName, DataType: string)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "initialize",
+          "displayName": "Initialize Light",
+          "description": "Flag to initialize the light. (Default: bInitialize_In, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "cmdToggle",
+          "displayName": "Command Toggle",
+          "description": "Toggle to switch the light on and off. (Default: bToggle_In, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "fdbLightOn",
+          "displayName": "Feedback light on",
+          "description": "Feedback if the light is on or off. (Default: bLightOn_Out, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "operationState",
+          "displayName": "Operation State",
+          "description": "The state of the light (autoActive, hand, autoInactive). (Default: eOperationalState_Out, DataType: intger)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "resetManual",
+          "displayName": "Reset Manual",
+          "description": "Symbol to reset the light into automatic mode. (Default: bResetManual_In, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "cmdBrightness",
+          "displayName": "Command Brightness",
+          "description": "The command for the brightness. (Default: fLightValue_In, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "fdbBrightness",
+          "displayName": "Feedback Brightness",
+          "description": "The feedback for the brightness. (Default: fLightValue_Out, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "cmdTemperature",
+          "displayName": "Command Temperature",
+          "description": "The command for the light temperature. (Default: fLightTemperature_In, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "fdbTemperature",
+          "displayName": "Feedback Temperature",
+          "description": "The feedback for the light temperature. (Default: fLightTemperature_Out, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "initialize": {
+          "type": "string"
+        },
+        "operationState": {
+          "type": "string"
+        },
+        "resetManual": {
+          "type": "string"
+        },
+        "cmdToggle": {
+          "type": "string"
+        },
+        "fdbLightOn": {
+          "type": "string"
+        },
+        "cmdBrightness": {
+          "type": "string"
+        },
+        "fdbBrightness": {
+          "type": "string"
+        },
+        "cmdTemperature": {
+          "type": "string"
+        },
+        "fdbTemperature": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10105</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10106</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -105,6 +105,15 @@
   <Target Name="Clean" DependsOnTargets="$(CleanDependsOn)" />
   <Target Name="ReBuild" DependsOnTargets="Clean; Build" />
   <ItemGroup>
+    <Content Include="Images\Boardroom\conference-room-svgrepo-com.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Boardroom\projector-svgrepo-com.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\cappuccino-svgrepo-com.svg">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\EcoMode\leaf.svg">
       <SubType>Content</SubType>
     </Content>
@@ -242,6 +251,7 @@
     <Folder Include="Images" />
     <Folder Include="Images\Manifest" />
     <Folder Include="Images\EcoMode" />
+    <Folder Include="Images\Boardroom" />
     <Folder Include="Images\Room Occupancy" />
     <Folder Include="Images\Tennis Table" />
     <Folder Include="Images\PLC\" />

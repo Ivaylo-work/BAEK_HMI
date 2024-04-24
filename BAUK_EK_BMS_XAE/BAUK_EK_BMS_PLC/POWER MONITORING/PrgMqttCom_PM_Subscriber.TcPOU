@@ -220,7 +220,7 @@ scaledPowerData.apparentPower   := (powerData.apparentPower * 0.01);
 scaledPowerData.reactivePower   := (powerData.reactivePower * 0.01);  
 
 //Scaled to Wh  
-scaledPowerData.positiveEnergy  := (powerData.positiveEnergy * 0.001);  
+scaledPowerData.positiveEnergy  := ((powerData.positiveEnergy * 0.001)*10);  
 
 //Scaled to WH 
 scaledPowerData.negativeEnergy  := (powerData.negativeEnergy * 0.001);  

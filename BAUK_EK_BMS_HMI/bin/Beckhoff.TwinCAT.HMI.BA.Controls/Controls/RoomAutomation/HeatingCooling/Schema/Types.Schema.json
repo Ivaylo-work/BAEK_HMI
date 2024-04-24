@@ -1,0 +1,139 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.HeatingCooling": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.BaseRoomControl",
+      "frameworkControlType": "HeatingCooling",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.RoomAutomation"
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.HeatingCooling.BaTemplateDescription": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaTemplateDescription",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "currentTemperature",
+          "displayName": "Current temperature",
+          "description": "The current temperature. (Default: RoomTempSen1, DataType: Analog)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "temperatureAdjust",
+          "displayName": "Temperature adjustment",
+          "description": "The adjustment of the temperature setpoint. (Default: RoomTempAdj, DataType: Analog)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "controlHeating",
+          "displayName": "Heating controller",
+          "description": "The controller for heating mode. (Default: HeatCoolPID::ControlHeating, DataType: Loop)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "controlCooling",
+          "displayName": "Cooling controller",
+          "description": "The controller for cooling mode. (Default: HeatCoolPID::ControlCooling, DataType: Loop)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "currentTemperature": {
+          "type": "string"
+        },
+        "temperatureAdjust": {
+          "type": "string"
+        },
+        "controlHeating": {
+          "type": "string"
+        },
+        "controlCooling": {
+          "type": "string"
+        }
+      }
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.HeatingCooling.BaTemplateDescription.BaInterfaceSymbolNames": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaInterfaceSymbolNames",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "name",
+          "displayName": "Name",
+          "description": "Name of the HeatingCooling. (Default: sName, DataType: string)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "roomTemp",
+          "displayName": "Current temperature",
+          "description": "The current temperature. (Default: RoomTemp, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "roomTempAdj",
+          "displayName": "Temperature adjustment",
+          "description": "The adjustment of the temperature setpoint. (Default: RoomTempAdj, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "heatingSetpoint",
+          "displayName": "Heating setpoint",
+          "description": "The setpoint for heating. (Default: HeatingSetpoint, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "heatingActive",
+          "displayName": "Heating active",
+          "description": "Defines if the heating is active or not. (Default: HeatingActive, DataType: boolean / number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "coolingSetpoint",
+          "displayName": "Cooling setpoint",
+          "description": "The setpoint for cooling. (Default: CoolingSetpoint, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "coolingActive",
+          "displayName": "Cooling active",
+          "description": "Defines if the cooling is active or not. (Default: CoolingActive, DataType: boolean / number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "roomTemp": {
+          "type": "string"
+        },
+        "roomTempAdj": {
+          "type": "string"
+        },
+        "heatingSetpoint": {
+          "type": "string"
+        },
+        "heatingActive": {
+          "type": "string"
+        },
+        "coolingSetpoint": {
+          "type": "string"
+        },
+        "coolingActive": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

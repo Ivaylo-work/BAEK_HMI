@@ -1,0 +1,70 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.LightZone": {
+      "type": "object",
+      "frameworkInstanceOf": "TcHmi.BuildingAutomation.Controls.System.BaseControl",
+      "frameworkControlType": "LightZone",
+      "frameworkControlNamespace": "TcHmi.BuildingAutomation.Controls.RoomAutomation"
+    },
+    "TcHmi.BuildingAutomation.Controls.RoomAutomation.LightZone.BaInterfaceSymbolNames": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "BaInterfaceSymbolNames",
+      "type": "object",
+      "propertiesMeta": [
+        {
+          "name": "manualValue",
+          "displayName": "Manual value",
+          "description": "Manual value of the light zone. (Default: fSetValMan_In, DataType: number)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "writeManualValue",
+          "displayName": "Write manual value",
+          "description": "Write the manual value to the lights of the zone. (Default: bSetValMan_In, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "controlModeActive",
+          "displayName": "Control mode active",
+          "description": "Defines if the control mode is active or inactive. (Default: bCtrlMod_Out, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "activateControlMode",
+          "displayName": "Activate control mode",
+          "description": "Set to true to activate the alarm mode. (Default: bSetCtrlMod_In, DataType: boolean)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        },
+        {
+          "name": "activationMode",
+          "displayName": "Activation mode",
+          "description": "Activation mode of the light zone. (Default: eLightActivationMode_In, DataType: intger)",
+          "defaultValue": null,
+          "defaultValueInternal": null
+        }
+      ],
+      "properties": {
+        "manualValue": {
+          "type": "string"
+        },
+        "writeManualValue": {
+          "type": "string"
+        },
+        "controlModeActive": {
+          "type": "string"
+        },
+        "activateControlMode": {
+          "type": "string"
+        },
+        "activationMode": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
