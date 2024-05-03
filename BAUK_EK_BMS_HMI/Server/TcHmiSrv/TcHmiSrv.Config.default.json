@@ -3348,6 +3348,16 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.LightControl.hmiShutdown": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::LightControl::hmiShutdown",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.LightControl.xBoardToom_Lights_ProjectorMode": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -9513,6 +9523,7 @@
                 "PLC1.LightControl.DeskAreaTime.Q": 3,
                 "PLC1.LightControl.GoHomeHoldActivated": 3,
                 "PLC1.LightControl.OfficeTimer.Q": 3,
+                "PLC1.LightControl.hmiShutdown": 3,
                 "PLC1.LightControl.xBoardToom_Lights_ProjectorMode": 3,
                 "PLC1.LightControl.xBoardToom_Lights_ShowroomMode": 3,
                 "PLC1.MLtest.iDataOut": 3,

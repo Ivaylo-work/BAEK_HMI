@@ -194,6 +194,7 @@ VAR
 	
 	CouchLightStepUp: BOOL;
 	AllLightsOff: BOOL;
+	hmiShutdown: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -327,17 +328,34 @@ END_IF
 
 
 
-IF PTM200StrippedTables[5].Signal THEN  // hold in to turn off all before going home
+IF PTM200StrippedTables[5].Signal OR hmiShutdown THEN  // hold in to turn off all before going home
 	
 	IF  EnOcean.AllWindowsClosed  THEN
-	
+		//hmiShutdown := FALSE;
 		GoHomeHold.IN := TRUE;	
 		GoHomeHold.PT := T#2S;	
 			IF GoHomeHold.Q THEN
 				GoHomeHold.IN := FALSE;	
 				GoHomeHoldActivated := TRUE;
 				AllLightsOff := TRUE;
+				hmiShutdown := FALSE;
 			END_IF	
+		xSleepMode := TRUE;		
+		
+	ELSE
+		
+		AWindowIsOpenLightTrigger := TRUE;
+			
+	END_IF		
+		
+END_IF
+
+IF hmiShutdown THEN  // hold in to turn off all before going home
+	
+	IF  EnOcean.AllWindowsClosed  THEN
+		GoHomeHoldActivated := TRUE;
+		AllLightsOff := TRUE;
+		hmiShutdown := FALSE;
 		xSleepMode := TRUE;		
 		
 	ELSE
@@ -852,7 +870,14 @@ END_IF
     <LineIds Name="LightControl">
       <LineId Id="4453" Count="138" />
       <LineId Id="5198" Count="0" />
-      <LineId Id="4592" Count="264" />
+      <LineId Id="5394" Count="0" />
+      <LineId Id="4592" Count="9" />
+      <LineId Id="5396" Count="3" />
+      <LineId Id="5404" Count="0" />
+      <LineId Id="5406" Count="2" />
+      <LineId Id="5410" Count="6" />
+      <LineId Id="5395" Count="0" />
+      <LineId Id="4602" Count="254" />
       <LineId Id="4909" Count="95" />
       <LineId Id="75" Count="0" />
     </LineIds>
