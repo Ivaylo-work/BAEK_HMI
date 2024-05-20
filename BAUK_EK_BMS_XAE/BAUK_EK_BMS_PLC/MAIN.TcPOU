@@ -34,7 +34,11 @@ VAR
 		
 	fbBlindsStretch						: BlindStretch;
 
-	hmiStrech: BOOL;
+	hmiStrech							: BOOL;
+	
+	fbWindSimulator						: FB_WindTurbineSim;
+	
+	windSpeed: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -115,7 +119,7 @@ fbBlindsStretch(Start:= bStretch AND hmiStrech, StretchDone:= bStretchDone,Err=>
 
 HowOftenTimer();
 
-
+fbWindSimulator(windSpeed:= windSpeed, rpm=> , powerOutput=> );
 ]]></ST>
     </Implementation>
     <Action Name="SleepModeCheck" Id="{3f87cb06-794c-44e6-adeb-1113c47adff4}">

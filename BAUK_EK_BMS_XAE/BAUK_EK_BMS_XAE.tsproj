@@ -823,7 +823,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{C653EB4F-879B-4BFA-81EA-FD3B382D1A99}" Name="BAUK_EK_BMS_PLC" PrjFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.plcproj" TmcFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{9EF92C8D-7FC7-4D12-2243-037EE0645A92}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{EA228A96-964D-DE9D-05B0-B4EA2CFAC45B}">
 					<Name>BAUK_EK_BMS_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">

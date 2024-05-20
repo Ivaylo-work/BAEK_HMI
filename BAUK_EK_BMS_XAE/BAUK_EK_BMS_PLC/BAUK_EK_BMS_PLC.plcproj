@@ -120,6 +120,9 @@
     <Compile Include="POWER MONITORING\ST_PHASE_DATA.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WIND TURBINE\FB_WindTurbineSim.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BLINDS" />
@@ -129,6 +132,7 @@
     <Folder Include="HMI" />
     <Folder Include="LIGHTS\DMX" />
     <Folder Include="ML" />
+    <Folder Include="WIND TURBINE" />
     <Folder Include="POWER MONITORING" />
   </ItemGroup>
   <ItemGroup>

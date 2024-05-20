@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_WindTurbineSim" Id="{094f154f-e176-415b-a9da-91bd88f15827}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_WindTurbineSim
+VAR_INPUT
+	windSpeed		: LREAL;
+	
+END_VAR
+VAR_OUTPUT
+	rpm				: LREAL;
+	powerOutput		: LREAL;
+END_VAR
+VAR
+	risingCoef		: LREAL := 0.000314; //Coefficient for the rising segment for SD6+
+	tipSpeed		: LREAL;
+	cutInSpeed		: LREAL := 5.59234;	//mph
+	
+END_VAR
+
+VAR CONSTANT
+	radius			: LREAL := 2.8;		//5.6m diameter of SD Wind SD6+ turbine
+	tsr				: Lreal	:= 2.5;		//tip speed ration usually arownd 7 for commercial turbines
+	maxRPM			: LREAL	:= 200.0;
+	maxOperationalSpeed: LREAL := 156.586;	//mph
+	ratedSpeed		: LREAL := 30;			//mph
+END_VAR
+
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF windSpeed < 6.00 THEN
+	powerOutput := 0.00;
+ELSIF windSpeed <= 30.00 THEN
+	powerOutput := risingCoef * EXPT(windSpeed, 3);
+ELSIF windSpeed <= 55.00 THEN
+	powerOutput := 8.5;
+ELSE
+	powerOutput := 0;
+END_IF
+
+IF windSpeed < cutInSpeed THEN
+	rpm := 0;
+END_IF
+
+IF windSpeed <= ratedSpeed THEN
+	tipSpeed := tsr * windSpeed;
+	rpm := (tipSpeed * 60) / (3.14 * 2 * radius);
+	rpm := MIN(rpm, maxRPM);
+
+ELSE
+	rpm := maxRPM;
+END_IF
+
+//tipSpeed := tsr * MIN(windSpeed,maxOperationalSpeed);
+
+
+
+//IF rpm > maxRPM THEN
+//	rpm := maxRPM;
+//END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_WindTurbineSim">
+      <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="28" Count="2" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="39" Count="1" />
+      <LineId Id="52" Count="2" />
+      <LineId Id="56" Count="4" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="47" Count="1" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="42" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

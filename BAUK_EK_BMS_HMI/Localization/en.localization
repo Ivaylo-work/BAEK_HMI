@@ -15,6 +15,7 @@
     "L_CoffeeMachine": "Coffee Machine",
     "L_Localization": "Localization",
     "L_Theme": "Theme",
-    "L_HMISettings": "HMI Settings"
+    "L_HMISettings": "HMI Settings",
+    "L_WindTurbine": "Wind Turbine"
   }
 }

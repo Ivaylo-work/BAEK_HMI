@@ -162,6 +162,9 @@
     <Content Include="Java Script\WindowIsOpenSubscriber.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Pages\WindTurbine.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="User Controls\All-in-One Shutdown.usercontrol">
       <SubType>Content</SubType>
     </Content>
