@@ -7,7 +7,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[numberOfOpenWindows := EnOcean.totalNumberOfWindowsOpen;
-boardroomModeIsProjector := LightControl.xBoardToom_Lights_ProjectorMode;
+boardroomModeIsProjector := LightControl.xBoardRoom_Lights_ProjectorMode;
 boardroomModeIsFullOn := PTM200StrippedTables[3].Signal OR PTM200StrippedTables[2].Signal;
 communalOccupancy1 := Dali.CommunalAreaPIR_1_Occupancy;
 communalOccupancy2 := Dali.CommunalAreaPIR_2_Occupancy;
@@ -23,13 +23,8 @@ boardLux1 := Dali.BoardroomPIR_1_LuxLevel;
 boardLux2 := Dali.BoardroomPIR_2_LuxLevel;]]></ST>
     </Implementation>
     <LineIds Name="VariableHandleForHmi">
-      <LineId Id="5" Count="1" />
-      <LineId Id="8" Count="0" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="12" Count="1" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="14" Count="1" />
-      <LineId Id="17" Count="5" />
+      <LineId Id="26" Count="13" />
+      <LineId Id="22" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

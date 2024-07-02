@@ -4,45 +4,47 @@
     <Declaration><![CDATA[PROGRAM BackgroundComms
 VAR
 
-	HubTXBuffer					:				ARRAY [0..2] OF ComBuffer;
-	HubRXBuffer					:				ARRAY [0..2] OF ComBuffer;
-
-	HubCommIn AT %I*			:				ARRAY [0..2] OF KL6inData22B;
-	HubCommOut AT %Q*			:				ARRAY [0..2] OF KL6outData22B;
-
-	HubSerialLineControl		:				ARRAY [0..2] OF SerialLineControl;
-
-	i							:				INT;
-
-	BlindCommandTable 			:		ARRAY [0..2] OF StructBlindControl := [(JogTimeInt:=3000)];
-	
-	OfficeBlindSellection		:		ARRAY [0..2] OF BOOL;
-	
-	KitchenBlindSelection		:		BOOL;
-	
-	BoardroomBlindSellection	:		ARRAY [0..1] OF BOOL;
-
-	StaffRoomTempDownButton		:		BOOL;
-	StaffRoomTempUpButton		:		BOOL;
-	StaffRoomTempDownButtonFlag	:		BOOL;
-	StaffRoomTempUpButtonFlag	:		BOOL;
-	ResetFlagTime 				: 		TON;
-
-	BlindSelection				:		Selection;
-
-	UseStaffRoomVisu 			: 		BOOL;
-
-	Up							:		BOOL;
-	Down						:		BOOL;
-
-	rtBlindsBoardRoomUp			:		R_TRIG;
-	rtBlindsBoardRoomDown		:		R_TRIG;
-	rtBlindsBoardRoomStop		:		R_TRIG;
+	HubTXBuffer								:		ARRAY [0..2] OF ComBuffer;
+	HubRXBuffer								:		ARRAY [0..2] OF ComBuffer;
+                                			        
+	HubCommIn AT %I*						:		ARRAY [0..2] OF KL6inData22B;
+	HubCommOut AT %Q*						:		ARRAY [0..2] OF KL6outData22B;
+                                			        
+	HubSerialLineControl					:		ARRAY [0..2] OF SerialLineControl;
+                                			        
+	i										:		INT;
+                                			
+	BlindCommandTable 						:		ARRAY [0..2] OF StructBlindControl := [(JogTimeInt:=3000)];
+	                            			
+	OfficeBlindSellection					:		ARRAY [0..2] OF BOOL;
+	                            			
+	KitchenBlindSelection					:		BOOL;
+	                            			
+	BoardroomBlindSellection				:		ARRAY [0..1] OF BOOL;
+                                			
+	StaffRoomTempDownButton					:		BOOL;
+	StaffRoomTempUpButton					:		BOOL;
+	StaffRoomTempDownButtonFlag				:		BOOL;
+	StaffRoomTempUpButtonFlag				:		BOOL;
+	ResetFlagTime 							: 		TON;
+                                			
+	BlindSelection							:		Selection;
+                                			
+	UseStaffRoomVisu 						: 		BOOL;
+                                			
+	Up										:		BOOL;
+	Down									:		BOOL;
+                                			
+	rtBlindsBoardRoomUp						:		R_TRIG;
+	rtBlindsBoardRoomDown					:		R_TRIG;
+	rtBlindsBoardRoomStop					:		R_TRIG;
+	                            			
+	rtBlindsOfficeUp						:		R_TRIG;
 
 
 	rtBlindsOfficeAreaWall1_3				:		R_TRIG;
 	rtBlindsOfficeAreaWall4_9				:		R_TRIG;
-	rtBlindsOfficeAreaWall10_13			:		R_TRIG;
+	rtBlindsOfficeAreaWall10_13				:		R_TRIG;
 
 	rtBlindsOfficeAreaWallStop				:		R_TRIG;
 
@@ -51,27 +53,27 @@ VAR
 	xBlindsOfficeAreaWall4_9Flag			:		BOOL;
 	xBlindsOfficeAreaWall10_13Flag			:		BOOL;
 
-	rtBlindsBoardRoomCP67Up			:		R_TRIG;
-	rtBlindsBoardRoomCP67Down			:		R_TRIG;
-	rtBlindsBoardRoomCP67Stop			:		R_TRIG;
+	rtBlindsBoardRoomCP67Up					:		R_TRIG;
+	rtBlindsBoardRoomCP67Down				:		R_TRIG;
+	rtBlindsBoardRoomCP67Stop				:		R_TRIG;
 
 
-	rtBoardRoom_PrivacyMode		:			R_TRIG;
-	rtBoardRoom_SceneryMode		:			R_TRIG;
-	rtBoardRoom_ProjectorMode		:			R_TRIG;
-	rtBoardRoom_MeetingMode		:			R_TRIG;
-
-	rtDeskArea_PrivacyMode			:			R_TRIG;
-	rtDeskArea_SceneryMode			:			R_TRIG;
-	rtDeskArea_NightMode			:			R_TRIG;
-	rtDeskArea_MorningMode			:			R_TRIG;
-
-	rtKitchenArea_PrivacyMode			:			R_TRIG;
-	rtKitchenArea_SceneryMode		:			R_TRIG;
-	rtKitchenArea_NightMode			:			R_TRIG;
-	rtKitchenArea_MorningMode		:			R_TRIG;
-
-	rtEntireBuilding_CleaningMode		:			R_TRIG;
+	rtBoardRoom_PrivacyMode					:		R_TRIG;
+	rtBoardRoom_SceneryMode					:		R_TRIG;
+	rtBoardRoom_ProjectorMode				:		R_TRIG;
+	rtBoardRoom_MeetingMode					:		R_TRIG;
+                                    		        
+	rtDeskArea_PrivacyMode					:		R_TRIG;
+	rtDeskArea_SceneryMode					:		R_TRIG;
+	rtDeskArea_NightMode					:		R_TRIG;
+	rtDeskArea_MorningMode					:		R_TRIG;
+                                        	        
+	rtKitchenArea_PrivacyMode				:		R_TRIG;
+	rtKitchenArea_SceneryMode				:		R_TRIG;
+	rtKitchenArea_NightMode					:		R_TRIG;
+	rtKitchenArea_MorningMode				:		R_TRIG;
+                                        	        
+	rtEntireBuilding_CleaningMode			:		R_TRIG;
 
 
 END_VAR
@@ -79,7 +81,7 @@ END_VAR
 
 VAR CONSTANT
 
-	HubCount				:				INT := 2; (* Hub count starts at 0, setting 2 = 3 hubs *)
+	HubCount								:		INT := 2; (* Hub count starts at 0, setting 2 = 3 hubs *)
 
 END_VAR]]></Declaration>
     <Implementation>
@@ -186,6 +188,19 @@ END_IF
 (*Select Boardroom Blinds for Partition*)
 IF(NOT BoardroomBlindSellection[0]) AND BoardroomBlindSellection[1] THEN
 	SetBoardRoomBlinds1_7();
+	
+//	rtBlindsBoardRoomUp(CLK := BlindCommandTable[1].xCommandUp);
+	
+//	IF rtBlindsBoardRoomUp.Q THEN
+//		BlindCommandTable[0].xCommandUp := TRUE;
+//	END_IF
+//	rtBlindsOfficeUp(CLK := BlindCommandTable[0].xCommandUp);
+	
+//	IF rtBlindsOfficeUp.Q THEN
+//		BlindCommandTable[0].xCommandUp := FALSE;
+//	END_IF
+	
+	
 END_IF
 
 (*Boardroom Blind Modes**************************************************************************)
@@ -423,7 +438,8 @@ BlindCommandTable[1].SelectBlindsBulkCommand[12] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[13] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[14] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[15] := TRUE;
-BlindCommandTable[1].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
+BlindCommandTable[1].SelectBlindsBulkCommand[16] := TRUE;
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="SetBoardRoomBlinds1_7" Id="{26c73eee-fabf-42f3-aed3-3d832ca09101}">
@@ -443,7 +459,9 @@ BlindCommandTable[1].SelectBlindsBulkCommand[12] := FALSE;
 BlindCommandTable[1].SelectBlindsBulkCommand[13] := FALSE;
 BlindCommandTable[1].SelectBlindsBulkCommand[14] := FALSE;
 BlindCommandTable[1].SelectBlindsBulkCommand[15] := FALSE;
-BlindCommandTable[1].SelectBlindsBulkCommand[16] := FALSE;]]></ST>
+BlindCommandTable[1].SelectBlindsBulkCommand[16] := FALSE;
+
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="SetBoardRoomBlinds8_16" Id="{b155812a-6acc-4eca-9e58-280c15029748}">
@@ -463,7 +481,8 @@ BlindCommandTable[1].SelectBlindsBulkCommand[12] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[13] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[14] := TRUE;
 BlindCommandTable[1].SelectBlindsBulkCommand[15] := TRUE;
-BlindCommandTable[1].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
+BlindCommandTable[1].SelectBlindsBulkCommand[16] := TRUE;
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="SetKitchenAreaBlindsAll" Id="{7f73ed70-cc1f-4322-ab0d-76f38bd8dafa}">
@@ -669,17 +688,29 @@ BlindCommandTable[0].SelectBlindsBulkCommand[16] := FALSE;]]></ST>
       <LineId Id="831" Count="0" />
       <LineId Id="568" Count="0" />
       <LineId Id="834" Count="0" />
-      <LineId Id="569" Count="220" />
+      <LineId Id="569" Count="2" />
+      <LineId Id="916" Count="3" />
+      <LineId Id="921" Count="1" />
+      <LineId Id="920" Count="0" />
+      <LineId Id="925" Count="0" />
+      <LineId Id="927" Count="2" />
+      <LineId Id="926" Count="0" />
+      <LineId Id="915" Count="0" />
+      <LineId Id="572" Count="217" />
       <LineId Id="340" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetBoardroomAreaBlindsAll">
       <LineId Id="0" Count="15" />
+      <LineId Id="18" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetBoardRoomBlinds1_7">
       <LineId Id="0" Count="15" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetBoardRoomBlinds8_16">
       <LineId Id="0" Count="15" />
+      <LineId Id="17" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetKitchenAreaBlindsAll">
       <LineId Id="2" Count="14" />

@@ -12,7 +12,7 @@
     <HmiTitle>BAUK EK BMS</HmiTitle>
     <HmiVerboseLevel>2</HmiVerboseLevel>
     <HmiVersion>1.0.0.0</HmiVersion>
-    <HmiCommunicationServerPort>3001</HmiCommunicationServerPort>
+    <HmiCommunicationServerPort>3003</HmiCommunicationServerPort>
     <HmiLogTcHmiServerMessages>false</HmiLogTcHmiServerMessages>
     <HmiLogDesignerModeComMessages>false</HmiLogDesignerModeComMessages>
     <HmiServerVersion>Latest</HmiServerVersion>
@@ -22,11 +22,12 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10107</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10108</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
     <HmiServerNodeAdvancedView>False</HmiServerNodeAdvancedView>
+    <HmiServerNodeAdvancedSettingsView>True</HmiServerNodeAdvancedSettingsView>
   </PropertyGroup>
   <PropertyGroup>
     <TwinCATHmi_Tasks>$(TcHmiDirectory)\MSBuild\Beckhoff.TwinCAT.HMI.tasks</TwinCATHmi_Tasks>
@@ -162,6 +163,13 @@
     <Content Include="Java Script\WindowIsOpenSubscriber.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Java Script\WindTurbineSubscriber.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Java Script\WindTurbineSubscriber.js</DependentUpon>
+    </Content>
+    <Content Include="Java Script\WindTurbineSubscriber.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Pages\WindTurbine.content">
       <SubType>Content</SubType>
     </Content>
@@ -185,6 +193,13 @@
     <Content Include="User Controls\Current.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>User Controls\Current.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="User Controls\DataCakeHost.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\DataCakeHost.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\DataCakeHost.usercontrol</DependentUpon>
     </Content>
     <Content Include="User Controls\EcoMode.usercontrol">
       <SubType>Content</SubType>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_WeatherAPI_HTTP" Id="{9f2f90cf-8d48-4d38-a6b6-ac1507a8095f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_WeatherAPI_HTTP
+VAR_INPUT
+	bSend             : BOOL;
+END_VAR
+VAR_OUTPUT
+	wind_speed		  : Lreal;
+	bBusy             : BOOL;
+    bError            : BOOL;
+END_VAR
+VAR
+	fbRequest         : FB_IotHttpRequest;
+    fbJson            : FB_JsonDomParser;
+    nState            : UDINT;
+    RisingEdge        : R_TRIG;
+
+    bGetContentResult : BOOL;
+    sContent          : STRING(511);
+
+    bGetJsonResult    : BOOL;
+    jsonDoc           : SJsonValue;
+    jsonVal           : SJsonValue;
+	jsonWind           : SJsonValue;
+
+    nReqCount         : UDINT;
+    nResCount         : UDINT;
+    nValidResCount    : UDINT;
+    nErrCount         : UDINT;
+	bHasMember		  : BOOL;
+	bHasMember2		  : BOOL;
+END_VAR
+VAR_IN_OUT
+	 fbClient          : FB_IotHttpClient;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[RisingEdge(CLK:= bSend);
+CASE nState OF
+0:
+    IF RisingEdge.Q THEN
+        IF fbRequest.SendRequest(sUri:= '/v1/current.json?q=East%20Kilbride&key=8976e01a943e4ee8915133914242706',
+                                 fbClient:= fbClient, 
+                                 eRequestType:= ETcIotHttpRequestType.HTTP_Get, 0, 0, 0) THEN
+            nState:= 1;
+            nReqCount:= nReqCount+1;
+            bBusy:= TRUE;
+            bError:= FALSE;
+        END_IF
+    END_IF
+1:
+    IF NOT fbRequest.bBusy THEN
+        bError:= TRUE;
+        IF NOT fbRequest.bError THEN
+            bGetContentResult:= fbRequest.GetContent(pContent:= ADR(sContent), 
+                                                     nContentSize:= SIZEOF(sContent), 
+                                                     bSetNullTermination:= TRUE);
+            IF fbRequest.nStatusCode >= 200 AND fbRequest.nStatusCode < 300 THEN
+                bGetJsonResult:= FALSE;
+                jsonDoc:= fbRequest.GetJsonDomContent(fbJson);
+                IF jsonDoc <> 0 THEN
+                    bHasMember := fbJson.HasMember(jsonDoc, 'current');
+					IF (bHasMember) THEN
+						bHasMember := FALSE;
+						jsonVal := fbJson.FindMember(jsonDoc, 'current');
+					END_IF
+					
+					bHasMember2 := fbJson.HasMember(jsonVal, 'wind_mph');
+					IF (bHasMember2) THEN
+						bHasMember2 := FALSE;
+						jsonWind := fbJson.FindMember(jsonVal, 'wind_mph');
+						wind_speed := fbJson.GetDouble(jsonWind);
+					END_IF
+					
+                    nValidResCount:= nValidResCount+1;
+                    bError:= FALSE;
+                END_IF
+                nResCount:= nResCount+1;
+            END_IF
+        END_IF
+        nState:= 0;
+        bBusy:= FALSE;
+        IF bError THEN
+            nErrCount:= nErrCount+1;
+        END_IF
+    END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_WeatherAPI_HTTP">
+      <LineId Id="42" Count="24" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="83" Count="1" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="89" Count="4" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="67" Count="11" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

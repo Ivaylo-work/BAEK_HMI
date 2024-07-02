@@ -120,6 +120,9 @@
     <Compile Include="POWER MONITORING\ST_PHASE_DATA.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WIND TURBINE\FB_WeatherAPI_HTTP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WIND TURBINE\FB_WindTurbineSim.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -180,8 +183,12 @@
       <DefaultResolution>Tc3_IotBase, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_IotBase</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_JsonXml">
+      <DefaultResolution>Tc3_JsonXml, * (Beckhoff Automation GmbH)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc3_MLL">
       <DefaultResolution>Tc3_MLL, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_MLL</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>

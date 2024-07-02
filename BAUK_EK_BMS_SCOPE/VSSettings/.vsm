@@ -5,12 +5,12 @@
   <Children>
     <Node>
       <Title>Analogue_Power</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -20,43 +20,7 @@
               <Children />
             </Node>
             <Node>
-              <Title>BusyOffice (1)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>BusyOffice (2)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
               <Title>current</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>diScaledActivePower</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>diScaledCurrentAmps</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>diScaledFrequency</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>diScaledVoltage</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -79,6 +43,18 @@
               <FileName></FileName>
               <Children />
             </Node>
+            <Node>
+              <Title>xBoardRoom_Lights_ProjectorMode</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>xBoardRoom_Lights_ShowroomMode</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
           </Children>
         </Node>
         <Node>
@@ -90,54 +66,7 @@
               <Title>Current</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>Current</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children>
-                    <Node>
-                      <Title>Dynamic Style</Title>
-                      <Expanded>False</Expanded>
-                      <FileName></FileName>
-                      <Children>
-                        <Node>
-                          <Title>Low</Title>
-                          <Expanded>False</Expanded>
-                          <FileName></FileName>
-                          <Children />
-                        </Node>
-                      </Children>
-                    </Node>
-                    <Node>
-                      <Title>Dynamic Style (1)</Title>
-                      <Expanded>False</Expanded>
-                      <FileName></FileName>
-                      <Children>
-                        <Node>
-                          <Title>Medium</Title>
-                          <Expanded>False</Expanded>
-                          <FileName></FileName>
-                          <Children />
-                        </Node>
-                      </Children>
-                    </Node>
-                    <Node>
-                      <Title>Dynamic Style (2)</Title>
-                      <Expanded>False</Expanded>
-                      <FileName></FileName>
-                      <Children>
-                        <Node>
-                          <Title>Condition</Title>
-                          <Expanded>False</Expanded>
-                          <FileName></FileName>
-                          <Children />
-                        </Node>
-                      </Children>
-                    </Node>
-                  </Children>
-                </Node>
-              </Children>
+              <Children />
             </Node>
           </Children>
         </Node>
@@ -150,14 +79,7 @@
               <Title>Power</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>Activate Power</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-              </Children>
+              <Children />
             </Node>
           </Children>
         </Node>
@@ -170,14 +92,7 @@
               <Title>Voltage</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>Voltage</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-              </Children>
+              <Children />
             </Node>
           </Children>
         </Node>
@@ -190,14 +105,7 @@
               <Title>Frequency</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>Frequency</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-              </Children>
+              <Children />
             </Node>
           </Children>
         </Node>
@@ -248,37 +156,23 @@
           </Children>
         </Node>
         <Node>
-          <Title>YT Chart (1)</Title>
-          <Expanded>False</Expanded>
+          <Title>Boardroom Control Lights</Title>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>Axis Group (2)</Title>
-              <Expanded>False</Expanded>
+              <Title>Axis Group (4)</Title>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>BusyOffice (1)</Title>
+                  <Title>xBoardRoom_Lights_ProjectorMode</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
-              </Children>
-            </Node>
-          </Children>
-        </Node>
-        <Node>
-          <Title>YT Chart (2)</Title>
-          <Expanded>False</Expanded>
-          <FileName></FileName>
-          <Children>
-            <Node>
-              <Title>Axis Group (3)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children>
                 <Node>
-                  <Title>BusyOffice (2)</Title>
+                  <Title>xBoardRoom_Lights_ShowroomMode</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -297,7 +191,7 @@
     </Node>
     <Node>
       <Title>Blinds</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Blinds.tcscopex</FileName>
       <Children>
         <Node>
@@ -308,7 +202,7 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -329,12 +223,12 @@
     </Node>
     <Node>
       <Title>EnOcean Switches</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -359,7 +253,7 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>

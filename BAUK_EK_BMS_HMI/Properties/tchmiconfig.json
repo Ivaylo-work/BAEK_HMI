@@ -70,6 +70,11 @@
       "name": "Java Script/TennisTableHandler.js",
       "description": "",
       "type": "JavaScript"
+    },
+    {
+      "name": "Java Script/WindTurbineSubscriber.js",
+      "description": "",
+      "type": "JavaScript"
     }
   ],
   "userControls": [
@@ -108,9 +113,19 @@
     },
     {
       "url": "User Controls/WindowIsOpen.usercontrol"
+    },
+    {
+      "url": "User Controls/DataCakeHost.usercontrol"
     }
   ],
   "content": [
+    {
+      "url": "Pages/WindTurbine.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
     {
       "url": "Pages/Boardroom.content",
       "preload": false,
@@ -166,13 +181,6 @@
       "keepAlive": false,
       "loadSync": false,
       "preloadBindings": false
-    },
-    {
-      "url": "Pages/WindTurbine.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
     }
   ],
   "views": [
@@ -195,6 +203,9 @@
     },
     {
       "url": "Java Script/WindowIsOpenSubscriber.js"
+    },
+    {
+      "url": "Java Script/WindTurbineSubscriber.js"
     }
   ],
   "symbols": {

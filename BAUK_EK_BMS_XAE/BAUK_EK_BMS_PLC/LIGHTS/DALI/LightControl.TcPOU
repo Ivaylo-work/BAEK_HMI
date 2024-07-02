@@ -29,7 +29,7 @@ VAR
 	TurnAllOffGroup2_BoardroomBackRow		:	FB_DALIV2Off;
 	TurnAllOffGroup3_BoardroomFront2		:	FB_DALIV2Off;
 	TurnAllOffGroup4_OfficePassage			:	FB_DALIV2Off;
-	TurnAllOffGroup5_TableTennis			:	FB_DALIV2Off;
+	TurnAllOffGroup5_SmallBoardRoom			:	FB_DALIV2Off;
 	TurnAllOffGroup6_MiddleRoomPassage		:	FB_DALIV2Off;
 	TurnAllOffGroup7_TechRoom				:	FB_DALIV2Off;
 	TurnAllOffGroup8_ServerRoom				:	FB_DALIV2Off;
@@ -41,7 +41,7 @@ VAR
 	LightControlGroup2_BoardroomBackRow		:	FB_DALIV2Light;
 	LightControlGroup3_BoardroomFront2		:	FB_DALIV2Light;
 	LightControlGroup4_OfficePassage		:	FB_DALIV2Light;
-	LightControlGroup5_TableTennis			:	FB_DALIV2Light;
+	LightControlGroup5_SmallBoardRoom		:	FB_DALIV2Light;
 	LightControlGroup6_MiddleRoomPassage	:	FB_DALIV2Light;
 	LightControlGroup7_TechRoom				:	FB_DALIV2Light;
 	LightControlGroup8_ServerRoom			:	FB_DALIV2Light;
@@ -52,7 +52,7 @@ VAR
 	RecallMaxLevelGroup2_BoardroomBackRow	:	FB_DALIV2RecallMaxLevel;
 	RecallMaxLevelGroup3_BoardroomFront2	:	FB_DALIV2RecallMaxLevel;
 	RecallMaxLevelGroup4_OfficePassage		:	FB_DALIV2RecallMaxLevel;
-	RecallMaxLevelGroup5_TableTennis		:	FB_DALIV2RecallMaxLevel;
+	RecallMaxLevelGroup5_SmallBoardRoom		:	FB_DALIV2RecallMaxLevel;
 	RecallMaxLevelGroup6_MiddleRoomPassage	:	FB_DALIV2RecallMaxLevel;
 	RecallMaxLevelGroup7_TechRoom			:	FB_DALIV2RecallMaxLevel;
 	RecallMaxLevelGroup8_ServerRoom			:	FB_DALIV2RecallMaxLevel;
@@ -64,7 +64,7 @@ VAR
 	RecallMinLevelGroup2_BoardroomBackRow	:	FB_DALIV2RecallMinLevel;
 	RecallMinLevelGroup3_BoardroomFront2	:	FB_DALIV2RecallMinLevel;
 	RecallMinLevelGroup4_OfficePassage		:	FB_DALIV2RecallMinLevel;
-	RecallMinLevelGroup5_TableTennis		:	FB_DALIV2RecallMinLevel;
+	RecallMinLevelGroup5_SmallBoardRoom		:	FB_DALIV2RecallMinLevel;
 	RecallMinLevelGroup6_MiddleRoomPassage	:	FB_DALIV2RecallMinLevel;
 	RecallMinLevelGroup7_TechRoom			:	FB_DALIV2RecallMinLevel;
 	RecallMinLevelGroup8_ServerRoom			:	FB_DALIV2RecallMinLevel;
@@ -124,9 +124,14 @@ VAR
 	ReceptionDoorLightControlOnLeave		:	FB_DALIV2Light;
 	
 	
-	TableTennisLightControl					:	FB_DALIV2Light;
-	TableTennisDimm							:	FB_DALIV2Dimmer1Switch;
-	TableTennisOff							:	FB_DALIV2Off;
+	SmallBoardRoomLightControl				:	FB_DALIV2Light;
+	SmallBoardRoomDimm						:	FB_DALIV2Dimmer1Switch;
+	SmallBoardRoomOff						:	FB_DALIV2Off;
+	
+	
+	SmallBoardRoomTime						:	TON;
+	SmallBoardRoomTriggerOn					:	BOOL;
+	SmallBoardRoomTriggerOff				:	BOOL;
 	                                    	
 	                                    	
 	OfficePassageTime						:	TON;
@@ -179,8 +184,8 @@ VAR
 	OfficeLightLevelSetpoint				:	UINT := 900;
 	WorkshopLightLevelSetpoint				:	UINT := 1000;
 	
-	xBoardToom_Lights_ProjectorMode			:	BOOL;
-	xBoardToom_Lights_ShowroomMode			:	BOOL;
+	xBoardRoom_Lights_ProjectorMode			:	BOOL;
+	xBoardRoom_Lights_ShowroomMode			:	BOOL;
 	rt_BoardRoom_Lights_ProjectorMode		:	R_TRIG;
 	rt_BoardRoom_Lights_ShowroomMode		:	R_TRIG;
 	
@@ -238,7 +243,7 @@ END_FOR	*)
 	LightControlGroup2_BoardroomBackRow	(bOn:= TRUE, bOff:= , nAddr:= 2, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup3_BoardroomFront2	(bOn:= TRUE, bOff:= , nAddr:= 3, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup4_OfficePassage	(bOn:= TRUE, bOff:= , nAddr:= 4, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
-	LightControlGroup5_TableTennis		(bOn:= TRUE, bOff:= , nAddr:= 5, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup5_SmallBoardRoom	(bOn:= TRUE, bOff:= , nAddr:= 5, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup6_MiddleRoomPassage(bOn:= TRUE, bOff:= , nAddr:= 6, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup7_TechRoom			(bOn:= TRUE, bOff:= , nAddr:= 7, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup8_ServerRoom		(bOn:= TRUE, bOff:= , nAddr:= 8, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
@@ -250,7 +255,7 @@ END_FOR	*)
 	TurnAllOffGroup2_BoardroomBackRow	(bStart:= FALSE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup3_BoardroomFront2	(bStart:= FALSE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup4_OfficePassage		(bStart:= FALSE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
-	TurnAllOffGroup5_TableTennis		(bStart:= FALSE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_SmallBoardRoom		(bStart:= FALSE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= FALSE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup7_TechRoom			(bStart:= FALSE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
 	TurnAllOffGroup8_ServerRoom			(bStart:= FALSE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
@@ -262,7 +267,7 @@ END_FOR	*)
 	LightControlGroup2_BoardroomBackRow	(bOn:= FALSE, bOff:= , nAddr:= 2, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup3_BoardroomFront2	(bOn:= FALSE, bOff:= , nAddr:= 3, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup4_OfficePassage	(bOn:= FALSE, bOff:= , nAddr:= 4, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
-	LightControlGroup5_TableTennis		(bOn:= FALSE, bOff:= , nAddr:= 5, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
+	LightControlGroup5_SmallBoardRoom	(bOn:= FALSE, bOff:= , nAddr:= 5, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup6_MiddleRoomPassage(bOn:= FALSE, bOff:= , nAddr:= 6, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup7_TechRoom			(bOn:= FALSE, bOff:= , nAddr:= 7, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
 	LightControlGroup8_ServerRoom		(bOn:= FALSE, bOff:= , nAddr:= 8, eAddrType:= 1,	bLight=> ,stCommandBuffer:= stCommandBuffer);
@@ -274,7 +279,7 @@ END_FOR	*)
 	TurnAllOffGroup2_BoardroomBackRow	(bStart:= TRUE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup3_BoardroomFront2	(bStart:= TRUE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup4_OfficePassage		(bStart:= TRUE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
-	TurnAllOffGroup5_TableTennis		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_SmallBoardRoom		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= TRUE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup7_TechRoom			(bStart:= TRUE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
 	TurnAllOffGroup8_ServerRoom			(bStart:= TRUE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );		
@@ -308,7 +313,7 @@ IF trigbAssumeBuildingEmpty.Q THEN
 	TurnAllOffGroup2_BoardroomBackRow	(bStart:= TRUE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup3_BoardroomFront2	(bStart:= TRUE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup4_OfficePassage		(bStart:= TRUE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
-	TurnAllOffGroup5_TableTennis		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_SmallBoardRoom		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= TRUE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup7_TechRoom			(bStart:= TRUE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
 	TurnAllOffGroup8_ServerRoom			(bStart:= TRUE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
@@ -317,6 +322,7 @@ IF trigbAssumeBuildingEmpty.Q THEN
 	
 	DeskAreaTriggerOn 			:= FALSE;
 	DeskAreaTriggerOff 			:= FALSE;
+	SmallBoardRoomTriggerOn		:= FALSE;
 	WorkshopPassageTriggerOn 	:= FALSE;
 	WorkshopPassageTriggerOff 	:= FALSE;
 	OfficePassageTime.IN		:= FALSE;
@@ -373,7 +379,7 @@ IF NOT PTM200StrippedTables[5].Signal AND NOT GoHomeHoldActivated THEN
 	TurnAllOffGroup2_BoardroomBackRow	(bStart:= FALSE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup3_BoardroomFront2	(bStart:= FALSE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup4_OfficePassage		(bStart:= FALSE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
-	TurnAllOffGroup5_TableTennis		(bStart:= FALSE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_SmallBoardRoom		(bStart:= FALSE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= FALSE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup7_TechRoom			(bStart:= FALSE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
 	TurnAllOffGroup8_ServerRoom			(bStart:= FALSE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
@@ -390,7 +396,7 @@ IF GoHomeHoldActivated THEN // Go home swicth has been held
 	TurnAllOffGroup2_BoardroomBackRow	(bStart:= TRUE , nAddr:= 2, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup3_BoardroomFront2	(bStart:= TRUE , nAddr:= 3, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup4_OfficePassage		(bStart:= TRUE , nAddr:= 4, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
-	TurnAllOffGroup5_TableTennis		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
+	TurnAllOffGroup5_SmallBoardRoom		(bStart:= TRUE , nAddr:= 5, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup6_MiddleRoomPassage	(bStart:= TRUE , nAddr:= 6, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );
 	TurnAllOffGroup7_TechRoom			(bStart:= TRUE , nAddr:= 7, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
 	TurnAllOffGroup8_ServerRoom			(bStart:= TRUE , nAddr:= 8, eAddrType:= 1, stCommandBuffer:= stCommandBuffer );	
@@ -399,6 +405,7 @@ IF GoHomeHoldActivated THEN // Go home swicth has been held
 
 	DeskAreaTriggerOn 			:= FALSE;
 	DeskAreaTriggerOff 			:= FALSE;
+	SmallBoardRoomTriggerOn		:= FALSE;
 	WorkshopPassageTriggerOn 	:= FALSE;
 	WorkshopPassageTriggerOff 	:= FALSE;
 	OfficePassageTime.IN		:= FALSE;
@@ -575,24 +582,24 @@ ReceptionPassage_LightControl();
 			
 				
 
-//Table Tennis Group 5**********************************************************
-//LightControlGroup5_TableTennis(
-//			bOn:= PTM200StrippedTables[12].Signal, 
-//			bOff:= ,
-//			nAddr:= 5, 
-//			eAddrType:= eDALIV2AddrTypeGroup, 
-//			stCommandBuffer:= stCommandBuffer);		
+//Small Board Room Group 5**********************************************************
+LightControlGroup5_SmallBoardRoom(
+			bOn:= SmallBoardRoomTriggerOn, 
+			bOff:= SmallBoardRoomTriggerOFF,
+			nAddr:= 5, 
+			eAddrType:= eDALIV2AddrTypeGroup, 
+			stCommandBuffer:= stCommandBuffer);		
 			
-//RecallMinLevelGroup5_TableTennis(
-//			bStart:= PTM200StrippedTables[13].Signal, 
+//RecallMinLevelGroup5_SmallBoardRoom(
+//			bStart:= SmallBoardRoomTriggerOn,
 //			nAddr:= 5, 
 //			eAddrType:= eDALIV2AddrTypeGroup, 
 //			stCommandBuffer:= stCommandBuffer );
-TableTennisOff(
-	bStart:= TRUE, 
-	nAddr:= 55, 
-	eAddrType:= eDALIV2AddrTypeShort,  
-	stCommandBuffer:= stCommandBuffer);
+SmallBoardRoomOff(
+			bStart:= TRUE, 
+			nAddr:= 55, 
+			eAddrType:= eDALIV2AddrTypeShort,  
+			stCommandBuffer:= stCommandBuffer);
 //*******************************************************************************
 		
 	
@@ -680,11 +687,11 @@ BoardRoom_LightControl();
 			tCycleActualLevelMasterDev:= , 
 			stCommandBuffer:= stCommandBuffer);	
 			
-		RecallMinLevelGroup5_TableTennis(
+		(*RecallMinLevelGroup5_SmallBoardRoom(
 			bStart:= ReceptionTableKitchLoungeTriggerOn, 
 			nAddr:= 5, 
 			eAddrType:= eDALIV2AddrTypeGroup, 
-			stCommandBuffer:= stCommandBuffer );
+			stCommandBuffer:= stCommandBuffer );*)
 			
 		(*RecallMinLevelCouchLight(
 			bStart:= ReceptionTableKitchLoungeTriggerOn, 
@@ -739,10 +746,10 @@ END_IF
 
 //Showroom Board room on*********************************************
 
-rt_BoardRoom_Lights_ShowroomMode(CLK := xBoardToom_Lights_ShowroomMode);
+rt_BoardRoom_Lights_ShowroomMode(CLK := xBoardRoom_Lights_ShowroomMode);
 
 IF  rt_BoardRoom_Lights_ShowroomMode.Q THEN
-	xBoardToom_Lights_ShowroomMode := FALSE;
+	xBoardRoom_Lights_ShowroomMode := FALSE;
 	BoardRoomTriggerOn		:= TRUE;
 	BoardRoomTriggerOff		:= FALSE;
 	BoardRoomTime.IN		:= FALSE;
@@ -768,10 +775,10 @@ FBDALIV2Dimmer1SwitchBoardb(
 
 //Projector Board room on*********************************************
 
-rt_BoardRoom_Lights_ProjectorMode(CLK := xBoardToom_Lights_ProjectorMode);
+rt_BoardRoom_Lights_ProjectorMode(CLK := xBoardRoom_Lights_ProjectorMode);
 
 IF  rt_BoardRoom_Lights_ProjectorMode.Q THEN
-	xBoardToom_Lights_ProjectorMode := FALSE;
+	xBoardRoom_Lights_ProjectorMode := FALSE;
 	BoardRoomTriggerOff		:= FALSE;
 	BoardRoomTime.IN		:= FALSE;
 END_IF
@@ -849,26 +856,33 @@ END_IF
 
 	/////////////////////////// Reception Passage  Occupancy handle //////////////////////////
 	IF 	Dali.StaffroomPIR_1_Occupancy OR Dali.StaffroomPIR_2_Occupancy OR Dali.CommunalAreaPIR_2_Occupancy THEN
+		SmallBoardRoomTriggerOn				:= TRUE;		//to be changed
 		ReceptionPassageTriggerOn 			:= TRUE;
 		ReceptionPassageTriggerOFF			:= FALSE;
 		ReceptionPassageTime.IN				:= FALSE;
+		SmallBoardRoomTime.IN				:= FALSE;		//to be changed
 	END_IF
 	
 	IF NOT Dali.StaffroomPIR_1_Occupancy AND NOT Dali.StaffroomPIR_2_Occupancy AND NOT Dali.CommunalAreaPIR_2_Occupancy THEN
 		ReceptionPassageTime.IN				:= TRUE;
-		ReceptionPassageTime.PT				:= T#3600S;	
+		SmallBoardRoomTime.IN				:= TRUE;
+		ReceptionPassageTime.PT				:= T#3600S;
+		SmallBoardRoomTime.PT				:= T#3600S;	
 	END_IF
 	
 	IF ReceptionPassageTime.Q OR ResetOthers THEN
-	
+		SmallBoardRoomTriggerOn				:= FALSE;
 		ReceptionPassageTriggerOn 			:= FALSE;
 		ReceptionPassageTriggerOFF			:= TRUE;
+		SmallBoardRoomTriggerOFF			:= True;
 	END_IF
 	//***************************************************************************************]]></ST>
       </Implementation>
     </Action>
     <LineIds Name="LightControl">
-      <LineId Id="4453" Count="138" />
+      <LineId Id="4453" Count="118" />
+      <LineId Id="5814" Count="0" />
+      <LineId Id="4572" Count="19" />
       <LineId Id="5198" Count="0" />
       <LineId Id="5394" Count="0" />
       <LineId Id="4592" Count="9" />
@@ -877,7 +891,9 @@ END_IF
       <LineId Id="5406" Count="2" />
       <LineId Id="5410" Count="6" />
       <LineId Id="5395" Count="0" />
-      <LineId Id="4602" Count="254" />
+      <LineId Id="4602" Count="33" />
+      <LineId Id="5815" Count="0" />
+      <LineId Id="4636" Count="220" />
       <LineId Id="4909" Count="95" />
       <LineId Id="75" Count="0" />
     </LineIds>
@@ -916,9 +932,19 @@ END_IF
       <LineId Id="36" Count="2" />
     </LineIds>
     <LineIds Name="LightControl.ReceptionPassage_LightControl">
-      <LineId Id="2" Count="22" />
+      <LineId Id="2" Count="11" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="14" Count="2" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="17" Count="3" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="22" Count="2" />
       <LineId Id="28" Count="0" />
-      <LineId Id="25" Count="2" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="27" Count="0" />
       <LineId Id="1" Count="0" />
     </LineIds>
   </POU>
