@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Dali" Id="{7cd58663-8403-4133-b120-667ea1c00677}" SpecialFunc="None">
-    <Declaration><![CDATA[
-PROGRAM Dali
+    <Declaration><![CDATA[PROGRAM Dali
 VAR
-	KL6811							:			FB_DALIV2Communication;
+	KL6811_Tc2							:			Tc2_DALI.FB_DALIV2Communication;
+	KL6811_Tc3							:			Tc3_DALI.FB_KL6811Communication;
 	
 	
 	bAssumeBuildingEmpty			:			BOOL;
@@ -66,7 +66,7 @@ VAR
 	i: BYTE;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[KL6811(
+      <ST><![CDATA[KL6811_Tc2(
 	bResetMaximumDemandCounter:= ,
 	bResetOverflowCounter:= ,
 	stDALIInData:=  stDALIInData ,
@@ -77,6 +77,33 @@ END_VAR]]></Declaration>
 	arrBufferOverflowCounter=> , 
 	bLineIsBusy=> ,
 	bLineIsInitialized=> );
+	
+	//stKL6811InData.nData := stDALIInData.nData;
+	//stKL6811InData.nStatus :=  stDALIInData.nStatus;
+	
+	//stKL6811OutData.nCtrl := stDALIOutData.nCtrl;
+	//stKL6811OutData.nData := stDALIOutData.nData;
+	
+KL6811_Tc3(
+	bError=> , 
+	ipResultMessage=> , 
+	bResetMaximumDemandCounter:= , 
+	bResetOverflowCounter:= , 
+	nOptions:= , 
+	bBusy=> , 
+	nBufferDemandMeter=> , 
+	nBufferMaximumDemandMeter=> , 
+	nBufferOverflowCounter=> , 
+	bInitialise:= , 
+	bDisableInternalPowerSupply:= , 
+	bCollisionErrorFC=> , 
+	bCollisionErrorBC=> , 
+	bPowerSupplyError=> , 
+	bInitialising=> , 
+	nTerminalDescription=> , 
+	nFirmwareVersion=> , 
+	stInData:= stKL6811InData, 
+	stOutData:= stKL6811OutData);
 
 	// Check Building Occupancy
 	TONGlobalMovementTimer(PT := T#3H );
@@ -168,33 +195,16 @@ StaffroomLights(
 	stCommandBuffer:=stCommandBuffer  );*)]]></ST>
     </Implementation>
     <LineIds Name="Dali">
-      <LineId Id="35" Count="10" />
-      <LineId Id="510" Count="0" />
-      <LineId Id="492" Count="0" />
-      <LineId Id="511" Count="0" />
-      <LineId Id="427" Count="0" />
-      <LineId Id="495" Count="0" />
-      <LineId Id="514" Count="0" />
-      <LineId Id="497" Count="0" />
-      <LineId Id="519" Count="0" />
-      <LineId Id="496" Count="0" />
-      <LineId Id="493" Count="0" />
-      <LineId Id="516" Count="2" />
-      <LineId Id="494" Count="0" />
-      <LineId Id="370" Count="0" />
-      <LineId Id="428" Count="0" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="231" Count="0" />
-      <LineId Id="47" Count="5" />
-      <LineId Id="170" Count="0" />
-      <LineId Id="53" Count="12" />
-      <LineId Id="171" Count="0" />
-      <LineId Id="66" Count="12" />
-      <LineId Id="172" Count="0" />
-      <LineId Id="79" Count="5" />
-      <LineId Id="232" Count="0" />
-      <LineId Id="234" Count="0" />
-      <LineId Id="85" Count="27" />
+      <LineId Id="645" Count="10" />
+      <LineId Id="745" Count="0" />
+      <LineId Id="766" Count="0" />
+      <LineId Id="768" Count="1" />
+      <LineId Id="767" Count="0" />
+      <LineId Id="770" Count="1" />
+      <LineId Id="747" Count="18" />
+      <LineId Id="746" Count="0" />
+      <LineId Id="656" Count="87" />
+      <LineId Id="112" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

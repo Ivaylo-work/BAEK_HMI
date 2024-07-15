@@ -200,6 +200,9 @@ VAR
 	CouchLightStepUp: BOOL;
 	AllLightsOff: BOOL;
 	hmiShutdown: BOOL;
+	
+	//Dali Diagnostics
+	operatingTime							:	FB_DALI253QueryControlGearOperatingTime(Dali.KL6811_Tc3);
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -717,6 +720,16 @@ BoardRoom_LightControl();
 	END_IF 		
 	
 	////////////////////////////////////////////////////////////////////////////////////
+	operatingTime(
+		bError=> , 
+		ipResultMessage=> , 
+		bStart:= , 
+		nAddress:= 5, 
+		eAddressType:= E_DALIAddressType.Short, 
+		eCommandPriority:= E_DALICommandPriority.MiddleLow, 
+		bBusy=> , 
+		nControlGearOperatingTime=> );
+	
 
 	
 
@@ -894,7 +907,10 @@ END_IF
       <LineId Id="4602" Count="33" />
       <LineId Id="5815" Count="0" />
       <LineId Id="4636" Count="220" />
-      <LineId Id="4909" Count="95" />
+      <LineId Id="4909" Count="89" />
+      <LineId Id="5823" Count="7" />
+      <LineId Id="5821" Count="1" />
+      <LineId Id="4999" Count="5" />
       <LineId Id="75" Count="0" />
     </LineIds>
     <LineIds Name="LightControl.BoardRoom_LightControl">

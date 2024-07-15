@@ -16,6 +16,9 @@
     "L_Localization": "Lokalisierung",
     "L_Theme": "Farbschema",
     "L_HMISettings": "HMI Settings",
-    "L_WindTurbine": "Windkraftanlage"
+    "L_WindTurbine": "Windkraftanlage",
+    "L_SystemDiagnostics": "Systemdiagnose",
+    "L_CX7000Diagnostics": "CX7000 Systemdiagnose",
+    "L_CX2040Diagnostics": "CX2040 Systemdiagnose"
   }
 }

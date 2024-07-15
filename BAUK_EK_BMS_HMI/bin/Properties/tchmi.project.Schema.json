@@ -129,6 +129,14 @@
       "frameworkUserControlConfig": "User Controls\\Current.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/Current"
+    },
+    "DataCakeHost": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\DataCakeHost.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/DataCakeHost"
     }
   }
 }

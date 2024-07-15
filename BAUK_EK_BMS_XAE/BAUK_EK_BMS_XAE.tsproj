@@ -67,6 +67,22 @@
 			</Hides>
 		</DataType>
 		<DataType>
+			<Name GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811InData</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>nStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
 			<Name GUID="{F13B6D04-11D0-5217-2BF9-7A8308D2316E}" Namespace="Tc2_SerialCom" AutoDeleteType="true">KL6inData22B</Name>
 			<Comment><![CDATA[ This data type is corresponding to the
    KL-6xxx data structure used in the
@@ -291,6 +307,22 @@
 				</ArrayInfo>
 				<BitSize>512</BitSize>
 				<BitOffs>80</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{75E93DD0-09FD-BDD0-0996-A50C1DCB13AC}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811OutData</Name>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>nCtrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
@@ -823,7 +855,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{C653EB4F-879B-4BFA-81EA-FD3B382D1A99}" Name="BAUK_EK_BMS_PLC" PrjFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.plcproj" TmcFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{42F93505-109A-99A0-7F7D-B5660553E7AA}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{A506042B-5852-51DC-9981-84CCAAB6EA11}">
 					<Name>BAUK_EK_BMS_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -851,6 +883,10 @@
 						<Var>
 							<Name>.uiPresentIndex</Name>
 							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.stKL6811InData</Name>
+							<Type GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI">ST_KL6811InData</Type>
 						</Var>
 						<Var>
 							<Name>BackgroundComms.HubCommIn</Name>
@@ -907,6 +943,10 @@
 						<Var>
 							<Name>.uiIndexRequest</Name>
 							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.stKL6811OutData</Name>
+							<Type GUID="{75E93DD0-09FD-BDD0-0996-A50C1DCB13AC}" Namespace="Tc3_DALI">ST_KL6811OutData</Type>
 						</Var>
 						<Var>
 							<Name>BackgroundComms.HubCommOut</Name>
@@ -7207,6 +7247,8 @@
 				<Link VarA="PlcTask Inputs^.stKL6581InData^ORG" VarB="Office EnOcean Switch Control^Channel 1^Input ORG"/>
 				<Link VarA="PlcTask Inputs^.stKL6581InData^STATUS" VarB="Office EnOcean Switch Control^Channel 1^Input STATUS"/>
 				<Link VarA="PlcTask Inputs^.stKL6581InData^nStatus" VarB="Office EnOcean Switch Control^Channel 1^Status"/>
+				<Link VarA="PlcTask Inputs^.stKL6811InData^nData" VarB="Office DALI Light Control^Channel 1^Data In"/>
+				<Link VarA="PlcTask Inputs^.stKL6811InData^nStatus" VarB="Office DALI Light Control^Channel 1^State"/>
 				<Link VarA="PlcTask Inputs^EnOcean.STEnOceanInData^nData" VarB="Office RS485 EnOcean Control^Channel 1^Data In 0"/>
 				<Link VarA="PlcTask Inputs^EnOcean.STEnOceanInData^nData" VarB="Office RS485 EnOcean Control^Channel 1^Data In 1" Size="8" OffsA="8"/>
 				<Link VarA="PlcTask Inputs^EnOcean.STEnOceanInData^nData" VarB="Office RS485 EnOcean Control^Channel 1^Data In 10" Size="8" OffsA="80"/>

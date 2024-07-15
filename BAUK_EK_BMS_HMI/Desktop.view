@@ -664,6 +664,39 @@
     "imageHeightUnit": "px"
   },
   {
+    "name": "%l%L_SystemDiagnostics%/l%",
+    "page": "Pages/SystemDiagnostics.content",
+    "parameter": "SystemDiagnostics",
+    "imageWidthUnit": "px",
+    "imageHeightUnit": "px",
+    "children": [
+      {
+        "name": "",
+        "showColumnName": true,
+        "children": [
+          {
+            "name": "%l%L_CX2040Diagnostics%/l%",
+            "page": "Pages/CX2040Diagnostics.content",
+            "imageWidthUnit": "px",
+            "imageHeightUnit": "px"
+          }
+        ]
+      },
+      {
+        "name": "",
+        "showColumnName": true,
+        "children": [
+          {
+            "name": "%l%L_CX7000Diagnostics%/l%",
+            "page": "Pages/CX7000Diagnostics.content",
+            "imageWidthUnit": "px",
+            "imageHeightUnit": "px"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "name": "%l%L_HMISettings%/l%",
     "page": "Pages/HMISettings.content",
     "parameter": "HMISettings",

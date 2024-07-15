@@ -67,6 +67,9 @@ VAR_GLOBAL
 
 	stDALIInData    				AT%I*	: 	ST_DALIV2InData;
 	stDALIOutData  					AT%Q*	: 	ST_DALIV2OutData;
+	
+	stKL6811InData    				AT%I*	: 	Tc3_DALI.ST_KL6811InData;
+	stKL6811OutData  				AT%Q*	: 	Tc3_DALI.ST_KL6811OutData;
 
 	(* DMX Line *)
 	stDMXInDataLinie01              AT%I*	:	ST_EL6851InData;

@@ -17,12 +17,12 @@
                 "compare1": {
                   "objectType": "Symbol",
                   "valueType": "tchmi:general#/definitions/String",
-                  "symbolExpression": "%s%PLC1.LightControl.xBoardToom_Lights_ProjectorMode%/s%"
+                  "symbolExpression": "%s%PLC1.LightControl.xBoardRoom_Lights_ProjectorMode%/s%"
                 },
                 "compare2": {
                   "objectType": "StaticValue",
                   "valueType": "tchmi:general#/definitions/BOOL",
-                  "value": false
+                  "value": true
                 },
                 "compareOperator": "==",
                 "logic": null
@@ -32,11 +32,11 @@
               {
                 "objectType": "WriteToSymbol",
                 "active": true,
-                "symbolExpression": "%s%PLC1.LightControl.xBoardToom_Lights_ProjectorMode%/s%",
+                "symbolExpression": "%s%PLC1.LightControl.xBoardRoom_Lights_ProjectorMode%/s%",
                 "value": {
                   "objectType": "StaticValue",
                   "valueType": "tchmi:general#/definitions/BOOL",
-                  "value": true
+                  "value": false
                 },
                 "asyncWait": true
               }
@@ -47,11 +47,11 @@
               {
                 "objectType": "WriteToSymbol",
                 "active": true,
-                "symbolExpression": "%s%PLC1.LightControl.xBoardToom_Lights_ProjectorMode%/s%",
+                "symbolExpression": "%s%PLC1.LightControl.xBoardRoom_Lights_ProjectorMode%/s%",
                 "value": {
                   "objectType": "StaticValue",
                   "valueType": "tchmi:general#/definitions/BOOL",
-                  "value": false
+                  "value": true
                 },
                 "asyncWait": true
               }
