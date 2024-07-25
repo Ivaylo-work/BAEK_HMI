@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_PsuInfoData" Id="{b4f59950-d8d0-4090-8b35-2346510df0d9}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '1'}
+TYPE ST_PsuInfoData :
+STRUCT
+	{attribute 'hide'}
+	align1			:	UDINT;
+	{attribute 'hide'}
+	align2			:	UINT;
+	operatingTime	:	UDINT; // seconds
+	upTime			:	UDINT; // seconds
+	turnOnCounter	:	UDINT;
+	{attribute 'hide'}
+	align3			:	UINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

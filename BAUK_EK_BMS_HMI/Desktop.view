@@ -645,7 +645,21 @@
     "subtitle": "",
     "image": "",
     "imageWidthUnit": "px",
-    "imageHeightUnit": "px"
+    "imageHeightUnit": "px",
+    "children": [
+      {
+        "name": "",
+        "showColumnName": false,
+        "children": [
+          {
+            "name": "LED Control",
+            "page": "Pages/CabinetLEDs.content",
+            "imageWidthUnit": "px",
+            "imageHeightUnit": "px"
+          }
+        ]
+      }
+    ]
   },
   {
     "name": "%l%L_CoffeeMachine%/l%",

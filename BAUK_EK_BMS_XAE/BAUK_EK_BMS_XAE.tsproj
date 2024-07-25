@@ -67,19 +67,129 @@
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811InData</Name>
-			<BitSize>32</BitSize>
+			<Name GUID="{5FB7B499-AA4D-FE44-3AD2-C9F733008481}" Namespace="Tc2_DMX" AutoDeleteType="true">ST_EL6851InData</Name>
+			<BitSize>592</BitSize>
 			<SubItem>
-				<Name>nStatus</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Name>bTransmitAccepted</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>nData</Name>
+				<Name>bReceiveToggle</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bCyclicTxDDisabled</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bDefaultDataSent</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>24</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bFrameSentToggle</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bTxPDOToggle</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>40</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>wChannelLength</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<BitSize>16</BitSize>
+				<BitOffs>48</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>byStartCode</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>byDummy</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>72</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>arrData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>64</Elements>
+				</ArrayInfo>
+				<BitSize>512</BitSize>
+				<BitOffs>80</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{60015191-2344-AD84-98B7-743631181DA2}" Namespace="Tc2_DMX" AutoDeleteType="true">ST_EL6851OutData</Name>
+			<BitSize>4160</BitSize>
+			<SubItem>
+				<Name>bTransmitRequest</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[ only for RDM]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bDisableCyclicTxD</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>bSendDefaultData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
 				<BitOffs>16</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>byDummy1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>24</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>wChannelLength</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>byStartCode</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Comment><![CDATA[ always 0x00 except RDM: 0xCC]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>48</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>byDummy2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>56</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>arrData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>512</Elements>
+				</ArrayInfo>
+				<BitSize>4096</BitSize>
+				<BitOffs>64</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
@@ -137,33 +247,64 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI" AutoDeleteType="true">ST_DALIV2InData</Name>
-			<Comment><![CDATA[ Communication interface for the KL6811]]></Comment>
-			<BitSize>32</BitSize>
+			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
+			<BitSize>48</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>6</Elements>
+			</ArrayInfo>
+			<Format>
+				<Printf>%d.%d.%d.%d.%d.%d</Printf>
+				<Parameter>[0]</Parameter>
+				<Parameter>[1]</Parameter>
+				<Parameter>[2]</Parameter>
+				<Parameter>[3]</Parameter>
+				<Parameter>[4]</Parameter>
+				<Parameter>[5]</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-000000000042}" TcBaseType="true" CName="AmsAddr">AMSADDR</Name>
+			<BitSize>64</BitSize>
 			<SubItem>
-				<Name>nStatus</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
+				<Name>netId</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				<BitSize>48</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>nDummy</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>nData</Name>
+				<Name>port</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<BitSize>16</BitSize>
-				<BitOffs>16</BitOffs>
+				<BitOffs>48</BitOffs>
 			</SubItem>
-			<Properties>
-				<Property>
-					<Name>obsolete</Name>
-					<Value>Use the structure ST_KL6811InData instead!</Value>
-				</Property>
-			</Properties>
+			<Format>
+				<Printf>%d.%d.%d.%d.%d.%d:%d</Printf>
+				<Parameter>.netId[0]</Parameter>
+				<Parameter>.netId[1]</Parameter>
+				<Parameter>.netId[2]</Parameter>
+				<Parameter>.netId[3]</Parameter>
+				<Parameter>.netId[4]</Parameter>
+				<Parameter>.netId[5]</Parameter>
+				<Parameter>.port</Parameter>
+			</Format>
+			<Format Name="Iec">
+				<Printf>(netId:=[%d.%d.%d.%d.%d.%d], port :=%d)</Printf>
+				<Parameter>.netId[0]</Parameter>
+				<Parameter>.netId[1]</Parameter>
+				<Parameter>.netId[2]</Parameter>
+				<Parameter>.netId[3]</Parameter>
+				<Parameter>.netId[4]</Parameter>
+				<Parameter>.netId[5]</Parameter>
+				<Parameter>.port</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
+			<Name GUID="{C92AF341-7BD6-622A-489B-93F78F170DEA}" Namespace="Tc2_System" AutoDeleteType="true">ST_AmsAddr</Name>
+			<Comment><![CDATA[ TwinCAT AMS network address. ]]></Comment>
+			<BitSize>64</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000042}">AMSADDR</BaseType>
 		</DataType>
 		<DataType>
 			<Name GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean" AutoDeleteType="true">KL6581_Input</Name>
@@ -242,78 +383,39 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{5FB7B499-AA4D-FE44-3AD2-C9F733008481}" Namespace="Tc2_DMX" AutoDeleteType="true">ST_EL6851InData</Name>
-			<BitSize>592</BitSize>
+			<Name GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI" AutoDeleteType="true">ST_DALIV2InData</Name>
+			<Comment><![CDATA[ Communication interface for the KL6811]]></Comment>
+			<BitSize>32</BitSize>
 			<SubItem>
-				<Name>bTransmitAccepted</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Name>nStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bReceiveToggle</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Name>nDummy</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>8</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bCyclicTxDDisabled</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>16</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bDefaultDataSent</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>24</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bFrameSentToggle</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>32</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bTxPDOToggle</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>40</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>wChannelLength</Name>
+				<Name>nData</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<BitSize>16</BitSize>
-				<BitOffs>48</BitOffs>
+				<BitOffs>16</BitOffs>
 			</SubItem>
-			<SubItem>
-				<Name>byStartCode</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>64</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>byDummy</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>72</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>arrData</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<ArrayInfo>
-					<LBound>1</LBound>
-					<Elements>64</Elements>
-				</ArrayInfo>
-				<BitSize>512</BitSize>
-				<BitOffs>80</BitOffs>
-			</SubItem>
+			<Properties>
+				<Property>
+					<Name>obsolete</Name>
+					<Value>Use the structure ST_KL6811InData instead!</Value>
+				</Property>
+			</Properties>
 		</DataType>
 		<DataType>
-			<Name GUID="{75E93DD0-09FD-BDD0-0996-A50C1DCB13AC}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811OutData</Name>
+			<Name GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811InData</Name>
 			<BitSize>32</BitSize>
 			<SubItem>
-				<Name>nCtrl</Name>
+				<Name>nStatus</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
@@ -485,61 +587,19 @@
 			</Properties>
 		</DataType>
 		<DataType>
-			<Name GUID="{60015191-2344-AD84-98B7-743631181DA2}" Namespace="Tc2_DMX" AutoDeleteType="true">ST_EL6851OutData</Name>
-			<BitSize>4160</BitSize>
+			<Name GUID="{75E93DD0-09FD-BDD0-0996-A50C1DCB13AC}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811OutData</Name>
+			<BitSize>32</BitSize>
 			<SubItem>
-				<Name>bTransmitRequest</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<Comment><![CDATA[ only for RDM]]></Comment>
+				<Name>nCtrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bDisableCyclicTxD</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bSendDefaultData</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>16</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>byDummy1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>24</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>wChannelLength</Name>
+				<Name>nData</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<BitSize>16</BitSize>
-				<BitOffs>32</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>byStartCode</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<Comment><![CDATA[ always 0x00 except RDM: 0xCC]]></Comment>
-				<BitSize>8</BitSize>
-				<BitOffs>48</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>byDummy2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>56</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>arrData</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<ArrayInfo>
-					<LBound>1</LBound>
-					<Elements>512</Elements>
-				</ArrayInfo>
-				<BitSize>4096</BitSize>
-				<BitOffs>64</BitOffs>
+				<BitOffs>16</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
@@ -579,7 +639,34 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-00200000000F}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..14] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-00200000001C}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..27] OF BIT</Name>
+			<BitSize>28</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>28</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000002}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..1] OF BIT</Name>
+			<BitSize>2</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>2</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-00200000000D}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..12] OF BIT</Name>
+			<BitSize>13</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>13</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-00200000000F}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..14] OF BIT</Name>
 			<BitSize>15</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -594,15 +681,6 @@
 			<ArrayInfo>
 				<LBound>0</LBound>
 				<Elements>3</Elements>
-			</ArrayInfo>
-		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000002}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..1] OF BIT</Name>
-			<BitSize>2</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>2</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
@@ -630,26 +708,31 @@
 		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c080808000bfffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c080808080808080808000bfff00bfff00bfff00bfff00bfffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c080808000bfffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c080808000bfffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c080808080808080808000bfff00bfff00bfff00bfff00bfff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c080808000bfffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0bbc2bbc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0bac2ba0bfc0bc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff</ImageData>
 		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ff000000000000ff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ff000000000000ff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1006">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c00000ffc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c00000ffc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c000ff00c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff</ImageData>
-		<ImageData Id="1007">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c00000c00000c00000c00000c00000c0ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c600ffffc6c6c60000c0c6c6c600ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6ff0000c6c6c60000c0c6c6c6ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c60000ffc6c6c60000c0c6c6c60000ff808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6008400c6c6c60000c0c6c6c6008400808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1006">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffb5b4b45554549e9e9eababab777777b3b2b2ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff3f3e3f2625263a39394e4d4e272526272526ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff3e3c3d201f203130302a292a201f20201f20ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff8c8aba8c8aba8c8abaa4a2a2a19f9f9f9d9dff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffb3b1b1b6b4b4b5b3b3b2b0b0aeacacaaa7a8ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffa8a6a6aeacacb3b1b1b6b4b4b7b5b5b6b5b5ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff9a98989d9b9ba19f9fa6a4a4aca9a9b1afafff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff918f8f939191949292969494949292999797ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff8e8c8c8f8d8d8e8c8c8e8b8c8280807d7b7bff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff868484908e8e908e8e908e8e908e8e918f8fff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff858383979595979595969494959293979495ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff89888892909093919192909002febe939091ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff474646302f2f434142434242323131302f2fff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffa5a5a55453538c8b8b979797989898a1a0a1ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1007">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1008">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080808080808080c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c00000ffc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c00000ffc0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c000ff00c0c0c0c0c0c0c0c0c0808080ff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ff</ImageData>
+		<ImageData Id="1009">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c00000c00000c00000c00000c00000c0ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c600ffffc6c6c60000c0c6c6c600ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6ff0000c6c6c60000c0c6c6c6ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c60000ffc6c6c60000c0c6c6c60000ff808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6000000c6c6c60000c0c6c6c6000000808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6008400c6c6c60000c0c6c6c6008400808080ff00ffff00ffff00ff007bff007bff007bff007bff007bff007bffc6c6c6c6c6c6c6c6c60000c0c6c6c6c6c6c6808080ff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
 	<Project ProjectGUID="{18D042FF-B2FD-40FE-A9D8-CEA29DF4933A}" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
 			<Licenses>
 				<Target BkhfOrder="RESTORE">
-					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{14DB2856-1BFD-49EE-AEAB-78906DBFBEE2}</ManualSelect>
+					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{27326EE5-AB30-4084-B15B-8CCA96CCBF0B}</ManualSelect>
-					<ManualSelect>{99A3CF49-FFBF-49D4-BA30-F4C0593B5161}</ManualSelect>
-					<ManualSelect>{3DA5D7CD-70F1-4894-B3AD-D35619CB19FA}</ManualSelect>
 					<ManualSelect>{CCE4FF6F-8342-4DB6-A976-37835E17161A}</ManualSelect>
+					<ManualSelect>{3DA5D7CD-70F1-4894-B3AD-D35619CB19FA}</ManualSelect>
+					<ManualSelect>{99A3CF49-FFBF-49D4-BA30-F4C0593B5161}</ManualSelect>
 					<ManualSelect>{6425CC43-74BE-40EB-B459-8349B5AB98BD}</ManualSelect>
 				</Target>
 			</Licenses>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="20000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="1" CycleTime="10000" AmsPort="351" AdtTasks="true">
+					<Name>FastDmxUpdate</Name>
 				</Task>
 			</Tasks>
 			<Modules>
@@ -855,10 +938,25 @@
 		</System>
 		<Plc>
 			<Project GUID="{C653EB4F-879B-4BFA-81EA-FD3B382D1A99}" Name="BAUK_EK_BMS_PLC" PrjFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.plcproj" TmcFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{A506042B-5852-51DC-9981-84CCAAB6EA11}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{EDFA3BF8-89FA-DD16-E4A8-E616E02656EB}">
 					<Name>BAUK_EK_BMS_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
+						<Name>FastDmxUpdate Inputs</Name>
+						<Var>
+							<Name>.stDMXInDataLinie01</Name>
+							<Comment><![CDATA[ DMX Line ]]></Comment>
+							<Type GUID="{5FB7B499-AA4D-FE44-3AD2-C9F733008481}" Namespace="Tc2_DMX">ST_EL6851InData</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>FastDmxUpdate Outputs</Name>
+						<Var>
+							<Name>.stDMXOutDataLinie01</Name>
+							<Type GUID="{60015191-2344-AD84-98B7-743631181DA2}" Namespace="Tc2_DMX">ST_EL6851OutData</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 						<Name>PlcTask Inputs</Name>
 						<Var>
 							<Name>.diVoltage</Name>
@@ -885,10 +983,6 @@
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>.stKL6811InData</Name>
-							<Type GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI">ST_KL6811InData</Type>
-						</Var>
-						<Var>
 							<Name>BackgroundComms.HubCommIn</Name>
 							<Type GUID="{4AF0A614-C38E-9111-DF96-9AB17E2604B8}">ARRAY [0..2] OF Tc2_SerialCom.KL6inData22B</Type>
 						</Var>
@@ -897,20 +991,32 @@
 							<Type GUID="{9436E96F-2016-0A0B-2676-07FA0D016A3F}" Namespace="Tc2_EnOcean">ST_EnOceanInData</Type>
 						</Var>
 						<Var>
-							<Name>DMX.enableColourWheelControl</Name>
+							<Name>PowerSupply.psuWarning</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>DMX.redColourWheelValue</Name>
-							<Type>BYTE</Type>
+							<Name>PowerSupply.psuError</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>DMX.greenColourWheelValue</Name>
-							<Type>BYTE</Type>
+							<Name>PowerSupply.psuDcOk</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>DMX.blueColourWheelValue</Name>
-							<Type>BYTE</Type>
+							<Name>PowerSupply.psuInputUnderVoltage</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>PowerSupply.amsAdr</Name>
+							<Type GUID="{C92AF341-7BD6-622A-489B-93F78F170DEA}" Namespace="Tc2_System">ST_AmsAddr</Type>
+						</Var>
+						<Var>
+							<Name>PowerSupply.psuOutVoltage</Name>
+							<Type>REAL</Type>
+						</Var>
+						<Var>
+							<Name>PowerSupply.psuOutCurrent</Name>
+							<Type>REAL</Type>
 						</Var>
 						<Var>
 							<Name>.setBoardroomGold</Name>
@@ -925,28 +1031,23 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.stDALIInData</Name>
-							<Type GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI">ST_DALIV2InData</Type>
-						</Var>
-						<Var>
 							<Name>.stKL6581InData</Name>
 							<Type GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean">KL6581_Input</Type>
 						</Var>
 						<Var>
-							<Name>.stDMXInDataLinie01</Name>
-							<Comment><![CDATA[ DMX Line ]]></Comment>
-							<Type GUID="{5FB7B499-AA4D-FE44-3AD2-C9F733008481}" Namespace="Tc2_DMX">ST_EL6851InData</Type>
+							<Name>.stDALIInData</Name>
+							<Type GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI">ST_DALIV2InData</Type>
+						</Var>
+						<Var>
+							<Name>.stKL6811InData</Name>
+							<Type GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI">ST_KL6811InData</Type>
 						</Var>
 					</Vars>
-					<Vars VarGrpType="2" AreaNo="1">
+					<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 						<Name>PlcTask Outputs</Name>
 						<Var>
 							<Name>.uiIndexRequest</Name>
 							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.stKL6811OutData</Name>
-							<Type GUID="{75E93DD0-09FD-BDD0-0996-A50C1DCB13AC}" Namespace="Tc3_DALI">ST_KL6811OutData</Type>
 						</Var>
 						<Var>
 							<Name>BackgroundComms.HubCommOut</Name>
@@ -957,19 +1058,19 @@
 							<Type GUID="{0B7591CE-879A-4F3D-4546-149ECAE9DCE9}" Namespace="Tc2_EnOcean">ST_EnOceanOutData</Type>
 						</Var>
 						<Var>
-							<Name>.numberOfOpenWindows</Name>
-							<Type>WORD</Type>
+							<Name>PowerSupply.psuDisableOutput</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.boardroomModeIsProjector</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.boardroomModeIsFullOn</Name>
-							<Type>BOOL</Type>
+							<Name>.numberOfOpenWindows</Name>
+							<Type>WORD</Type>
 						</Var>
 						<Var>
-							<Name>.communalOccupancy1</Name>
+							<Name>.boardroomModeIsFullOn</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -981,11 +1082,11 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.communalOccupancy2</Name>
+							<Name>.communalOccupancy1</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.staffOccupancy1</Name>
+							<Name>.communalOccupancy2</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -997,11 +1098,11 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.staffOccupancy2</Name>
+							<Name>.staffOccupancy1</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.boardOccupancy1</Name>
+							<Name>.staffOccupancy2</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -1011,6 +1112,10 @@
 						<Var>
 							<Name>.boardLux2</Name>
 							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.boardOccupancy1</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.boardOccupancy2</Name>
@@ -1025,13 +1130,22 @@
 							<Type GUID="{84CEA4AE-1641-2AC9-8925-6DCF130289D5}" Namespace="Tc2_DALI">ST_DALIV2OutData</Type>
 						</Var>
 						<Var>
-							<Name>.stDMXOutDataLinie01</Name>
-							<Type GUID="{60015191-2344-AD84-98B7-743631181DA2}" Namespace="Tc2_DMX">ST_EL6851OutData</Type>
+							<Name>.stKL6811OutData</Name>
+							<Type GUID="{75E93DD0-09FD-BDD0-0996-A50C1DCB13AC}" Namespace="Tc3_DALI">ST_KL6811OutData</Type>
 						</Var>
 					</Vars>
 					<Contexts>
 						<Context>
 							<Id>0</Id>
+							<Name>FastDmxUpdate</Name>
+							<ManualConfig>
+								<OTCID>#x02010040</OTCID>
+							</ManualConfig>
+							<Priority>1</Priority>
+							<CycleTime>1000000</CycleTime>
+						</Context>
+						<Context>
+							<Id>1</Id>
 							<Name>PlcTask</Name>
 							<ManualConfig>
 								<OTCID>#x02010030</OTCID>
@@ -1041,6 +1155,7 @@
 						</Context>
 					</Contexts>
 					<TaskPouOids>
+						<TaskPouOid Prio="1" OTCID="#x08502002"/>
 						<TaskPouOid Prio="20" OTCID="#x08502001"/>
 					</TaskPouOids>
 				</Instance>
@@ -1085,6 +1200,9 @@
 				<Image Id="1" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
+				<Image Id="3" AddrType="10" ImageType="3">
+					<Name>Image-2</Name>
+				</Image>
 				<Box Id="1" BoxType="9099">
 					<Name>CX2040 Supply</Name>
 					<ImageId>1001</ImageId>
@@ -1110,6 +1228,7 @@
 									<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
 									<BootStrapData>0010f400f410f400</BootStrapData>
 									<SuName>Remote</SuName>
+									<SuTask>#x02010040</SuTask>
 									<Pdo Name="DMX Status" Index="#x1a00" Flags="#x0011" SyncMan="3">
 										<Entry Name="Transmit accepted" Index="#x6000" Sub="#x01">
 											<Type>BIT</Type>
@@ -4278,6 +4397,78 @@
 									<CoeProfile ProfileNo="44897161"/>
 								</EtherCAT>
 							</Box>
+							<Box Id="17" BoxType="9099">
+								<Name>Term 17 (EL9011)</Name>
+								<ImageId>1005</ImageId>
+								<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x01000005"/>
+							</Box>
+						</Box>
+						<Box Id="15" BoxType="9099" BoxFlags="#x00000020">
+							<Name>24Vdc Power Supply On Test Wall</Name>
+							<ImageId>1006</ImageId>
+							<EtherCAT SlaveType="2" PdiType="#x0c80" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x07d14d02" RevisionNo="#x0010096a" InfoDataAddr="true" RepeatSupport="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="17" SdoUploadWithMaxLength="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="PS2001-2410-1001 Power supply (24V, 10A, 1-phase)" Desc="PS2001-2410" PortABoxInfo="#x01000002">
+								<SyncMan>001000012600010001000000800000010001001026010000</SyncMan>
+								<SyncMan>001100012200010002000000800000010001001122010000</SyncMan>
+								<SyncMan>001202002400010003000000000000000000001224010000</SyncMan>
+								<SyncMan>00190e002000010004000000000000000e00001920010000</SyncMan>
+								<Fmmu>0000000000000000001200020100000001000000000000000000000000000000</Fmmu>
+								<Fmmu>0000000000000000001900010100000002000000000000000000000000000000</Fmmu>
+								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+								<BootStrapData>0010f400f410f400</BootStrapData>
+								<MBoxUserCmdData>004003000c0000000000000003000000000000000000000000000000000000002081f001040000006a09100000</MBoxUserCmdData>
+								<MBoxUserCmdData>004003000a0000001f000000030010000000000000000000000000000000000020f31005020000000100456e61626c6520446961674d65737361676520617320656d657267656e637900</MBoxUserCmdData>
+								<Pdo Name="PSU Inputs" Index="#x1a00" Flags="#x0011" SyncMan="3">
+									<Entry Name="Warning" Index="#x6000" Sub="#x01">
+										<Type>BIT</Type>
+									</Entry>
+									<Entry Name="Error" Index="#x6000" Sub="#x02">
+										<Type>BIT</Type>
+									</Entry>
+									<Entry>
+										<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
+									</Entry>
+									<Entry Name="DC OK" Index="#x6000" Sub="#x04">
+										<Type>BIT</Type>
+									</Entry>
+									<Entry>
+										<Type GUID="{18071995-0000-0000-0000-00200000001C}">ARRAY [0..27] OF BIT</Type>
+									</Entry>
+									<Entry Name="Output voltage" Index="#x6000" Sub="#x11">
+										<Type>REAL</Type>
+									</Entry>
+									<Entry Name="Output current" Index="#x6000" Sub="#x12">
+										<Type>REAL</Type>
+									</Entry>
+								</Pdo>
+								<Pdo Name="PSU Synchron info data" Index="#x1a01" Flags="#x0010">
+									<Entry Name="Info data 1" Index="#x6000" Sub="#x15">
+										<Type>UINT</Type>
+									</Entry>
+									<Entry Name="Info data 2" Index="#x6000" Sub="#x16">
+										<Type>UINT</Type>
+									</Entry>
+								</Pdo>
+								<Pdo Name="PSU Inputs Device" Index="#x1a80" Flags="#x0011" SyncMan="3">
+									<Entry>
+										<Type GUID="{18071995-0000-0000-0000-002000000002}">ARRAY [0..1] OF BIT</Type>
+									</Entry>
+									<Entry Name="Input undervoltage" Index="#xf614" Sub="#x03">
+										<Type>BIT</Type>
+									</Entry>
+									<Entry>
+										<Type GUID="{18071995-0000-0000-0000-00200000000D}">ARRAY [0..12] OF BIT</Type>
+									</Entry>
+								</Pdo>
+								<Pdo Name="PSU Outputs" Index="#x1600" InOut="1" Flags="#x0010" SyncMan="2">
+									<Entry Name="Disable output" Index="#x7000" Sub="#x01">
+										<Type>BIT</Type>
+									</Entry>
+									<Entry>
+										<Type GUID="{18071995-0000-0000-0000-00200000000F}">ARRAY [0..14] OF BIT</Type>
+									</Entry>
+								</Pdo>
+								<CoeProfile ProfileNo="59642761"/>
+							</EtherCAT>
 						</Box>
 						<Box Id="4" Disabled="true" BoxType="9099">
 							<Name>OLD BLIND CONTROL</Name>
@@ -4285,7 +4476,7 @@
 							<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x01000002"/>
 							<Box Id="7" BoxType="9099" BoxFlags="#x00000020">
 								<Name>Coffee Machine Power Monitor</Name>
-								<ImageId>1005</ImageId>
+								<ImageId>1007</ImageId>
 								<EtherCAT SlaveType="2" PdiType="#x0805" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x0d4b3052" RevisionNo="#x00170000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3403 3Ch. Power Measuring" Desc="EL3403" PortABoxInfo="#x01000004">
 									<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
 									<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
@@ -4418,7 +4609,7 @@
 							</Box>
 							<Box Id="8" BoxType="9101" BoxFlags="#x00000020">
 								<Name>Blind Control Staff Room</Name>
-								<ImageId>1006</ImageId>
+								<ImageId>1008</ImageId>
 								<EtherCAT SlaveType="7" PdiType="#x0005" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x17713052" RevisionNo="#x00150000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6001 Interface (RS232)" Desc="EL6001" PortABoxInfo="#x01000007">
 									<SyncMan>0018f6002600010001000000f600f600f600001826010000</SyncMan>
 									<SyncMan>f618f6002200010002000000f600f600f600f61822010000</SyncMan>
@@ -5213,7 +5404,7 @@
 							</Box>
 							<Box Id="9" BoxType="9101" BoxFlags="#x00000020">
 								<Name>Blind Control Communal Area</Name>
-								<ImageId>1006</ImageId>
+								<ImageId>1008</ImageId>
 								<EtherCAT SlaveType="7" PdiType="#x0005" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x17713052" RevisionNo="#x00150000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6001 Interface (RS232)" Desc="EL6001" PortABoxInfo="#x01000008">
 									<SyncMan>0018f6002600010001000000f600f600f600001826010000</SyncMan>
 									<SyncMan>f618f6002200010002000000f600f600f600f61822010000</SyncMan>
@@ -6008,7 +6199,7 @@
 							</Box>
 							<Box Id="10" BoxType="9101" BoxFlags="#x00000020">
 								<Name>Blind Control Boardroom</Name>
-								<ImageId>1006</ImageId>
+								<ImageId>1008</ImageId>
 								<EtherCAT SlaveType="7" PdiType="#x0005" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x17713052" RevisionNo="#x00150000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6001 Interface (RS232)" Desc="EL6001" PortABoxInfo="#x01000009">
 									<SyncMan>0018f6002600010001000000f600f600f600001826010000</SyncMan>
 									<SyncMan>f618f6002200010002000000f600f600f600f61822010000</SyncMan>
@@ -6805,7 +6996,7 @@
 					</Box>
 					<Box Id="6" BoxType="9081" AmsPort="28928">
 						<Name>E-Bus to K-Bus</Name>
-						<ImageId>1007</ImageId>
+						<ImageId>1009</ImageId>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -6819,7 +7010,7 @@
 0x0080 = Communication error (Outputs)
 ]]></Comment>
 								<Type>UINT</Type>
-								<BitOffs>312</BitOffs>
+								<BitOffs>12608</BitOffs>
 							</Var>
 						</Vars>
 						<Vars VarGrpType="2">
@@ -6830,7 +7021,7 @@
 0x0020 = Show K-Bus overrun
 ]]></Comment>
 								<Type>UINT</Type>
-								<BitOffs>312</BitOffs>
+								<BitOffs>12608</BitOffs>
 							</Var>
 						</Vars>
 						<BusCoupler ComplexTermSupport="true" NewHardware="true">
@@ -6843,25 +7034,25 @@
 									<Var>
 										<Name>State</Name>
 										<Type>USINT</Type>
-										<BitOffs>328</BitOffs>
+										<BitOffs>12624</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In</Name>
 										<Type>INT</Type>
-										<BitOffs>344</BitOffs>
+										<BitOffs>12640</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Ctrl</Name>
 										<Type>USINT</Type>
-										<BitOffs>328</BitOffs>
+										<BitOffs>12624</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out</Name>
 										<Type>INT</Type>
-										<BitOffs>344</BitOffs>
+										<BitOffs>12640</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 								</Vars>
@@ -6874,7 +7065,7 @@
 									<Var>
 										<Name>Input</Name>
 										<Type>BIT</Type>
-										<BitOffs>552</BitOffs>
+										<BitOffs>12848</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 								</Vars>
@@ -6883,7 +7074,7 @@
 									<Var>
 										<Name>Input</Name>
 										<Type>BIT</Type>
-										<BitOffs>553</BitOffs>
+										<BitOffs>12849</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 								</Vars>
@@ -6892,7 +7083,7 @@
 									<Var>
 										<Name>Input</Name>
 										<Type>BIT</Type>
-										<BitOffs>554</BitOffs>
+										<BitOffs>12850</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 								</Vars>
@@ -6901,7 +7092,7 @@
 									<Var>
 										<Name>Input</Name>
 										<Type>BIT</Type>
-										<BitOffs>555</BitOffs>
+										<BitOffs>12851</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 								</Vars>
@@ -6914,145 +7105,145 @@
 									<Var>
 										<Name>Status</Name>
 										<Type>USINT</Type>
-										<BitOffs>360</BitOffs>
+										<BitOffs>12656</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input CNODE</Name>
 										<Type>USINT</Type>
-										<BitOffs>368</BitOffs>
+										<BitOffs>12664</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input ORG</Name>
 										<Type>USINT</Type>
-										<BitOffs>376</BitOffs>
+										<BitOffs>12672</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input DB0</Name>
 										<Type>USINT</Type>
-										<BitOffs>384</BitOffs>
+										<BitOffs>12680</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input DB1</Name>
 										<Type>USINT</Type>
-										<BitOffs>392</BitOffs>
+										<BitOffs>12688</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input DB2</Name>
 										<Type>USINT</Type>
-										<BitOffs>400</BitOffs>
+										<BitOffs>12696</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input DB3</Name>
 										<Type>USINT</Type>
-										<BitOffs>408</BitOffs>
+										<BitOffs>12704</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input ID0</Name>
 										<Type>USINT</Type>
-										<BitOffs>416</BitOffs>
+										<BitOffs>12712</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input ID1</Name>
 										<Type>USINT</Type>
-										<BitOffs>424</BitOffs>
+										<BitOffs>12720</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input ID2</Name>
 										<Type>USINT</Type>
-										<BitOffs>432</BitOffs>
+										<BitOffs>12728</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input ID3</Name>
 										<Type>USINT</Type>
-										<BitOffs>440</BitOffs>
+										<BitOffs>12736</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Input STATUS</Name>
 										<Type>USINT</Type>
-										<BitOffs>448</BitOffs>
+										<BitOffs>12744</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Control</Name>
 										<Type>USINT</Type>
-										<BitOffs>360</BitOffs>
+										<BitOffs>12656</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output CNODE</Name>
 										<Type>USINT</Type>
-										<BitOffs>368</BitOffs>
+										<BitOffs>12664</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output ORG</Name>
 										<Type>USINT</Type>
-										<BitOffs>376</BitOffs>
+										<BitOffs>12672</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output DB0</Name>
 										<Type>USINT</Type>
-										<BitOffs>384</BitOffs>
+										<BitOffs>12680</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output DB1</Name>
 										<Type>USINT</Type>
-										<BitOffs>392</BitOffs>
+										<BitOffs>12688</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output DB2</Name>
 										<Type>USINT</Type>
-										<BitOffs>400</BitOffs>
+										<BitOffs>12696</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output DB3</Name>
 										<Type>USINT</Type>
-										<BitOffs>408</BitOffs>
+										<BitOffs>12704</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output ID0</Name>
 										<Type>USINT</Type>
-										<BitOffs>416</BitOffs>
+										<BitOffs>12712</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output ID1</Name>
 										<Type>USINT</Type>
-										<BitOffs>424</BitOffs>
+										<BitOffs>12720</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output ID2</Name>
 										<Type>USINT</Type>
-										<BitOffs>432</BitOffs>
+										<BitOffs>12728</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output ID3</Name>
 										<Type>USINT</Type>
-										<BitOffs>440</BitOffs>
+										<BitOffs>12736</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Output STATUS</Name>
 										<Type>USINT</Type>
-										<BitOffs>448</BitOffs>
+										<BitOffs>12744</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 								</Vars>
@@ -7065,145 +7256,145 @@
 									<Var>
 										<Name>Ser. State</Name>
 										<Type>USINT</Type>
-										<BitOffs>456</BitOffs>
+										<BitOffs>12752</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 0</Name>
 										<Type>USINT</Type>
-										<BitOffs>464</BitOffs>
+										<BitOffs>12760</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 1</Name>
 										<Type>USINT</Type>
-										<BitOffs>472</BitOffs>
+										<BitOffs>12768</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 2</Name>
 										<Type>USINT</Type>
-										<BitOffs>480</BitOffs>
+										<BitOffs>12776</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 3</Name>
 										<Type>USINT</Type>
-										<BitOffs>488</BitOffs>
+										<BitOffs>12784</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 4</Name>
 										<Type>USINT</Type>
-										<BitOffs>496</BitOffs>
+										<BitOffs>12792</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 5</Name>
 										<Type>USINT</Type>
-										<BitOffs>504</BitOffs>
+										<BitOffs>12800</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 6</Name>
 										<Type>USINT</Type>
-										<BitOffs>512</BitOffs>
+										<BitOffs>12808</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 7</Name>
 										<Type>USINT</Type>
-										<BitOffs>520</BitOffs>
+										<BitOffs>12816</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 8</Name>
 										<Type>USINT</Type>
-										<BitOffs>528</BitOffs>
+										<BitOffs>12824</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 9</Name>
 										<Type>USINT</Type>
-										<BitOffs>536</BitOffs>
+										<BitOffs>12832</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Data In 10</Name>
 										<Type>USINT</Type>
-										<BitOffs>544</BitOffs>
+										<BitOffs>12840</BitOffs>
 										<InOut>0</InOut>
 									</Var>
 									<Var>
 										<Name>Ser. Ctrl</Name>
 										<Type>USINT</Type>
-										<BitOffs>456</BitOffs>
+										<BitOffs>12752</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 0</Name>
 										<Type>USINT</Type>
-										<BitOffs>464</BitOffs>
+										<BitOffs>12760</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 1</Name>
 										<Type>USINT</Type>
-										<BitOffs>472</BitOffs>
+										<BitOffs>12768</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 2</Name>
 										<Type>USINT</Type>
-										<BitOffs>480</BitOffs>
+										<BitOffs>12776</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 3</Name>
 										<Type>USINT</Type>
-										<BitOffs>488</BitOffs>
+										<BitOffs>12784</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 4</Name>
 										<Type>USINT</Type>
-										<BitOffs>496</BitOffs>
+										<BitOffs>12792</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 5</Name>
 										<Type>USINT</Type>
-										<BitOffs>504</BitOffs>
+										<BitOffs>12800</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 6</Name>
 										<Type>USINT</Type>
-										<BitOffs>512</BitOffs>
+										<BitOffs>12808</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 7</Name>
 										<Type>USINT</Type>
-										<BitOffs>520</BitOffs>
+										<BitOffs>12816</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 8</Name>
 										<Type>USINT</Type>
-										<BitOffs>528</BitOffs>
+										<BitOffs>12824</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 9</Name>
 										<Type>USINT</Type>
-										<BitOffs>536</BitOffs>
+										<BitOffs>12832</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 									<Var>
 										<Name>Data Out 10</Name>
 										<Type>USINT</Type>
-										<BitOffs>544</BitOffs>
+										<BitOffs>12840</BitOffs>
 										<InOut>1</InOut>
 									</Var>
 								</Vars>
@@ -7213,7 +7404,7 @@
 								<ImageId>32</ImageId>
 							</Term>
 						</BusCoupler>
-						<EtherCAT SlaveType="3" AdsServerAddress="c0a838010207ec03" PdiType="#x0008" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="51" FoeType="1" VendorId="#x00000002" ProductCode="#x04e22c22" RevisionNo="#x00130000" InfoDataAddr="true" InfoDataNetId="true" TimeoutStateChange1="5000" TimeoutMailbox2="6000" GenerateOwnNetId="true" PortPhys="3" PortABoxInfo="#x02000002">
+						<EtherCAT SlaveType="3" AdsServerAddress="c0a838010207ed03" PdiType="#x0008" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="51" FoeType="1" VendorId="#x00000002" ProductCode="#x04e22c22" RevisionNo="#x00130000" InfoDataAddr="true" InfoDataNetId="true" TimeoutStateChange1="5000" TimeoutMailbox2="6000" GenerateOwnNetId="true" PortPhys="3" PortABoxInfo="#x02000002">
 							<SyncMan>001e00012600010001000000400000010001001e26010000</SyncMan>
 							<SyncMan>001f00012200010002000000400000010001001f22010000</SyncMan>
 							<SyncMan>00101e002400010003000000000000000000001024010000</SyncMan>
@@ -7230,7 +7421,9 @@
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0120-500822000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0120-500831000403}" Id="#x02030020"/>
+		<MappingInfo Identifier="{00000000-2002-0850-0020-500810000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^BAUK_EK_BMS_PLC^BAUK_EK_BMS_PLC Instance">
 			<OwnerB Name="TIID^CX2040 E-Bus^CX2040 Supply^E-Bus to K-Bus">
 				<Link VarA="PlcTask Inputs^.stDALIInData^nData" VarB="Office DALI Light Control^Channel 1^Data In"/>
@@ -7288,532 +7481,542 @@
 				<Link VarA="PlcTask Outputs^EnOcean.STEnOceanOutData^nData[8]" VarB="Office RS485 EnOcean Control^Channel 1^Data Out 8"/>
 				<Link VarA="PlcTask Outputs^EnOcean.STEnOceanOutData^nData[9]" VarB="Office RS485 EnOcean Control^Channel 1^Data Out 9"/>
 			</OwnerB>
+			<OwnerB Name="TIID^CX2040 E-Bus^CX2040 Supply^Server Room EtherCAT Junction^24Vdc Power Supply On Test Wall">
+				<Link VarA="PlcTask Inputs^PowerSupply.amsAdr" VarB="InfoData^AdsAddr"/>
+				<Link VarA="PlcTask Inputs^PowerSupply.psuDcOk" VarB="PSU Inputs^DC OK"/>
+				<Link VarA="PlcTask Inputs^PowerSupply.psuError" VarB="PSU Inputs^Error"/>
+				<Link VarA="PlcTask Inputs^PowerSupply.psuInputUnderVoltage" VarB="PSU Inputs Device^Input undervoltage"/>
+				<Link VarA="PlcTask Inputs^PowerSupply.psuOutCurrent" VarB="PSU Inputs^Output current"/>
+				<Link VarA="PlcTask Inputs^PowerSupply.psuOutVoltage" VarB="PSU Inputs^Output voltage"/>
+				<Link VarA="PlcTask Inputs^PowerSupply.psuWarning" VarB="PSU Inputs^Warning"/>
+				<Link VarA="PlcTask Outputs^PowerSupply.psuDisableOutput" VarB="PSU Outputs^Disable output"/>
+			</OwnerB>
 			<OwnerB Name="TIID^CX2040 E-Bus^CX2040 Supply^Server Room EtherCAT Junction^Boardroom DMX Node^Cabinet LED Strip Control">
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^bCyclicTxDDisabled" VarB="DMX Status^Cyclic TxD disabled"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^bDefaultDataSent" VarB="DMX Status^Default data sent"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^bFrameSentToggle" VarB="DMX Status^Frame sent toggle"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^bReceiveToggle" VarB="DMX Status^Receive toggle"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^bTransmitAccepted" VarB="DMX Status^Transmit accepted"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^bTxPDOToggle" VarB="DMX Status^TxPDO Toggle"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^byStartCode" VarB="DMX Status^Start code"/>
-				<Link VarA="PlcTask Inputs^.stDMXInDataLinie01^wChannelLength" VarB="DMX Status^Channel length"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 1"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 10" Size="8" OffsA="72"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 11" Size="8" OffsA="80"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 12" Size="8" OffsA="88"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 13" Size="8" OffsA="96"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 14" Size="8" OffsA="104"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 15" Size="8" OffsA="112"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 16" Size="8" OffsA="120"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 17" Size="8" OffsA="128"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 18" Size="8" OffsA="136"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 19" Size="8" OffsA="144"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 2" Size="8" OffsA="8"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 20" Size="8" OffsA="152"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 21" Size="8" OffsA="160"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 22" Size="8" OffsA="168"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 23" Size="8" OffsA="176"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 24" Size="8" OffsA="184"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 25" Size="8" OffsA="192"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 26" Size="8" OffsA="200"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 27" Size="8" OffsA="208"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 28" Size="8" OffsA="216"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 29" Size="8" OffsA="224"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 3" Size="8" OffsA="16"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 30" Size="8" OffsA="232"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 31" Size="8" OffsA="240"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 32" Size="8" OffsA="248"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 33" Size="8" OffsA="256"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 34" Size="8" OffsA="264"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 35" Size="8" OffsA="272"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 36" Size="8" OffsA="280"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 37" Size="8" OffsA="288"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 38" Size="8" OffsA="296"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 39" Size="8" OffsA="304"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 4" Size="8" OffsA="24"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 40" Size="8" OffsA="312"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 41" Size="8" OffsA="320"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 42" Size="8" OffsA="328"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 43" Size="8" OffsA="336"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 44" Size="8" OffsA="344"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 45" Size="8" OffsA="352"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 46" Size="8" OffsA="360"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 47" Size="8" OffsA="368"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 48" Size="8" OffsA="376"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 49" Size="8" OffsA="384"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 5" Size="8" OffsA="32"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 50" Size="8" OffsA="392"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 51" Size="8" OffsA="400"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 52" Size="8" OffsA="408"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 53" Size="8" OffsA="416"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 54" Size="8" OffsA="424"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 55" Size="8" OffsA="432"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 56" Size="8" OffsA="440"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 57" Size="8" OffsA="448"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 58" Size="8" OffsA="456"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 59" Size="8" OffsA="464"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 6" Size="8" OffsA="40"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 60" Size="8" OffsA="472"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 61" Size="8" OffsA="480"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 62" Size="8" OffsA="488"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 63" Size="8" OffsA="496"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 64" Size="8" OffsA="504"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 7" Size="8" OffsA="48"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 8" Size="8" OffsA="56"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 9" Size="8" OffsA="64"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 129" Size="8" OffsA="1024"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 130" Size="8" OffsA="1032"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 131" Size="8" OffsA="1040"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 132" Size="8" OffsA="1048"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 133" Size="8" OffsA="1056"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 134" Size="8" OffsA="1064"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 135" Size="8" OffsA="1072"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 136" Size="8" OffsA="1080"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 137" Size="8" OffsA="1088"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 138" Size="8" OffsA="1096"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 139" Size="8" OffsA="1104"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 140" Size="8" OffsA="1112"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 141" Size="8" OffsA="1120"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 142" Size="8" OffsA="1128"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 143" Size="8" OffsA="1136"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 144" Size="8" OffsA="1144"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 145" Size="8" OffsA="1152"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 146" Size="8" OffsA="1160"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 147" Size="8" OffsA="1168"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 148" Size="8" OffsA="1176"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 149" Size="8" OffsA="1184"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 150" Size="8" OffsA="1192"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 151" Size="8" OffsA="1200"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 152" Size="8" OffsA="1208"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 153" Size="8" OffsA="1216"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 154" Size="8" OffsA="1224"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 155" Size="8" OffsA="1232"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 156" Size="8" OffsA="1240"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 157" Size="8" OffsA="1248"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 158" Size="8" OffsA="1256"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 159" Size="8" OffsA="1264"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 160" Size="8" OffsA="1272"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 161" Size="8" OffsA="1280"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 162" Size="8" OffsA="1288"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 163" Size="8" OffsA="1296"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 164" Size="8" OffsA="1304"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 165" Size="8" OffsA="1312"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 166" Size="8" OffsA="1320"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 167" Size="8" OffsA="1328"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 168" Size="8" OffsA="1336"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 169" Size="8" OffsA="1344"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 170" Size="8" OffsA="1352"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 171" Size="8" OffsA="1360"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 172" Size="8" OffsA="1368"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 173" Size="8" OffsA="1376"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 174" Size="8" OffsA="1384"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 175" Size="8" OffsA="1392"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 176" Size="8" OffsA="1400"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 177" Size="8" OffsA="1408"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 178" Size="8" OffsA="1416"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 179" Size="8" OffsA="1424"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 180" Size="8" OffsA="1432"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 181" Size="8" OffsA="1440"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 182" Size="8" OffsA="1448"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 183" Size="8" OffsA="1456"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 184" Size="8" OffsA="1464"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 185" Size="8" OffsA="1472"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 186" Size="8" OffsA="1480"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 187" Size="8" OffsA="1488"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 188" Size="8" OffsA="1496"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 189" Size="8" OffsA="1504"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 190" Size="8" OffsA="1512"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 191" Size="8" OffsA="1520"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 192" Size="8" OffsA="1528"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 193" Size="8" OffsA="1536"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 194" Size="8" OffsA="1544"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 195" Size="8" OffsA="1552"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 196" Size="8" OffsA="1560"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 197" Size="8" OffsA="1568"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 198" Size="8" OffsA="1576"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 199" Size="8" OffsA="1584"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 200" Size="8" OffsA="1592"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 201" Size="8" OffsA="1600"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 202" Size="8" OffsA="1608"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 203" Size="8" OffsA="1616"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 204" Size="8" OffsA="1624"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 205" Size="8" OffsA="1632"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 206" Size="8" OffsA="1640"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 207" Size="8" OffsA="1648"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 208" Size="8" OffsA="1656"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 209" Size="8" OffsA="1664"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 210" Size="8" OffsA="1672"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 211" Size="8" OffsA="1680"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 212" Size="8" OffsA="1688"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 213" Size="8" OffsA="1696"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 214" Size="8" OffsA="1704"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 215" Size="8" OffsA="1712"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 216" Size="8" OffsA="1720"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 217" Size="8" OffsA="1728"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 218" Size="8" OffsA="1736"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 219" Size="8" OffsA="1744"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 220" Size="8" OffsA="1752"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 221" Size="8" OffsA="1760"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 222" Size="8" OffsA="1768"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 223" Size="8" OffsA="1776"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 224" Size="8" OffsA="1784"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 225" Size="8" OffsA="1792"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 226" Size="8" OffsA="1800"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 227" Size="8" OffsA="1808"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 228" Size="8" OffsA="1816"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 229" Size="8" OffsA="1824"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 230" Size="8" OffsA="1832"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 231" Size="8" OffsA="1840"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 232" Size="8" OffsA="1848"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 233" Size="8" OffsA="1856"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 234" Size="8" OffsA="1864"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 235" Size="8" OffsA="1872"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 236" Size="8" OffsA="1880"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 237" Size="8" OffsA="1888"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 238" Size="8" OffsA="1896"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 239" Size="8" OffsA="1904"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 240" Size="8" OffsA="1912"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 241" Size="8" OffsA="1920"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 242" Size="8" OffsA="1928"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 243" Size="8" OffsA="1936"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 244" Size="8" OffsA="1944"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 245" Size="8" OffsA="1952"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 246" Size="8" OffsA="1960"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 247" Size="8" OffsA="1968"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 248" Size="8" OffsA="1976"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 249" Size="8" OffsA="1984"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 250" Size="8" OffsA="1992"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 251" Size="8" OffsA="2000"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 252" Size="8" OffsA="2008"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 253" Size="8" OffsA="2016"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 254" Size="8" OffsA="2024"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 255" Size="8" OffsA="2032"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 256" Size="8" OffsA="2040"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 257" Size="8" OffsA="2048"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 258" Size="8" OffsA="2056"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 259" Size="8" OffsA="2064"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 260" Size="8" OffsA="2072"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 261" Size="8" OffsA="2080"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 262" Size="8" OffsA="2088"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 263" Size="8" OffsA="2096"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 264" Size="8" OffsA="2104"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 265" Size="8" OffsA="2112"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 266" Size="8" OffsA="2120"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 267" Size="8" OffsA="2128"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 268" Size="8" OffsA="2136"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 269" Size="8" OffsA="2144"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 270" Size="8" OffsA="2152"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 271" Size="8" OffsA="2160"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 272" Size="8" OffsA="2168"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 273" Size="8" OffsA="2176"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 274" Size="8" OffsA="2184"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 275" Size="8" OffsA="2192"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 276" Size="8" OffsA="2200"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 277" Size="8" OffsA="2208"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 278" Size="8" OffsA="2216"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 279" Size="8" OffsA="2224"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 280" Size="8" OffsA="2232"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 281" Size="8" OffsA="2240"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 282" Size="8" OffsA="2248"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 283" Size="8" OffsA="2256"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 284" Size="8" OffsA="2264"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 285" Size="8" OffsA="2272"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 286" Size="8" OffsA="2280"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 287" Size="8" OffsA="2288"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 288" Size="8" OffsA="2296"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 289" Size="8" OffsA="2304"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 290" Size="8" OffsA="2312"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 291" Size="8" OffsA="2320"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 292" Size="8" OffsA="2328"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 293" Size="8" OffsA="2336"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 294" Size="8" OffsA="2344"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 295" Size="8" OffsA="2352"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 296" Size="8" OffsA="2360"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 297" Size="8" OffsA="2368"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 298" Size="8" OffsA="2376"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 299" Size="8" OffsA="2384"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 300" Size="8" OffsA="2392"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 301" Size="8" OffsA="2400"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 302" Size="8" OffsA="2408"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 303" Size="8" OffsA="2416"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 304" Size="8" OffsA="2424"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 305" Size="8" OffsA="2432"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 306" Size="8" OffsA="2440"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 307" Size="8" OffsA="2448"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 308" Size="8" OffsA="2456"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 309" Size="8" OffsA="2464"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 310" Size="8" OffsA="2472"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 311" Size="8" OffsA="2480"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 312" Size="8" OffsA="2488"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 313" Size="8" OffsA="2496"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 314" Size="8" OffsA="2504"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 315" Size="8" OffsA="2512"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 316" Size="8" OffsA="2520"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 317" Size="8" OffsA="2528"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 318" Size="8" OffsA="2536"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 319" Size="8" OffsA="2544"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 320" Size="8" OffsA="2552"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 321" Size="8" OffsA="2560"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 322" Size="8" OffsA="2568"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 323" Size="8" OffsA="2576"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 324" Size="8" OffsA="2584"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 325" Size="8" OffsA="2592"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 326" Size="8" OffsA="2600"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 327" Size="8" OffsA="2608"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 328" Size="8" OffsA="2616"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 329" Size="8" OffsA="2624"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 330" Size="8" OffsA="2632"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 331" Size="8" OffsA="2640"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 332" Size="8" OffsA="2648"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 333" Size="8" OffsA="2656"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 334" Size="8" OffsA="2664"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 335" Size="8" OffsA="2672"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 336" Size="8" OffsA="2680"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 337" Size="8" OffsA="2688"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 338" Size="8" OffsA="2696"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 339" Size="8" OffsA="2704"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 340" Size="8" OffsA="2712"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 341" Size="8" OffsA="2720"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 342" Size="8" OffsA="2728"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 343" Size="8" OffsA="2736"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 344" Size="8" OffsA="2744"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 345" Size="8" OffsA="2752"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 346" Size="8" OffsA="2760"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 347" Size="8" OffsA="2768"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 348" Size="8" OffsA="2776"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 349" Size="8" OffsA="2784"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 350" Size="8" OffsA="2792"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 351" Size="8" OffsA="2800"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 352" Size="8" OffsA="2808"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 353" Size="8" OffsA="2816"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 354" Size="8" OffsA="2824"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 355" Size="8" OffsA="2832"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 356" Size="8" OffsA="2840"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 357" Size="8" OffsA="2848"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 358" Size="8" OffsA="2856"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 359" Size="8" OffsA="2864"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 360" Size="8" OffsA="2872"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 361" Size="8" OffsA="2880"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 362" Size="8" OffsA="2888"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 363" Size="8" OffsA="2896"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 364" Size="8" OffsA="2904"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 365" Size="8" OffsA="2912"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 366" Size="8" OffsA="2920"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 367" Size="8" OffsA="2928"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 368" Size="8" OffsA="2936"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 369" Size="8" OffsA="2944"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 370" Size="8" OffsA="2952"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 371" Size="8" OffsA="2960"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 372" Size="8" OffsA="2968"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 373" Size="8" OffsA="2976"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 374" Size="8" OffsA="2984"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 375" Size="8" OffsA="2992"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 376" Size="8" OffsA="3000"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 377" Size="8" OffsA="3008"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 378" Size="8" OffsA="3016"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 379" Size="8" OffsA="3024"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 380" Size="8" OffsA="3032"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 381" Size="8" OffsA="3040"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 382" Size="8" OffsA="3048"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 383" Size="8" OffsA="3056"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 384" Size="8" OffsA="3064"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 385" Size="8" OffsA="3072"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 386" Size="8" OffsA="3080"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 387" Size="8" OffsA="3088"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 388" Size="8" OffsA="3096"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 389" Size="8" OffsA="3104"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 390" Size="8" OffsA="3112"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 391" Size="8" OffsA="3120"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 392" Size="8" OffsA="3128"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 393" Size="8" OffsA="3136"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 394" Size="8" OffsA="3144"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 395" Size="8" OffsA="3152"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 396" Size="8" OffsA="3160"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 397" Size="8" OffsA="3168"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 398" Size="8" OffsA="3176"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 399" Size="8" OffsA="3184"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 400" Size="8" OffsA="3192"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 401" Size="8" OffsA="3200"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 402" Size="8" OffsA="3208"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 403" Size="8" OffsA="3216"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 404" Size="8" OffsA="3224"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 405" Size="8" OffsA="3232"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 406" Size="8" OffsA="3240"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 407" Size="8" OffsA="3248"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 408" Size="8" OffsA="3256"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 409" Size="8" OffsA="3264"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 410" Size="8" OffsA="3272"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 411" Size="8" OffsA="3280"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 412" Size="8" OffsA="3288"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 413" Size="8" OffsA="3296"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 414" Size="8" OffsA="3304"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 415" Size="8" OffsA="3312"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 416" Size="8" OffsA="3320"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 417" Size="8" OffsA="3328"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 418" Size="8" OffsA="3336"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 419" Size="8" OffsA="3344"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 420" Size="8" OffsA="3352"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 421" Size="8" OffsA="3360"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 422" Size="8" OffsA="3368"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 423" Size="8" OffsA="3376"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 424" Size="8" OffsA="3384"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 425" Size="8" OffsA="3392"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 426" Size="8" OffsA="3400"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 427" Size="8" OffsA="3408"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 428" Size="8" OffsA="3416"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 429" Size="8" OffsA="3424"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 430" Size="8" OffsA="3432"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 431" Size="8" OffsA="3440"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 432" Size="8" OffsA="3448"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 433" Size="8" OffsA="3456"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 434" Size="8" OffsA="3464"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 435" Size="8" OffsA="3472"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 436" Size="8" OffsA="3480"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 437" Size="8" OffsA="3488"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 438" Size="8" OffsA="3496"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 439" Size="8" OffsA="3504"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 440" Size="8" OffsA="3512"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 441" Size="8" OffsA="3520"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 442" Size="8" OffsA="3528"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 443" Size="8" OffsA="3536"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 444" Size="8" OffsA="3544"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 445" Size="8" OffsA="3552"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 446" Size="8" OffsA="3560"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 447" Size="8" OffsA="3568"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 448" Size="8" OffsA="3576"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 449" Size="8" OffsA="3584"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 450" Size="8" OffsA="3592"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 451" Size="8" OffsA="3600"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 452" Size="8" OffsA="3608"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 453" Size="8" OffsA="3616"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 454" Size="8" OffsA="3624"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 455" Size="8" OffsA="3632"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 456" Size="8" OffsA="3640"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 457" Size="8" OffsA="3648"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 458" Size="8" OffsA="3656"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 459" Size="8" OffsA="3664"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 460" Size="8" OffsA="3672"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 461" Size="8" OffsA="3680"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 462" Size="8" OffsA="3688"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 463" Size="8" OffsA="3696"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 464" Size="8" OffsA="3704"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 465" Size="8" OffsA="3712"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 466" Size="8" OffsA="3720"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 467" Size="8" OffsA="3728"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 468" Size="8" OffsA="3736"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 469" Size="8" OffsA="3744"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 470" Size="8" OffsA="3752"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 471" Size="8" OffsA="3760"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 472" Size="8" OffsA="3768"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 473" Size="8" OffsA="3776"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 474" Size="8" OffsA="3784"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 475" Size="8" OffsA="3792"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 476" Size="8" OffsA="3800"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 477" Size="8" OffsA="3808"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 478" Size="8" OffsA="3816"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 479" Size="8" OffsA="3824"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 480" Size="8" OffsA="3832"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 481" Size="8" OffsA="3840"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 482" Size="8" OffsA="3848"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 483" Size="8" OffsA="3856"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 484" Size="8" OffsA="3864"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 485" Size="8" OffsA="3872"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 486" Size="8" OffsA="3880"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 487" Size="8" OffsA="3888"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 488" Size="8" OffsA="3896"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 489" Size="8" OffsA="3904"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 490" Size="8" OffsA="3912"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 491" Size="8" OffsA="3920"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 492" Size="8" OffsA="3928"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 493" Size="8" OffsA="3936"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 494" Size="8" OffsA="3944"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 495" Size="8" OffsA="3952"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 496" Size="8" OffsA="3960"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 497" Size="8" OffsA="3968"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 498" Size="8" OffsA="3976"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 499" Size="8" OffsA="3984"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 500" Size="8" OffsA="3992"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 501" Size="8" OffsA="4000"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 502" Size="8" OffsA="4008"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 503" Size="8" OffsA="4016"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 504" Size="8" OffsA="4024"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 505" Size="8" OffsA="4032"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 506" Size="8" OffsA="4040"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 507" Size="8" OffsA="4048"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 508" Size="8" OffsA="4056"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 509" Size="8" OffsA="4064"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 510" Size="8" OffsA="4072"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 511" Size="8" OffsA="4080"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 512" Size="8" OffsA="4088"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 100" Size="8" OffsA="792"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 101" Size="8" OffsA="800"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 102" Size="8" OffsA="808"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 103" Size="8" OffsA="816"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 104" Size="8" OffsA="824"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 105" Size="8" OffsA="832"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 106" Size="8" OffsA="840"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 107" Size="8" OffsA="848"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 108" Size="8" OffsA="856"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 109" Size="8" OffsA="864"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 110" Size="8" OffsA="872"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 111" Size="8" OffsA="880"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 112" Size="8" OffsA="888"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 113" Size="8" OffsA="896"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 114" Size="8" OffsA="904"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 115" Size="8" OffsA="912"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 116" Size="8" OffsA="920"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 117" Size="8" OffsA="928"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 118" Size="8" OffsA="936"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 119" Size="8" OffsA="944"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 120" Size="8" OffsA="952"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 121" Size="8" OffsA="960"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 122" Size="8" OffsA="968"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 123" Size="8" OffsA="976"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 124" Size="8" OffsA="984"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 125" Size="8" OffsA="992"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 126" Size="8" OffsA="1000"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 127" Size="8" OffsA="1008"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 128" Size="8" OffsA="1016"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 65" Size="8" OffsA="512"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 66" Size="8" OffsA="520"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 67" Size="8" OffsA="528"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 68" Size="8" OffsA="536"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 69" Size="8" OffsA="544"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 70" Size="8" OffsA="552"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 71" Size="8" OffsA="560"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 72" Size="8" OffsA="568"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 73" Size="8" OffsA="576"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 74" Size="8" OffsA="584"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 75" Size="8" OffsA="592"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 76" Size="8" OffsA="600"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 77" Size="8" OffsA="608"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 78" Size="8" OffsA="616"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 79" Size="8" OffsA="624"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 80" Size="8" OffsA="632"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 81" Size="8" OffsA="640"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 82" Size="8" OffsA="648"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 83" Size="8" OffsA="656"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 84" Size="8" OffsA="664"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 85" Size="8" OffsA="672"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 86" Size="8" OffsA="680"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 87" Size="8" OffsA="688"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 88" Size="8" OffsA="696"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 89" Size="8" OffsA="704"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 90" Size="8" OffsA="712"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 91" Size="8" OffsA="720"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 92" Size="8" OffsA="728"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 93" Size="8" OffsA="736"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 94" Size="8" OffsA="744"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 95" Size="8" OffsA="752"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 96" Size="8" OffsA="760"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 97" Size="8" OffsA="768"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 98" Size="8" OffsA="776"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 99" Size="8" OffsA="784"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^bDisableCyclicTxD" VarB="DMX Control^Disable cyclic TxD"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^bSendDefaultData" VarB="DMX Control^Send default data"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^bTransmitRequest" VarB="DMX Control^Transmit request"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^byStartCode" VarB="DMX Control^Start code"/>
-				<Link VarA="PlcTask Outputs^.stDMXOutDataLinie01^wChannelLength" VarB="DMX Control^Channel length"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^bCyclicTxDDisabled" VarB="DMX Status^Cyclic TxD disabled"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^bDefaultDataSent" VarB="DMX Status^Default data sent"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^bFrameSentToggle" VarB="DMX Status^Frame sent toggle"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^bReceiveToggle" VarB="DMX Status^Receive toggle"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^bTransmitAccepted" VarB="DMX Status^Transmit accepted"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^bTxPDOToggle" VarB="DMX Status^TxPDO Toggle"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^byStartCode" VarB="DMX Status^Start code"/>
+				<Link VarA="FastDmxUpdate Inputs^.stDMXInDataLinie01^wChannelLength" VarB="DMX Status^Channel length"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 1"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 10" Size="8" OffsA="72"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 11" Size="8" OffsA="80"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 12" Size="8" OffsA="88"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 13" Size="8" OffsA="96"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 14" Size="8" OffsA="104"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 15" Size="8" OffsA="112"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 16" Size="8" OffsA="120"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 17" Size="8" OffsA="128"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 18" Size="8" OffsA="136"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 19" Size="8" OffsA="144"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 2" Size="8" OffsA="8"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 20" Size="8" OffsA="152"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 21" Size="8" OffsA="160"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 22" Size="8" OffsA="168"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 23" Size="8" OffsA="176"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 24" Size="8" OffsA="184"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 25" Size="8" OffsA="192"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 26" Size="8" OffsA="200"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 27" Size="8" OffsA="208"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 28" Size="8" OffsA="216"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 29" Size="8" OffsA="224"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 3" Size="8" OffsA="16"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 30" Size="8" OffsA="232"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 31" Size="8" OffsA="240"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 32" Size="8" OffsA="248"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 33" Size="8" OffsA="256"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 34" Size="8" OffsA="264"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 35" Size="8" OffsA="272"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 36" Size="8" OffsA="280"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 37" Size="8" OffsA="288"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 38" Size="8" OffsA="296"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 39" Size="8" OffsA="304"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 4" Size="8" OffsA="24"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 40" Size="8" OffsA="312"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 41" Size="8" OffsA="320"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 42" Size="8" OffsA="328"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 43" Size="8" OffsA="336"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 44" Size="8" OffsA="344"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 45" Size="8" OffsA="352"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 46" Size="8" OffsA="360"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 47" Size="8" OffsA="368"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 48" Size="8" OffsA="376"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 49" Size="8" OffsA="384"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 5" Size="8" OffsA="32"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 50" Size="8" OffsA="392"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 51" Size="8" OffsA="400"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 52" Size="8" OffsA="408"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 53" Size="8" OffsA="416"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 54" Size="8" OffsA="424"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 55" Size="8" OffsA="432"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 56" Size="8" OffsA="440"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 57" Size="8" OffsA="448"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 58" Size="8" OffsA="456"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 59" Size="8" OffsA="464"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 6" Size="8" OffsA="40"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 60" Size="8" OffsA="472"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 61" Size="8" OffsA="480"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 62" Size="8" OffsA="488"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 63" Size="8" OffsA="496"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 64" Size="8" OffsA="504"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 7" Size="8" OffsA="48"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 8" Size="8" OffsA="56"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 1-64^Channel 9" Size="8" OffsA="64"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 129" Size="8" OffsA="1024"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 130" Size="8" OffsA="1032"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 131" Size="8" OffsA="1040"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 132" Size="8" OffsA="1048"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 133" Size="8" OffsA="1056"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 134" Size="8" OffsA="1064"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 135" Size="8" OffsA="1072"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 136" Size="8" OffsA="1080"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 137" Size="8" OffsA="1088"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 138" Size="8" OffsA="1096"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 139" Size="8" OffsA="1104"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 140" Size="8" OffsA="1112"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 141" Size="8" OffsA="1120"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 142" Size="8" OffsA="1128"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 143" Size="8" OffsA="1136"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 144" Size="8" OffsA="1144"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 145" Size="8" OffsA="1152"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 146" Size="8" OffsA="1160"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 147" Size="8" OffsA="1168"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 148" Size="8" OffsA="1176"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 149" Size="8" OffsA="1184"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 150" Size="8" OffsA="1192"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 151" Size="8" OffsA="1200"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 152" Size="8" OffsA="1208"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 153" Size="8" OffsA="1216"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 154" Size="8" OffsA="1224"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 155" Size="8" OffsA="1232"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 156" Size="8" OffsA="1240"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 157" Size="8" OffsA="1248"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 158" Size="8" OffsA="1256"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 159" Size="8" OffsA="1264"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 160" Size="8" OffsA="1272"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 161" Size="8" OffsA="1280"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 162" Size="8" OffsA="1288"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 163" Size="8" OffsA="1296"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 164" Size="8" OffsA="1304"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 165" Size="8" OffsA="1312"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 166" Size="8" OffsA="1320"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 167" Size="8" OffsA="1328"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 168" Size="8" OffsA="1336"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 169" Size="8" OffsA="1344"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 170" Size="8" OffsA="1352"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 171" Size="8" OffsA="1360"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 172" Size="8" OffsA="1368"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 173" Size="8" OffsA="1376"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 174" Size="8" OffsA="1384"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 175" Size="8" OffsA="1392"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 176" Size="8" OffsA="1400"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 177" Size="8" OffsA="1408"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 178" Size="8" OffsA="1416"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 179" Size="8" OffsA="1424"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 180" Size="8" OffsA="1432"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 181" Size="8" OffsA="1440"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 182" Size="8" OffsA="1448"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 183" Size="8" OffsA="1456"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 184" Size="8" OffsA="1464"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 185" Size="8" OffsA="1472"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 186" Size="8" OffsA="1480"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 187" Size="8" OffsA="1488"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 188" Size="8" OffsA="1496"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 189" Size="8" OffsA="1504"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 190" Size="8" OffsA="1512"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 191" Size="8" OffsA="1520"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 129-192^Channel 192" Size="8" OffsA="1528"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 193" Size="8" OffsA="1536"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 194" Size="8" OffsA="1544"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 195" Size="8" OffsA="1552"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 196" Size="8" OffsA="1560"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 197" Size="8" OffsA="1568"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 198" Size="8" OffsA="1576"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 199" Size="8" OffsA="1584"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 200" Size="8" OffsA="1592"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 201" Size="8" OffsA="1600"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 202" Size="8" OffsA="1608"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 203" Size="8" OffsA="1616"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 204" Size="8" OffsA="1624"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 205" Size="8" OffsA="1632"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 206" Size="8" OffsA="1640"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 207" Size="8" OffsA="1648"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 208" Size="8" OffsA="1656"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 209" Size="8" OffsA="1664"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 210" Size="8" OffsA="1672"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 211" Size="8" OffsA="1680"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 212" Size="8" OffsA="1688"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 213" Size="8" OffsA="1696"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 214" Size="8" OffsA="1704"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 215" Size="8" OffsA="1712"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 216" Size="8" OffsA="1720"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 217" Size="8" OffsA="1728"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 218" Size="8" OffsA="1736"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 219" Size="8" OffsA="1744"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 220" Size="8" OffsA="1752"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 221" Size="8" OffsA="1760"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 222" Size="8" OffsA="1768"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 223" Size="8" OffsA="1776"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 224" Size="8" OffsA="1784"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 225" Size="8" OffsA="1792"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 226" Size="8" OffsA="1800"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 227" Size="8" OffsA="1808"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 228" Size="8" OffsA="1816"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 229" Size="8" OffsA="1824"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 230" Size="8" OffsA="1832"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 231" Size="8" OffsA="1840"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 232" Size="8" OffsA="1848"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 233" Size="8" OffsA="1856"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 234" Size="8" OffsA="1864"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 235" Size="8" OffsA="1872"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 236" Size="8" OffsA="1880"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 237" Size="8" OffsA="1888"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 238" Size="8" OffsA="1896"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 239" Size="8" OffsA="1904"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 240" Size="8" OffsA="1912"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 241" Size="8" OffsA="1920"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 242" Size="8" OffsA="1928"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 243" Size="8" OffsA="1936"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 244" Size="8" OffsA="1944"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 245" Size="8" OffsA="1952"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 246" Size="8" OffsA="1960"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 247" Size="8" OffsA="1968"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 248" Size="8" OffsA="1976"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 249" Size="8" OffsA="1984"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 250" Size="8" OffsA="1992"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 251" Size="8" OffsA="2000"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 252" Size="8" OffsA="2008"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 253" Size="8" OffsA="2016"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 254" Size="8" OffsA="2024"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 255" Size="8" OffsA="2032"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 193-256^Channel 256" Size="8" OffsA="2040"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 257" Size="8" OffsA="2048"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 258" Size="8" OffsA="2056"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 259" Size="8" OffsA="2064"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 260" Size="8" OffsA="2072"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 261" Size="8" OffsA="2080"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 262" Size="8" OffsA="2088"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 263" Size="8" OffsA="2096"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 264" Size="8" OffsA="2104"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 265" Size="8" OffsA="2112"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 266" Size="8" OffsA="2120"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 267" Size="8" OffsA="2128"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 268" Size="8" OffsA="2136"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 269" Size="8" OffsA="2144"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 270" Size="8" OffsA="2152"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 271" Size="8" OffsA="2160"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 272" Size="8" OffsA="2168"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 273" Size="8" OffsA="2176"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 274" Size="8" OffsA="2184"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 275" Size="8" OffsA="2192"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 276" Size="8" OffsA="2200"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 277" Size="8" OffsA="2208"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 278" Size="8" OffsA="2216"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 279" Size="8" OffsA="2224"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 280" Size="8" OffsA="2232"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 281" Size="8" OffsA="2240"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 282" Size="8" OffsA="2248"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 283" Size="8" OffsA="2256"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 284" Size="8" OffsA="2264"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 285" Size="8" OffsA="2272"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 286" Size="8" OffsA="2280"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 287" Size="8" OffsA="2288"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 288" Size="8" OffsA="2296"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 289" Size="8" OffsA="2304"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 290" Size="8" OffsA="2312"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 291" Size="8" OffsA="2320"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 292" Size="8" OffsA="2328"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 293" Size="8" OffsA="2336"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 294" Size="8" OffsA="2344"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 295" Size="8" OffsA="2352"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 296" Size="8" OffsA="2360"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 297" Size="8" OffsA="2368"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 298" Size="8" OffsA="2376"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 299" Size="8" OffsA="2384"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 300" Size="8" OffsA="2392"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 301" Size="8" OffsA="2400"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 302" Size="8" OffsA="2408"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 303" Size="8" OffsA="2416"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 304" Size="8" OffsA="2424"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 305" Size="8" OffsA="2432"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 306" Size="8" OffsA="2440"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 307" Size="8" OffsA="2448"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 308" Size="8" OffsA="2456"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 309" Size="8" OffsA="2464"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 310" Size="8" OffsA="2472"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 311" Size="8" OffsA="2480"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 312" Size="8" OffsA="2488"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 313" Size="8" OffsA="2496"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 314" Size="8" OffsA="2504"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 315" Size="8" OffsA="2512"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 316" Size="8" OffsA="2520"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 317" Size="8" OffsA="2528"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 318" Size="8" OffsA="2536"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 319" Size="8" OffsA="2544"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 257-320^Channel 320" Size="8" OffsA="2552"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 321" Size="8" OffsA="2560"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 322" Size="8" OffsA="2568"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 323" Size="8" OffsA="2576"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 324" Size="8" OffsA="2584"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 325" Size="8" OffsA="2592"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 326" Size="8" OffsA="2600"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 327" Size="8" OffsA="2608"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 328" Size="8" OffsA="2616"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 329" Size="8" OffsA="2624"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 330" Size="8" OffsA="2632"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 331" Size="8" OffsA="2640"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 332" Size="8" OffsA="2648"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 333" Size="8" OffsA="2656"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 334" Size="8" OffsA="2664"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 335" Size="8" OffsA="2672"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 336" Size="8" OffsA="2680"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 337" Size="8" OffsA="2688"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 338" Size="8" OffsA="2696"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 339" Size="8" OffsA="2704"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 340" Size="8" OffsA="2712"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 341" Size="8" OffsA="2720"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 342" Size="8" OffsA="2728"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 343" Size="8" OffsA="2736"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 344" Size="8" OffsA="2744"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 345" Size="8" OffsA="2752"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 346" Size="8" OffsA="2760"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 347" Size="8" OffsA="2768"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 348" Size="8" OffsA="2776"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 349" Size="8" OffsA="2784"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 350" Size="8" OffsA="2792"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 351" Size="8" OffsA="2800"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 352" Size="8" OffsA="2808"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 353" Size="8" OffsA="2816"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 354" Size="8" OffsA="2824"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 355" Size="8" OffsA="2832"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 356" Size="8" OffsA="2840"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 357" Size="8" OffsA="2848"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 358" Size="8" OffsA="2856"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 359" Size="8" OffsA="2864"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 360" Size="8" OffsA="2872"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 361" Size="8" OffsA="2880"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 362" Size="8" OffsA="2888"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 363" Size="8" OffsA="2896"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 364" Size="8" OffsA="2904"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 365" Size="8" OffsA="2912"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 366" Size="8" OffsA="2920"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 367" Size="8" OffsA="2928"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 368" Size="8" OffsA="2936"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 369" Size="8" OffsA="2944"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 370" Size="8" OffsA="2952"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 371" Size="8" OffsA="2960"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 372" Size="8" OffsA="2968"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 373" Size="8" OffsA="2976"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 374" Size="8" OffsA="2984"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 375" Size="8" OffsA="2992"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 376" Size="8" OffsA="3000"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 377" Size="8" OffsA="3008"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 378" Size="8" OffsA="3016"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 379" Size="8" OffsA="3024"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 380" Size="8" OffsA="3032"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 381" Size="8" OffsA="3040"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 382" Size="8" OffsA="3048"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 383" Size="8" OffsA="3056"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 321-384^Channel 384" Size="8" OffsA="3064"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 385" Size="8" OffsA="3072"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 386" Size="8" OffsA="3080"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 387" Size="8" OffsA="3088"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 388" Size="8" OffsA="3096"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 389" Size="8" OffsA="3104"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 390" Size="8" OffsA="3112"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 391" Size="8" OffsA="3120"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 392" Size="8" OffsA="3128"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 393" Size="8" OffsA="3136"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 394" Size="8" OffsA="3144"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 395" Size="8" OffsA="3152"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 396" Size="8" OffsA="3160"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 397" Size="8" OffsA="3168"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 398" Size="8" OffsA="3176"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 399" Size="8" OffsA="3184"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 400" Size="8" OffsA="3192"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 401" Size="8" OffsA="3200"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 402" Size="8" OffsA="3208"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 403" Size="8" OffsA="3216"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 404" Size="8" OffsA="3224"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 405" Size="8" OffsA="3232"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 406" Size="8" OffsA="3240"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 407" Size="8" OffsA="3248"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 408" Size="8" OffsA="3256"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 409" Size="8" OffsA="3264"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 410" Size="8" OffsA="3272"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 411" Size="8" OffsA="3280"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 412" Size="8" OffsA="3288"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 413" Size="8" OffsA="3296"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 414" Size="8" OffsA="3304"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 415" Size="8" OffsA="3312"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 416" Size="8" OffsA="3320"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 417" Size="8" OffsA="3328"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 418" Size="8" OffsA="3336"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 419" Size="8" OffsA="3344"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 420" Size="8" OffsA="3352"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 421" Size="8" OffsA="3360"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 422" Size="8" OffsA="3368"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 423" Size="8" OffsA="3376"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 424" Size="8" OffsA="3384"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 425" Size="8" OffsA="3392"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 426" Size="8" OffsA="3400"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 427" Size="8" OffsA="3408"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 428" Size="8" OffsA="3416"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 429" Size="8" OffsA="3424"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 430" Size="8" OffsA="3432"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 431" Size="8" OffsA="3440"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 432" Size="8" OffsA="3448"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 433" Size="8" OffsA="3456"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 434" Size="8" OffsA="3464"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 435" Size="8" OffsA="3472"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 436" Size="8" OffsA="3480"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 437" Size="8" OffsA="3488"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 438" Size="8" OffsA="3496"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 439" Size="8" OffsA="3504"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 440" Size="8" OffsA="3512"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 441" Size="8" OffsA="3520"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 442" Size="8" OffsA="3528"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 443" Size="8" OffsA="3536"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 444" Size="8" OffsA="3544"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 445" Size="8" OffsA="3552"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 446" Size="8" OffsA="3560"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 447" Size="8" OffsA="3568"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 385-448^Channel 448" Size="8" OffsA="3576"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 449" Size="8" OffsA="3584"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 450" Size="8" OffsA="3592"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 451" Size="8" OffsA="3600"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 452" Size="8" OffsA="3608"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 453" Size="8" OffsA="3616"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 454" Size="8" OffsA="3624"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 455" Size="8" OffsA="3632"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 456" Size="8" OffsA="3640"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 457" Size="8" OffsA="3648"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 458" Size="8" OffsA="3656"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 459" Size="8" OffsA="3664"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 460" Size="8" OffsA="3672"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 461" Size="8" OffsA="3680"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 462" Size="8" OffsA="3688"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 463" Size="8" OffsA="3696"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 464" Size="8" OffsA="3704"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 465" Size="8" OffsA="3712"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 466" Size="8" OffsA="3720"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 467" Size="8" OffsA="3728"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 468" Size="8" OffsA="3736"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 469" Size="8" OffsA="3744"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 470" Size="8" OffsA="3752"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 471" Size="8" OffsA="3760"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 472" Size="8" OffsA="3768"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 473" Size="8" OffsA="3776"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 474" Size="8" OffsA="3784"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 475" Size="8" OffsA="3792"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 476" Size="8" OffsA="3800"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 477" Size="8" OffsA="3808"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 478" Size="8" OffsA="3816"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 479" Size="8" OffsA="3824"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 480" Size="8" OffsA="3832"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 481" Size="8" OffsA="3840"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 482" Size="8" OffsA="3848"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 483" Size="8" OffsA="3856"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 484" Size="8" OffsA="3864"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 485" Size="8" OffsA="3872"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 486" Size="8" OffsA="3880"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 487" Size="8" OffsA="3888"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 488" Size="8" OffsA="3896"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 489" Size="8" OffsA="3904"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 490" Size="8" OffsA="3912"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 491" Size="8" OffsA="3920"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 492" Size="8" OffsA="3928"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 493" Size="8" OffsA="3936"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 494" Size="8" OffsA="3944"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 495" Size="8" OffsA="3952"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 496" Size="8" OffsA="3960"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 497" Size="8" OffsA="3968"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 498" Size="8" OffsA="3976"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 499" Size="8" OffsA="3984"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 500" Size="8" OffsA="3992"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 501" Size="8" OffsA="4000"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 502" Size="8" OffsA="4008"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 503" Size="8" OffsA="4016"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 504" Size="8" OffsA="4024"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 505" Size="8" OffsA="4032"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 506" Size="8" OffsA="4040"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 507" Size="8" OffsA="4048"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 508" Size="8" OffsA="4056"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 509" Size="8" OffsA="4064"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 510" Size="8" OffsA="4072"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 511" Size="8" OffsA="4080"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 449-512^Channel 512" Size="8" OffsA="4088"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 100" Size="8" OffsA="792"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 101" Size="8" OffsA="800"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 102" Size="8" OffsA="808"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 103" Size="8" OffsA="816"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 104" Size="8" OffsA="824"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 105" Size="8" OffsA="832"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 106" Size="8" OffsA="840"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 107" Size="8" OffsA="848"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 108" Size="8" OffsA="856"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 109" Size="8" OffsA="864"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 110" Size="8" OffsA="872"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 111" Size="8" OffsA="880"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 112" Size="8" OffsA="888"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 113" Size="8" OffsA="896"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 114" Size="8" OffsA="904"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 115" Size="8" OffsA="912"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 116" Size="8" OffsA="920"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 117" Size="8" OffsA="928"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 118" Size="8" OffsA="936"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 119" Size="8" OffsA="944"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 120" Size="8" OffsA="952"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 121" Size="8" OffsA="960"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 122" Size="8" OffsA="968"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 123" Size="8" OffsA="976"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 124" Size="8" OffsA="984"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 125" Size="8" OffsA="992"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 126" Size="8" OffsA="1000"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 127" Size="8" OffsA="1008"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 128" Size="8" OffsA="1016"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 65" Size="8" OffsA="512"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 66" Size="8" OffsA="520"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 67" Size="8" OffsA="528"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 68" Size="8" OffsA="536"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 69" Size="8" OffsA="544"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 70" Size="8" OffsA="552"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 71" Size="8" OffsA="560"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 72" Size="8" OffsA="568"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 73" Size="8" OffsA="576"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 74" Size="8" OffsA="584"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 75" Size="8" OffsA="592"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 76" Size="8" OffsA="600"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 77" Size="8" OffsA="608"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 78" Size="8" OffsA="616"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 79" Size="8" OffsA="624"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 80" Size="8" OffsA="632"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 81" Size="8" OffsA="640"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 82" Size="8" OffsA="648"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 83" Size="8" OffsA="656"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 84" Size="8" OffsA="664"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 85" Size="8" OffsA="672"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 86" Size="8" OffsA="680"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 87" Size="8" OffsA="688"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 88" Size="8" OffsA="696"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 89" Size="8" OffsA="704"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 90" Size="8" OffsA="712"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 91" Size="8" OffsA="720"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 92" Size="8" OffsA="728"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 93" Size="8" OffsA="736"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 94" Size="8" OffsA="744"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 95" Size="8" OffsA="752"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 96" Size="8" OffsA="760"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 97" Size="8" OffsA="768"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 98" Size="8" OffsA="776"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^arrData" VarB="DMX Channel 65-128^Channel 99" Size="8" OffsA="784"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^bDisableCyclicTxD" VarB="DMX Control^Disable cyclic TxD"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^bSendDefaultData" VarB="DMX Control^Send default data"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^bTransmitRequest" VarB="DMX Control^Transmit request"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^byStartCode" VarB="DMX Control^Start code"/>
+				<Link VarA="FastDmxUpdate Outputs^.stDMXOutDataLinie01^wChannelLength" VarB="DMX Control^Channel length"/>
 			</OwnerB>
 			<OwnerB Name="TIID^CX2040 E-Bus^CX2040 Supply^Server Room EtherCAT Junction^OLD BLIND CONTROL^Blind Control Boardroom">
 				<Link VarA="PlcTask Inputs^BackgroundComms.HubCommIn[2]^D" VarB="COM Inputs^Data In 0"/>

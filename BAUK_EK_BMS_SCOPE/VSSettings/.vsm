@@ -5,12 +5,12 @@
   <Children>
     <Node>
       <Title>Analogue_Power</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Analogue_Power.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -191,7 +191,7 @@
     </Node>
     <Node>
       <Title>Blinds</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\Blinds.tcscopex</FileName>
       <Children>
         <Node>
@@ -223,7 +223,7 @@
     </Node>
     <Node>
       <Title>EnOcean Switches</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\Administrator\Documents\TcXaeShell\BAUK_EK_BMS_SCOPE\EnOcean Switches.tcscopex</FileName>
       <Children>
         <Node>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Task Name="FastDmxUpdate" Id="{db66251a-7cd3-4188-a7a5-ad48f34f0c12}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>1000</CycleTime>
+    <Priority>1</Priority>
+    <PouCall>
+      <Name>DMX</Name>
+    </PouCall>
+    <TaskFBGuid>{ad54fbc7-86b8-4eec-8b30-65ae99be4b73}</TaskFBGuid>
+    <Fb_init>{bf7e42a1-8e18-481f-b51c-5b37e580ea87}</Fb_init>
+    <Fb_exit>{e26f7a79-1847-4a8e-860f-d690332d0524}</Fb_exit>
+    <CycleUpdate>{f8265fd1-a493-464b-8120-c6728aa8e7cd}</CycleUpdate>
+    <PostCycleUpdate>{c300f77c-05e4-4ff2-8e6d-3f01a1421d51}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

@@ -51,6 +51,9 @@
     <Compile Include="ENOCEAN\EnOcean.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FastDmxUpdate.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global_Variables.TcGVL">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +88,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LIGHTS\DMX\DMX.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LIGHTS\DMX\ST_RGB.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MAIN.TcPOU">
@@ -126,6 +132,18 @@
     <Compile Include="WIND TURBINE\FB_WindTurbineSim.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WORKSHOP WALL\PowerSupply.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WORKSHOP WALL\Pulse.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WORKSHOP WALL\ST_PsuDiagData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WORKSHOP WALL\ST_PsuInfoData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BLINDS" />
@@ -135,6 +153,7 @@
     <Folder Include="HMI" />
     <Folder Include="LIGHTS\DMX" />
     <Folder Include="ML" />
+    <Folder Include="WORKSHOP WALL" />
     <Folder Include="WIND TURBINE" />
     <Folder Include="POWER MONITORING" />
   </ItemGroup>
@@ -163,6 +182,9 @@
       <DefaultResolution>Tc2_EnOcean, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_EnOcean</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_EtherCAT">
+      <DefaultResolution>Tc2_EtherCAT, * (Beckhoff Automation GmbH)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_SerialCom">
       <DefaultResolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_SerialCom</Namespace>
@@ -181,6 +203,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_DALI">
       <DefaultResolution>Tc3_DALI, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_DALI</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_IotBase">
       <DefaultResolution>Tc3_IotBase, * (Beckhoff Automation GmbH)</DefaultResolution>

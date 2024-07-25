@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Pulse" Id="{82159c39-b0ea-4603-a509-8714d4a02252}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Pulse
+VAR_INPUT
+	enable		:	BOOL;
+	offTime		:	TIME;
+	onTime		:	TIME;
+END_VAR
+VAR_OUTPUT
+	Q			:	BOOL;
+END_VAR
+VAR
+	onTimer		:	TON;
+	offTimer	:	TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[offTimer(IN:= enable AND NOT(onTimer.Q), PT:= offTime, Q=> Q, ET=> );
+
+onTimer(IN:= offTimer.Q, PT:= onTime, Q=> , ET=> );]]></ST>
+    </Implementation>
+    <LineIds Name="Pulse">
+      <LineId Id="9" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

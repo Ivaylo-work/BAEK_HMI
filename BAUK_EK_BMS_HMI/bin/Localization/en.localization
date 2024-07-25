@@ -1,5 +1,5 @@
 {
-  "$schema": "../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/LocalizationDescription.Schema.json",
+  "$schema": "./../../Packages/Beckhoff.TwinCAT.HMI.Framework.12.760.54/runtimes/native1.12-tchmi/Schema/LocalizationDescription.Schema.json",
   "locale": "en",
   "localizedText": {
     "L_Language": "Language",
@@ -16,6 +16,10 @@
     "L_Localization": "Localization",
     "L_Theme": "Theme",
     "L_HMISettings": "HMI Settings",
-    "L_WindTurbine": "Wind Turbine"
+    "L_WindTurbine": "Wind Turbine",
+    "L_SystemDiagnostics": "System Diagnostics",
+    "L_CX7000Diagnostics": "CX7000 Diagnostics",
+    "L_CX2040Diagnostics": "CX2040 Diagnostics",
+    "L_Warning": "Warning"
   }
 }

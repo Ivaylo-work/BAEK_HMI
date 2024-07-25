@@ -23,7 +23,7 @@
 ]
 </script>
 </div>
-<div id="TcHmiGrid_19" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="720" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-height-mode="Value">
+<div id="TcHmiGrid_19" data-tchmi-type="TcHmi.Controls.System.TcHmiGrid" data-tchmi-height="590" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="0" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="%" data-tchmi-height-mode="Value">
 
 <script data-tchmi-target-attribute="data-tchmi-column-options" type="application/json">
 [

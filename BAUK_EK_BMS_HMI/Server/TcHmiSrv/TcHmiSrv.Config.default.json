@@ -61,6 +61,15 @@
             "startOffset": 1,
             "type": "array"
         },
+        "PLC1.ARRAY_1..8_OF-BOOL": {
+            "items": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "maxItems": 8,
+            "minItems": 8,
+            "startOffset": 1,
+            "type": "array"
+        },
         "PLC1.CoffeType": {
             "attributes": {
                 "generate_implicit_init_function": "",
@@ -236,6 +245,13 @@
             "ENABLED": true,
             "NAME": "TcHmiEcDiagnostics",
             "PATH": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnostics.19.0.120\\runtimes\\win-x64\\native\\",
+            "REQUIRED": false,
+            "STARTUPTYPE": 1
+        },
+        "TcHmiEventLogger": {
+            "ENABLED": true,
+            "NAME": "TcHmiEventLogger",
+            "PATH": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EventLogger.19.0.120\\runtimes\\win-x64\\native\\",
             "REQUIRED": false,
             "STARTUPTYPE": 1
         },
@@ -3264,6 +3280,77 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.DMX.colours.blue": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::DMX::colours::blue",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BYTE"
+                    },
+                    {
+                        "propertyOrder": 3
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.DMX.colours.green": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::DMX::colours::green",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BYTE"
+                    },
+                    {
+                        "propertyOrder": 2
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.DMX.colours.red": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::DMX::colours::red",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BYTE"
+                    },
+                    {
+                        "propertyOrder": 1
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.DMX.shelfSelection": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::DMX::shelfSelection",
+            "SCHEMA": {
+                "$ref": "tchmi:server#/definitions/PLC1.ARRAY_1..8_OF-BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.DMX.updateHmi": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::DMX::updateHmi",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.EnOcean.AllWindowsClosed": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -5112,6 +5199,138 @@
                     },
                     "type": "object"
                 }
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiEventLogger.ClearLoggedEvents": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiEventLogger",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "ClearLoggedEvents",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true,
+                "writeValue": {
+                    "properties": {
+                        "targetName": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "targetName"
+                    ],
+                    "type": "object"
+                }
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiEventLogger.Config": {
+            "ACCESS": 0,
+            "DOMAIN": "TcHmiEventLogger",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "Config",
+            "OPTIONS": {},
+            "SCHEMA": {},
+            "USEMAPPING": true
+        },
+        "TcHmiEventLogger.Diagnostics": {
+            "ACCESS": 1,
+            "DOMAIN": "TcHmiEventLogger",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "Diagnostics",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true,
+                "properties": {
+                    "TARGET_SYSTEMS": {
+                        "additionalProperties": {
+                            "properties": {
+                                "activeAlarmsCount": {
+                                    "propertyOrder": 10,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "cachedAlarmsCount": {
+                                    "hidden": true,
+                                    "propertyOrder": 8,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "cachedInvalidAlarmsCount": {
+                                    "hidden": true,
+                                    "propertyOrder": 9,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "cachedMessagesCount": {
+                                    "hidden": true,
+                                    "propertyOrder": 7,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "connectError": {
+                                    "propertyOrder": 2,
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "connectionState": {
+                                    "propertyOrder": 1,
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "importedAlarmsCount": {
+                                    "propertyOrder": 5,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "importedEventsCount": {
+                                    "propertyOrder": 3,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "importedInvalidAlarmsCount": {
+                                    "propertyOrder": 6,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                },
+                                "importedMessagesCount": {
+                                    "propertyOrder": 4,
+                                    "readOnly": true,
+                                    "type": "integer"
+                                }
+                            },
+                            "readOnly": true,
+                            "required": [
+                                "connectionState"
+                            ],
+                            "type": "object"
+                        },
+                        "description": "DESC_TARGET_SYSTEM",
+                        "readOnly": true,
+                        "type": "object"
+                    }
+                },
+                "readOnly": true,
+                "type": "object"
+            },
+            "USEMAPPING": true
+        },
+        "TcHmiEventLogger.ListEnabledTargetSystems": {
+            "ACCESS": 3,
+            "DOMAIN": "TcHmiEventLogger",
+            "DYNAMIC": false,
+            "HIDDEN": true,
+            "MAPPING": "ListEnabledTargetSystems",
+            "OPTIONS": {},
+            "SCHEMA": {
+                "function": true,
+                "items": {
+                    "type": "string"
+                },
+                "type": "array"
             },
             "USEMAPPING": true
         },
@@ -9568,6 +9787,11 @@
                 "PLC1.BackgroundComms.BoardroomBlindSellection": 3,
                 "PLC1.BackgroundComms.KitchenBlindSelection": 3,
                 "PLC1.BackgroundComms.OfficeBlindSellection": 3,
+                "PLC1.DMX.colours.blue": 3,
+                "PLC1.DMX.colours.green": 3,
+                "PLC1.DMX.colours.red": 3,
+                "PLC1.DMX.shelfSelection": 3,
+                "PLC1.DMX.updateHmi": 3,
                 "PLC1.EnOcean.AllWindowsClosed": 3,
                 "PLC1.LightControl.AllLightsOff": 3,
                 "PLC1.LightControl.BoardRoomTime.Q": 3,
@@ -9625,6 +9849,8 @@
                 "TcHmiEcDiagnostics.ListConfiguredDevices": 1,
                 "TcHmiEcDiagnostics.ListMastersOfRoute": 3,
                 "TcHmiEcDiagnostics.ListSlavesWithForcedProcessData": 3,
+                "TcHmiEventLogger.Diagnostics": 1,
+                "TcHmiEventLogger.ListEnabledTargetSystems": 3,
                 "TcHmiScope.ChangeChannelState": 3,
                 "TcHmiScope.ChangePersist": 3,
                 "TcHmiScope.CheckIfSaveRecordIsAttached": 3,
@@ -9717,7 +9943,7 @@
         "/Beckhoff.TwinCAT.HMI.BA.Framework": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Framework.2.6.0\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.BA.Icons": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Icons.2.6.0\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Controls": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Controls.12.760.59\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta.1.1.114",
+        "/Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta.1.1.120",
         "/Beckhoff.TwinCAT.HMI.EcDiagnosticsControl": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnosticsControl.12.760.59\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Functions": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Functions.12.760.54\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.ResponsiveNavigation": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ResponsiveNavigation.12.760.54\\runtimes\\native1.12-tchmi",

@@ -645,7 +645,21 @@
     "subtitle": "",
     "image": "",
     "imageWidthUnit": "px",
-    "imageHeightUnit": "px"
+    "imageHeightUnit": "px",
+    "children": [
+      {
+        "name": "",
+        "showColumnName": false,
+        "children": [
+          {
+            "name": "LED Control",
+            "page": "Pages/CabinetLEDs.content",
+            "imageWidthUnit": "px",
+            "imageHeightUnit": "px"
+          }
+        ]
+      }
+    ]
   },
   {
     "name": "%l%L_CoffeeMachine%/l%",
@@ -662,6 +676,39 @@
     "parameter": "WindTurbine",
     "imageWidthUnit": "px",
     "imageHeightUnit": "px"
+  },
+  {
+    "name": "%l%L_SystemDiagnostics%/l%",
+    "page": "Pages/SystemDiagnostics.content",
+    "parameter": "SystemDiagnostics",
+    "imageWidthUnit": "px",
+    "imageHeightUnit": "px",
+    "children": [
+      {
+        "name": "",
+        "showColumnName": true,
+        "children": [
+          {
+            "name": "%l%L_CX2040Diagnostics%/l%",
+            "page": "Pages/CX2040Diagnostics.content",
+            "imageWidthUnit": "px",
+            "imageHeightUnit": "px"
+          }
+        ]
+      },
+      {
+        "name": "",
+        "showColumnName": true,
+        "children": [
+          {
+            "name": "%l%L_CX7000Diagnostics%/l%",
+            "page": "Pages/CX7000Diagnostics.content",
+            "imageWidthUnit": "px",
+            "imageHeightUnit": "px"
+          }
+        ]
+      }
+    ]
   },
   {
     "name": "%l%L_HMISettings%/l%",

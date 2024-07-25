@@ -5,11 +5,11 @@
     "namespace": "TcHmi.Controls.Beckhoff",
     "displayName": "Date Time Picker",
     "version": {
-        "full": "1.12.760.54",
+        "full": "1.12.760.59",
         "major": 1,
         "minor": 12,
         "build": 760,
-        "revision": 54
+        "revision": 59
     },
     "visible": true,
     "themeable": "Standard",

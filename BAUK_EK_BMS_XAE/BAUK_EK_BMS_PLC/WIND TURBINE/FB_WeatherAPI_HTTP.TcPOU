@@ -71,6 +71,7 @@ CASE nState OF
 						bHasMember2 := FALSE;
 						jsonWind := fbJson.FindMember(jsonVal, 'wind_mph');
 						wind_speed := fbJson.GetDouble(jsonWind);
+						WindSpeed := fbJson.GetDouble(jsonWind);
 					END_IF
 					
                     nValidResCount:= nValidResCount+1;
@@ -94,6 +95,7 @@ END_CASE]]></ST>
       <LineId Id="82" Count="0" />
       <LineId Id="86" Count="0" />
       <LineId Id="89" Count="4" />
+      <LineId Id="127" Count="0" />
       <LineId Id="88" Count="0" />
       <LineId Id="87" Count="0" />
       <LineId Id="67" Count="11" />

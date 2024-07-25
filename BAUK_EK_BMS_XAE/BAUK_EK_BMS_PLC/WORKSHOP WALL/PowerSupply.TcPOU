@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PowerSupply" Id="{424b70ad-500e-46bf-aca8-5beff570dd31}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PowerSupply
+VAR
+	triggerCoeRead							:	Pulse;
+	readPsuDiagData							:	FB_EcCoESdoReadEx;
+	readPsuInfoData							:	FB_EcCoESdoReadEx;
+	psuDiagData								:	ST_PsuDiagData;
+	psuInfoData								:	ST_PsuInfoData;
+	testArr									:	ARRAY [1..20] OF BYTE;
+	amsAdr							AT%I*	:	ST_AmsAddr;
+	psuWarning						AT%I*	:	BOOL;
+	psuError						AT%I*	:	BOOL;
+	psuDcOk							AT%I*	:	BOOL;
+	psuOutVoltage					AT%I*	:	REAL;
+	psuOutCurrent					AT%I*	:	REAL;
+	psuInputUnderVoltage			AT%I*	:	BOOL;
+	psuDisableOutput				AT%Q*	:	BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[triggerCoeRead(enable:= TRUE, offTime:= T#0.5S, onTime:= T#0.5S, Q=> );
+
+readPsuDiagData(
+	sNetId:= F_CreateAmsNetId(amsAdr.netId), 
+	nSlaveAddr:= amsAdr.port, 
+	nSubIndex:= 16#01, 
+	nIndex:= 16#FA14, 
+	pDstBuf:= ADR(psuDiagData), 
+	cbBufLen:= SIZEOF(psuDiagData), 
+	bExecute:= triggerCoeRead.Q, 
+	tTimeout:= , 
+	bCompleteAccess:= TRUE, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	cbRead=> );
+	
+readPsuInfoData(
+	sNetId:= F_CreateAmsNetId(amsAdr.netId), 
+	nSlaveAddr:= amsAdr.port, 
+	nSubIndex:= 16#01, 
+	nIndex:= 16#F914, 
+	pDstBuf:= ADR(psuInfoData), 
+	cbBufLen:= SIZEOF(psuInfoData), 
+	bExecute:= triggerCoeRead.Q, 
+	tTimeout:= , 
+	bCompleteAccess:= TRUE, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	cbRead=> );
+		]]></ST>
+    </Implementation>
+    <LineIds Name="PowerSupply">
+      <LineId Id="30" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="9" Count="12" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="51" Count="13" />
+      <LineId Id="50" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

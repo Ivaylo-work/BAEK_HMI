@@ -11,6 +11,10 @@
       },
       {
         "publishServerExtension": true,
+        "name": "TcHmiEventLogger"
+      },
+      {
+        "publishServerExtension": true,
         "name": "TcHmiLua"
       },
       {
@@ -48,16 +52,16 @@
     "userName": "",
     "encryptedPassword": "",
     "encryptedTcHmiServerPassword": "x+x8jc5DMxzSEjCKIfJvkA==",
-    "tcHmiServerHost": "localhost",
-    "tcHmiServerPort": "1020",
+    "tcHmiServerHost": "127.0.0.1",
+    "tcHmiServerPort": "1010",
     "socketTimeout": "60",
     "clientCertificateCN": "",
-    "tcHmiUseTLS": true,
+    "tcHmiUseTLS": false,
     "useClientCertificate": false,
     "launchBrowserAfterPublish": true,
     "createVirtualDirectoriesOnTargetSystem": false,
     "tcHmiServerUserName": "__SystemAdministrator",
-    "tcHmiDestinationUrl": "https://localhost:1020/",
+    "tcHmiDestinationUrl": "http://127.0.0.1:1010/",
     "publishConfiguration": "remote",
     "tcHmiSavePassword": false,
     "tcHmiIgnoreCertificateErrors": true

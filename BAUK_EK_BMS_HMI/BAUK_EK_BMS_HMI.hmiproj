@@ -112,6 +112,9 @@
     <Content Include="Images\Boardroom\projector-svgrepo-com.svg">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\Cabinets-transformed.png">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\cappuccino-svgrepo-com.svg">
       <SubType>Content</SubType>
     </Content>
@@ -142,6 +145,12 @@
     <Content Include="Images\Tennis Table\ping-pong-table-tennis-white.svg">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\Warning\warning-svg-dark.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Images\Warning\warning-svg-yellow.svg">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Java Script\EcoModeHandler.function.json">
       <SubType>Content</SubType>
       <DependentUpon>Java Script\EcoModeHandler.js</DependentUpon>
@@ -170,6 +179,9 @@
     <Content Include="Java Script\WindTurbineSubscriber.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Pages\CabinetLEDs.content">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Pages\CX2040Diagnostics.content">
       <SubType>Content</SubType>
     </Content>
@@ -189,6 +201,15 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Server\TcHmiEcDiagnostics\TcHmiEcDiagnostics.Storage.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiEventLogger\TcHmiEventLogger.Config.default.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiEventLogger\TcHmiEventLogger.Config.remote.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Server\TcHmiEventLogger\TcHmiEventLogger.Storage.json">
       <SubType>Content</SubType>
     </Content>
     <Content Include="User Controls\All-in-One Shutdown.usercontrol">
@@ -288,6 +309,7 @@
     <Folder Include="Images\Manifest" />
     <Folder Include="Images\EcoMode" />
     <Folder Include="Images\Boardroom" />
+    <Folder Include="Images\Warning" />
     <Folder Include="Images\Room Occupancy" />
     <Folder Include="Images\Tennis Table" />
     <Folder Include="Images\PLC\" />
@@ -299,6 +321,7 @@
     <Folder Include="Localization" />
     <Folder Include="Java Script" />
     <Folder Include="Server\TcHmiEcDiagnostics" />
+    <Folder Include="Server\TcHmiEventLogger" />
     <Folder Include="User Controls" />
     <Folder Include="Pages\" />
     <Folder Include="Server\ADS\" />

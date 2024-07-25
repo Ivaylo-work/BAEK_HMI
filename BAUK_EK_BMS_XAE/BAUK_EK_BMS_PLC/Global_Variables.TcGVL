@@ -141,6 +141,11 @@ VAR_GLOBAL
 	KitchenArea_MorningMode					:	BOOL;
                                 	            
 	EntireBuilding_CleaningMode				:	BOOL;
+	
+	(* Wind Turbine Data*)
+	WindSpeed						AT%M*	:	LREAL;
+	RPM								AT%M*	:	LREAL;
+	Power							AT%M*	:	LREAL;
 
 END_VAR
 
