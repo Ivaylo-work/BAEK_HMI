@@ -47,7 +47,7 @@ VAR
 
     fbWeatherAPI        				: FB_WeatherAPI_HTTP;
 	
-	weatherTon							: ton := (pt:=T#15m);					
+	weatherTon							: ton := (pt:=T#10m);					
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -147,8 +147,9 @@ ELSE
 END_IF
 
 fbHttpClientOpenWeatherMap.Execute();
-
+WindSpeed := fbWeatherAPI.wind_speed;
 fbWindSimulator(windSpeed:= WindSpeed, rpm=> RPM, powerOutput=> Power);
+//fbWindSimulator();
 weatherTon();]]></ST>
     </Implementation>
     <Action Name="SleepModeCheck" Id="{3f87cb06-794c-44e6-adeb-1113c47adff4}">
@@ -196,6 +197,7 @@ END_IF]]></ST>
       <LineId Id="52" Count="0" />
       <LineId Id="284" Count="0" />
       <LineId Id="353" Count="19" />
+      <LineId Id="422" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.SleepModeCheck">

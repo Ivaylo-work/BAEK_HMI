@@ -41,11 +41,26 @@ VAR
 	                            			
 	rtBlindsOfficeUp						:		R_TRIG;
 
-
+	(*Office Blinds Triggers *)
 	rtBlindsOfficeAreaWall1_3				:		R_TRIG;
+	rtBlindsOfficeAreaWall1_3_10_13			:		R_TRIG;
+	rtBlindsOfficeAreaWall1_9				:		R_TRIG;
 	rtBlindsOfficeAreaWall4_9				:		R_TRIG;
+	rtBlindsOfficeAreaWall4_13				:		R_TRIG;
 	rtBlindsOfficeAreaWall10_13				:		R_TRIG;
-
+	rtBlindsOfficeAreaWallAll				:		R_TRIG;
+	rtBlindsOfficeAreaWallAllFalse			:		R_TRIG;
+	
+	(*Kitchen Blinds Triggers *)
+	rtBlindsKitchenAreaWallAll				:		R_TRIG;
+	rtBlindsKitchenAreaWallAllFalse				:		R_TRIG;
+	
+	(*Boardroom Blinds Triggers *)
+	rtBlindsBoardroomAreaWall1_7			:		R_TRIG;
+	rtBlindsBoardroomAreaWall8_16			:		R_TRIG;
+	rtBlindsBoardroomAreaWallAll			:		R_TRIG;
+	rtBlindsBoardroomAreaWallAllFalse		:		R_TRIG;
+	
 	rtBlindsOfficeAreaWallStop				:		R_TRIG;
 
 
@@ -132,75 +147,86 @@ IF rtBlindsBoardRoomUp.Q THEN
 END_IF
 
 (*Desk Area Blinds selection******************************************************************)
-(*Select Office Blinds for End Wall and combitanions*)
-IF OfficeBlindSellection[0] THEN
+(*Select Office Blinds and combitanions*)
+
+rtBlindsOfficeAreaWall1_3(CLK := OfficeBlindSellection[0] AND (NOT OfficeBlindSellection[1]) AND (NOT OfficeBlindSellection[2]));
+rtBlindsOfficeAreaWall1_3_10_13(CLK := OfficeBlindSellection[0] AND (NOT OfficeBlindSellection[1]) AND OfficeBlindSellection[2]);
+rtBlindsOfficeAreaWall1_9(CLK := OfficeBlindSellection[0] AND OfficeBlindSellection[1] AND (NOT OfficeBlindSellection[2]));
+rtBlindsOfficeAreaWallAll(CLK := OfficeBlindSellection[0] AND OfficeBlindSellection[1] AND OfficeBlindSellection[2]);
+rtBlindsOfficeAreaWall4_9(CLK := (NOT OfficeBlindSellection[0]) AND OfficeBlindSellection[1] AND (NOT OfficeBlindSellection[2]));
+rtBlindsOfficeAreaWall4_13(CLK := (NOT OfficeBlindSellection[0]) AND OfficeBlindSellection[1] AND OfficeBlindSellection[2]);
+rtBlindsOfficeAreaWall10_13(CLK := (NOT OfficeBlindSellection[0]) AND (NOT OfficeBlindSellection[1]) AND OfficeBlindSellection[2]);
+rtBlindsOfficeAreaWallAllFalse(CLK := (NOT OfficeBlindSellection[0]) AND (NOT OfficeBlindSellection[1]) AND (NOT OfficeBlindSellection[2]));
+
+IF rtBlindsOfficeAreaWall1_3.Q THEN
 	SetOfficeAreaBlinds1_3();
-	
-	IF OfficeBlindSellection[2] THEN
-		SetOfficeAreaBlinds1_3_10_13();
-	END_IF
-	
-	IF OfficeBlindSellection[1] THEN
-		SetOfficeAreaBlinds1_9();
-		
-		IF OfficeBlindSellection[2] THEN
-			SetOfficeAreaBlindsAll();
-		END_IF
-	END_IF
 END_IF
-	
 
-(*Select Office Blinds for Lond Wall*)
-IF (NOT OfficeBlindSellection[0]) AND OfficeBlindSellection[1] THEN
+IF rtBlindsOfficeAreaWall1_3_10_13.Q THEN
+	SetOfficeAreaBlinds1_3_10_13();
+END_IF
+
+IF rtBlindsOfficeAreaWall1_9.Q THEN
+	SetOfficeAreaBlinds1_9();
+END_IF
+
+IF rtBlindsOfficeAreaWallAll.Q THEN
+	SetOfficeAreaBlindsAll();
+END_IF
+
+IF rtBlindsOfficeAreaWall4_9.Q THEN
 	SetOfficeAreaBlinds4_9();
-
-(*Select Office Blinds for Lond Wall and Partition*)
-	IF OfficeBlindSellection[2] THEN
-		SetOfficeAreaBlinds4_13();
-	END_IF
 END_IF
 
-(*Select Office Blinds for Partition*)
-IF(NOT OfficeBlindSellection[0]) AND (NOT OfficeBlindSellection[1]) AND OfficeBlindSellection[2] THEN
+IF rtBlindsOfficeAreaWall4_13.Q THEN
+	SetOfficeAreaBlinds4_13();
+END_IF
+
+IF rtBlindsOfficeAreaWall10_13.Q THEN
 	SetOfficeAreaBlinds10_13();
-END_IF 
-(*Deselect All Office Blinds*)
-IF(NOT OfficeBlindSellection[0]) AND (NOT OfficeBlindSellection[1]) AND (NOT OfficeBlindSellection[2]) THEN
+END_IF
+
+IF rtBlindsOfficeAreaWallAllFalse.Q THEN
 	SetOfficeAreaBlindsAllFalse();
-END_IF 
+END_IF
+
 
 (*Kitchen Area Blinds selection******************************************************************)
 (*Select Kitchen Blinds for Lond Wall*)
-IF KitchenBlindSelection THEN
+
+rtBlindsKitchenAreaWallAll(CLK := KitchenBlindSelection);
+rtBlindsKitchenAreaWallAllFalse(CLK := NOT KitchenBlindSelection);
+
+IF rtBlindsKitchenAreaWallAll.Q THEN
 	SetKitchenAreaBlindsAll();
 END_IF
 
-(*Boardroom Area Blinds selection******************************************************************)
-
-(*Select Boardroom Blinds for Lond Wall*)
-IF BoardroomBlindSellection[0] THEN
-	SetBoardRoomBlinds8_16();
-	IF BoardroomBlindSellection[1] THEN
-		SetBoardroomAreaBlindsAll();
-	END_IF
+IF rtBlindsKitchenAreaWallAllFalse.Q THEN
+	SetKitchenAreaBlindsAllFalse();
 END_IF
 
-(*Select Boardroom Blinds for Partition*)
-IF(NOT BoardroomBlindSellection[0]) AND BoardroomBlindSellection[1] THEN
+(*Boardroom Area Blinds selection******************************************************************)
+(*Select Boardroom Blinds for Lond Wall*)
+
+rtBlindsBoardroomAreaWall1_7(CLK := BoardroomBlindSellection[0] AND (NOT BoardroomBlindSellection[1]));		
+rtBlindsBoardroomAreaWall8_16(CLK := (NOT BoardroomBlindSellection[0]) AND BoardroomBlindSellection[1]);
+rtBlindsBoardroomAreaWallAll(CLK := BoardroomBlindSellection[0] AND BoardroomBlindSellection[1]);
+rtBlindsBoardroomAreaWallAllFalse(CLK := (NOT BoardroomBlindSellection[0]) AND (NOT BoardroomBlindSellection[1]));
+
+IF rtBlindsBoardroomAreaWall1_7.Q THEN
 	SetBoardRoomBlinds1_7();
-	
-//	rtBlindsBoardRoomUp(CLK := BlindCommandTable[1].xCommandUp);
-	
-//	IF rtBlindsBoardRoomUp.Q THEN
-//		BlindCommandTable[0].xCommandUp := TRUE;
-//	END_IF
-//	rtBlindsOfficeUp(CLK := BlindCommandTable[0].xCommandUp);
-	
-//	IF rtBlindsOfficeUp.Q THEN
-//		BlindCommandTable[0].xCommandUp := FALSE;
-//	END_IF
-	
-	
+END_IF
+
+IF rtBlindsBoardroomAreaWall8_16.Q THEN
+	SetBoardRoomBlinds8_16();
+END_IF
+
+IF rtBlindsBoardroomAreaWallAll.Q THEN
+	SetBoardroomAreaBlindsAll();
+END_IF
+
+IF rtBlindsBoardroomAreaWallAllFalse.Q THEN
+	SetBoardroomAreaBlindsAllFalse();
 END_IF
 
 (*Boardroom Blind Modes**************************************************************************)
@@ -442,6 +468,27 @@ BlindCommandTable[1].SelectBlindsBulkCommand[16] := TRUE;
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="SetBoardroomAreaBlindsAllFalse" Id="{29e78a70-c980-4257-9274-6859c8af3019}">
+      <Implementation>
+        <ST><![CDATA[BlindCommandTable[1].SelectBlindsBulkCommand[1] := FALSE;
+BlindCommandTable[1].SelectBlindsBulkCommand[2] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[3] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[4] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[5] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[6] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[7] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[8] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[9] := False;
+BlindCommandTable[1].SelectBlindsBulkCommand[10] := FALSE;
+BlindCommandTable[1].SelectBlindsBulkCommand[11] := false;
+BlindCommandTable[1].SelectBlindsBulkCommand[12] := false;
+BlindCommandTable[1].SelectBlindsBulkCommand[13] := false;
+BlindCommandTable[1].SelectBlindsBulkCommand[14] := false;
+BlindCommandTable[1].SelectBlindsBulkCommand[15] := false;
+BlindCommandTable[1].SelectBlindsBulkCommand[16] := false;
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="SetBoardRoomBlinds1_7" Id="{26c73eee-fabf-42f3-aed3-3d832ca09101}">
       <Implementation>
         <ST><![CDATA[BlindCommandTable[1].SelectBlindsBulkCommand[1] :=TRUE;
@@ -503,6 +550,26 @@ BlindCommandTable[2].SelectBlindsBulkCommand[13] := TRUE;
 BlindCommandTable[2].SelectBlindsBulkCommand[14] := TRUE;
 BlindCommandTable[2].SelectBlindsBulkCommand[15] := TRUE;
 BlindCommandTable[2].SelectBlindsBulkCommand[16] := TRUE;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="SetKitchenAreaBlindsAllFalse" Id="{768ef702-317c-47e8-b344-a341ff120b00}">
+      <Implementation>
+        <ST><![CDATA[BlindCommandTable[2].SelectBlindsBulkCommand[1] := FALSE;
+BlindCommandTable[2].SelectBlindsBulkCommand[2] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[3] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[4] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[5] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[6] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[7] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[8] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[9] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[10] := FALSE;
+BlindCommandTable[2].SelectBlindsBulkCommand[11] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[12] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[13] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[14] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[15] := false;
+BlindCommandTable[2].SelectBlindsBulkCommand[16] := false;]]></ST>
       </Implementation>
     </Action>
     <Action Name="SetOfficeAreaBlinds1_3" Id="{9de6c562-f932-41b5-bc96-13a917d982e2}">
@@ -666,42 +733,69 @@ BlindCommandTable[0].SelectBlindsBulkCommand[16] := FALSE;]]></ST>
       </Implementation>
     </Action>
     <LineIds Name="BackgroundComms">
-      <LineId Id="495" Count="49" />
-      <LineId Id="807" Count="0" />
-      <LineId Id="821" Count="1" />
-      <LineId Id="819" Count="1" />
-      <LineId Id="808" Count="1" />
-      <LineId Id="815" Count="3" />
-      <LineId Id="810" Count="2" />
-      <LineId Id="790" Count="0" />
-      <LineId Id="547" Count="6" />
-      <LineId Id="800" Count="0" />
-      <LineId Id="823" Count="0" />
-      <LineId Id="830" Count="0" />
-      <LineId Id="805" Count="1" />
-      <LineId Id="803" Count="0" />
-      <LineId Id="554" Count="0" />
-      <LineId Id="829" Count="0" />
-      <LineId Id="827" Count="1" />
-      <LineId Id="555" Count="12" />
+      <LineId Id="495" Count="47" />
+      <LineId Id="1017" Count="2" />
+      <LineId Id="1021" Count="0" />
+      <LineId Id="1023" Count="3" />
+      <LineId Id="1016" Count="0" />
+      <LineId Id="1029" Count="0" />
+      <LineId Id="1040" Count="0" />
+      <LineId Id="1042" Count="1" />
+      <LineId Id="1045" Count="0" />
+      <LineId Id="1044" Count="0" />
+      <LineId Id="1046" Count="1" />
+      <LineId Id="1049" Count="0" />
+      <LineId Id="1048" Count="0" />
+      <LineId Id="1050" Count="1" />
+      <LineId Id="1053" Count="0" />
+      <LineId Id="1052" Count="0" />
+      <LineId Id="1054" Count="1" />
+      <LineId Id="1057" Count="0" />
+      <LineId Id="1056" Count="0" />
+      <LineId Id="1058" Count="1" />
+      <LineId Id="1061" Count="0" />
+      <LineId Id="1060" Count="0" />
+      <LineId Id="1062" Count="1" />
+      <LineId Id="1065" Count="0" />
+      <LineId Id="1064" Count="0" />
+      <LineId Id="1066" Count="1" />
+      <LineId Id="1069" Count="0" />
+      <LineId Id="1068" Count="0" />
+      <LineId Id="1070" Count="1" />
+      <LineId Id="555" Count="3" />
+      <LineId Id="1084" Count="0" />
+      <LineId Id="1074" Count="0" />
+      <LineId Id="1102" Count="0" />
+      <LineId Id="1085" Count="0" />
+      <LineId Id="559" Count="2" />
+      <LineId Id="1104" Count="2" />
+      <LineId Id="1103" Count="0" />
+      <LineId Id="562" Count="1" />
+      <LineId Id="565" Count="0" />
+      <LineId Id="1086" Count="2" />
+      <LineId Id="1076" Count="0" />
+      <LineId Id="1075" Count="0" />
+      <LineId Id="1089" Count="0" />
+      <LineId Id="566" Count="1" />
+      <LineId Id="1090" Count="0" />
+      <LineId Id="1093" Count="2" />
+      <LineId Id="1092" Count="0" />
+      <LineId Id="1091" Count="0" />
       <LineId Id="832" Count="1" />
       <LineId Id="831" Count="0" />
-      <LineId Id="568" Count="0" />
-      <LineId Id="834" Count="0" />
-      <LineId Id="569" Count="2" />
-      <LineId Id="916" Count="3" />
-      <LineId Id="921" Count="1" />
-      <LineId Id="920" Count="0" />
-      <LineId Id="925" Count="0" />
-      <LineId Id="927" Count="2" />
-      <LineId Id="926" Count="0" />
-      <LineId Id="915" Count="0" />
-      <LineId Id="572" Count="217" />
+      <LineId Id="1097" Count="2" />
+      <LineId Id="573" Count="0" />
+      <LineId Id="1100" Count="0" />
+      <LineId Id="574" Count="215" />
       <LineId Id="340" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetBoardroomAreaBlindsAll">
       <LineId Id="0" Count="15" />
       <LineId Id="18" Count="0" />
+    </LineIds>
+    <LineIds Name="BackgroundComms.SetBoardroomAreaBlindsAllFalse">
+      <LineId Id="2" Count="15" />
+      <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetBoardRoomBlinds1_7">
       <LineId Id="0" Count="15" />
@@ -713,6 +807,10 @@ BlindCommandTable[0].SelectBlindsBulkCommand[16] := FALSE;]]></ST>
       <LineId Id="17" Count="0" />
     </LineIds>
     <LineIds Name="BackgroundComms.SetKitchenAreaBlindsAll">
+      <LineId Id="2" Count="14" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="BackgroundComms.SetKitchenAreaBlindsAllFalse">
       <LineId Id="2" Count="14" />
       <LineId Id="1" Count="0" />
     </LineIds>

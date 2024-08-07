@@ -9,7 +9,7 @@ VAR_OUTPUT
 	Err						: BOOL;
 END_VAR                 	  
 VAR               
-	UpdateInterval			:BYTE;      	  
+	UpdateInterval			: BYTE;      	  
 	fbBlindsControl			: BlindControl;
 	GetBusyBitOffice		: ADSREADEX := ( NETID := '5.129.86.232.1.1', PORT := 851, TMOUT := T#5S );
 	GetBusyBitKitchen		: ADSREADEX := ( NETID := '5.129.86.232.1.1', PORT := 851, TMOUT := T#5S );
@@ -19,13 +19,21 @@ VAR
 	BusyKitchen				: BOOL;
 	BusyBoardroom			: BOOL;
 	
-	BlindSelector			:INT;
+	testInt					: int;
+	
+	BusyBits				: ARRAY[0..2] OF BOOL;
+	
+	
+	
+	BlinderSelection		: INT;
+	
+	BlindSelector			: INT;
 	                    	  
 	TonError				: Ton := (PT := T#30S);
 	TonUpCommand			: Ton;
 	TonDownCommand			: Ton;
 	
-	nState					: INT;
+	iState					: INT;
 END_VAR
 
 VAR_IN_OUT
@@ -39,23 +47,9 @@ END_VAR
 			NETID:= '5.129.86.232.1.1',
 			PORT:= 851 ,
 			IDXGRP:=16#4040,//16#4020 ,
-			IDXOFFS:= 16#6B7F9,//0,
+			IDXOFFS:= 16#6DD89,//0,
 			LEN:= 4,//40,
-			DESTADDR:= ADR(BusyOffice),
-			READ:= UpdateInterval.0,
-			TMOUT:= t#5s,
-			BUSY=> ,
-			ERR=> ,
-			ERRID=> ,
-			COUNT_R=> );
-			
-		GetBusyBitKitchen(
-			NETID:= '5.129.86.232.1.1',
-			PORT:= 851 ,
-			IDXGRP:=16#4040,//16#4020 ,
-			IDXOFFS:= 16#6B819,//0,
-			LEN:= 4,//40,
-			DESTADDR:= ADR(BusyKitchen),
+			DESTADDR:= ADR(BusyBits[0]),
 			READ:= UpdateInterval.0,
 			TMOUT:= t#5s,
 			BUSY=> ,
@@ -67,37 +61,50 @@ END_VAR
 			NETID:= '5.129.86.232.1.1',
 			PORT:= 851 ,
 			IDXGRP:=16#4040,//16#4020 ,
-			IDXOFFS:= 16#6B839,//0,
+			IDXOFFS:= 16#6DDA9,//0,
 			LEN:= 4,//40,
-			DESTADDR:= ADR(BusyBoardroom),
+			DESTADDR:= ADR(BusyBits[1]),
 			READ:= UpdateInterval.0,
 			TMOUT:= t#5s,
 			BUSY=> ,
 			ERR=> ,
 			ERRID=> ,
 			COUNT_R=> );
-		
+			
+		GetBusyBitKitchen(
+			NETID:= '5.129.86.232.1.1',
+			PORT:= 851 ,
+			IDXGRP:=16#4040,//16#4020 ,
+			IDXOFFS:= 16#6DDC9,//0,
+			LEN:= 4,//40,
+			DESTADDR:= ADR(BusyBits[2]),
+			READ:= UpdateInterval.0,
+			TMOUT:= t#5s,
+			BUSY=> ,
+			ERR=> ,
+			ERRID=> ,
+			COUNT_R=> );		
 
 IF Start THEN
 
-CASE nState OF
+CASE iState OF
 	0: //Check Busy state if busy for 30+s 100 err or 10
 
-		
 		BlindSelector := 0;
-		nState := 10;
+		BlinderSelection := 0;
+		iState := 10;
 
 	10://Select room to be stretched 11 -> offce 12 -> kitchen 13 -> board room
-		IF (NOT BusyOffice AND NOT BusyKitchen AND NOT BusyBoardroom) THEN
+		IF (NOT BusyBits[0] AND NOT BusyBits[1] AND NOT BusyBits[2]) THEN
 			//state 10
 			TonError.IN := FALSE;
-			nState := 11;
+			iState := 11;
 			
 		ELSE
 			//timer for 30 sec -> state 100
 			TonError.IN := TRUE;
 			IF TonError.Q THEN
-				nState := 100;
+				iState := 100;
 			END_IF
 			
 		END_IF
@@ -120,24 +127,41 @@ CASE nState OF
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[16] := TRUE;
 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := TRUE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := TRUE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := TRUE;
 		
-		nState := 20;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[6] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := FALSE;
+		
+		iState := 20;
 		
 	12://Select individual blinds -> 20 stretch up -> 21 check -> 30 strech down -> 31 check -> 40 stretch up -> 41 check
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
@@ -157,24 +181,41 @@ CASE nState OF
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
+
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[6] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := FALSE;
 		
-		nState := 20;
+		iState := 20;
 		
 	13://Select individual blinds -> 20 stretch up -> 21 check -> 30 strech down -> 31 check -> 40 stretch up -> 41 check
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
@@ -194,115 +235,159 @@ CASE nState OF
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
 //		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE;  
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
-		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE;  
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
+//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
+
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[6] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := FALSE;
 		
-		nState := 20;
+		iState := 20;
 	20://Strech up for X seconds
 		TonUpCommand.IN := TRUE;
 		TonUpCommand.PT := T#90S;
 
-		BlindCX7000UserTable[BlindSelector].xCommandUp := TRUE;
-		IF(BusyOffice) THEN
-			BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
+		IF NOT BusyBits[BlinderSelection] THEN
+			BlindCX7000UserTable[BlinderSelection].xCommandUp := TRUE;
+		ELSE
+			BlindCX7000UserTable[BlinderSelection].xCommandUp := FALSE;
+			iState := 201;
 		END_IF
 		
+	201:
 		IF TonUpCommand.Q THEN
-			BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
-			BlindCX7000UserTable[BlindSelector].xCommandStop := TRUE;
-			IF(BusyOffice) THEN
-				BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
+			IF NOT BusyBits[BlinderSelection] THEN
+				BlindCX7000UserTable[BlinderSelection].xCommandStop := TRUE;
+			ELSE
+				BlindCX7000UserTable[BlinderSelection].xCommandStop := FALSE;
+				TonUpCommand.IN := FALSE;
+				iState := 21;
 			END_IF
-			BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
-			//TonUpCommand.IN := FALSE;
-			//nState := 21;
+		END_IF
+		
+	202:
+		IF NOT BusyBits[BlinderSelection] THEN
+			BlindCX7000UserTable[BlinderSelection].xCommandStop := TRUE;
+		ELSE
+			BlindCX7000UserTable[BlinderSelection].xCommandStop := FALSE;
+			iState := 8;
 		END_IF
 
 	21://Check if busy
-		IF BlindSelector = 0 THEN
-			IF NOT BusyOffice THEN
-				nState := 30;
+		IF BlinderSelection = 0 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				iState := 30;
 			END_IF
-		ELSIF BlindSelector = 1 THEN
-			IF NOT BusyKitchen THEN
-				nState := 30;
+		ELSIF BlinderSelection = 1 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				iState := 30;
 			END_IF
-		ELSIF BlindSelector = 2 THEN
-			IF NOT BusyBoardroom THEN
-				nState := 30;
+		ELSIF BlinderSelection = 2 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				iState := 30;
 			END_IF
 		END_IF 
 	30://Strech down for Y seconds
 		TonDownCommand.IN := TRUE;
 		TonDownCommand.PT := T#90S;
-		//BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
-		BlindCX7000UserTable[BlindSelector].xCommandDown := TRUE;
-		BlindCX7000UserTable[BlindSelector].xCommandDown := FALSE;
+		
+		IF NOT BusyBits[BlinderSelection] THEN
+			BlindCX7000UserTable[BlinderSelection].xCommandDown := TRUE;
+		ELSE
+			BlindCX7000UserTable[BlinderSelection].xCommandDown := FALSE;
+			iState := 301;
+		END_IF	
+		
+	301:
 		IF TonDownCommand.Q THEN
-			BlindCX7000UserTable[BlindSelector].xCommandDown := FALSE;
-			BlindCX7000UserTable[BlindSelector].xCommandStop := TRUE;
-			BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
-			TonDownCommand.IN := FALSE;
-			nState := 31;
+			IF NOT BusyBits[BlinderSelection] THEN
+				BlindCX7000UserTable[BlinderSelection].xCommandStop := TRUE;
+			ELSE
+				BlindCX7000UserTable[BlinderSelection].xCommandStop := FALSE;
+				TonDownCommand.IN := FALSE;
+				iState := 31;
+			END_IF
 		END_IF
+	
+		
 //		nState := 31;
 	31://Check if Busy
-		IF BlindSelector = 0 THEN
-			IF NOT BusyOffice THEN
-				nState := 40;
+		IF BlinderSelection = 0 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				iState := 40;
 			END_IF
-		ELSIF BlindSelector = 1 THEN
-			IF NOT BusyKitchen THEN
-				nState := 40;
+		ELSIF BlinderSelection = 1 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				iState := 40;
 			END_IF
-		ELSIF BlindSelector = 2 THEN
-			IF NOT BusyBoardroom THEN
-				nState := 40;
+		ELSIF BlinderSelection = 2 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				iState := 40;
 			END_IF
 		END_IF 
 	40://Strech up for X seconds
 		TonUpCommand.IN := TRUE;
 		TonUpCommand.PT := T#30S;
-		BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
-		BlindCX7000UserTable[BlindSelector].xCommandUp := TRUE;
-		BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
-		IF TonUpCommand.Q THEN
-			BlindCX7000UserTable[BlindSelector].xCommandUp := FALSE;
-			BlindCX7000UserTable[BlindSelector].xCommandStop := TRUE;
-			BlindCX7000UserTable[BlindSelector].xCommandStop := FALSE;
-			TonUpCommand.IN := FALSE;
-			nState := 41;
+		IF NOT BusyBits[BlinderSelection] THEN
+			BlindCX7000UserTable[BlinderSelection].xCommandUp := TRUE;
+		ELSE
+			BlindCX7000UserTable[BlinderSelection].xCommandUp := FALSE;
+			iState := 401;
 		END_IF
-//		nState := 41;
+	
+	401:
+		IF TonUpCommand.Q THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				BlindCX7000UserTable[BlinderSelection].xCommandStop := TRUE;
+			ELSE
+				BlindCX7000UserTable[BlinderSelection].xCommandStop := FALSE;
+				TonUpCommand.IN := FALSE;
+				iState := 41;
+			END_IF
+		END_IF	
+		
 	41://Check if busy
-		IF BlindSelector = 0 THEN
-			IF NOT BusyOffice THEN
-				BlindSelector := 1;
-				nState := 12;
+		IF BlinderSelection = 0 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				BlinderSelection := 1;
+				iState := 12;
 			END_IF
-		ELSIF BlindSelector = 1 THEN
-			IF NOT BusyKitchen THEN
-				BlindSelector := 2;
-				nState := 13;
+		ELSIF BlinderSelection = 1 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
+				BlinderSelection := 2;
+				iState := 13;
 			END_IF
-		ELSIF BlindSelector = 2 THEN
-			IF NOT BusyBoardroom THEN
+		ELSIF BlinderSelection = 2 THEN
+			IF NOT BusyBits[BlinderSelection] THEN
 				StretchDone := TRUE;
-				nState := 0;
+				iState := 0;
 			END_IF
 		END_IF 
 	100://Err handling
@@ -322,77 +407,64 @@ TonUpCommand();
 TonDownCommand();]]></ST>
     </Implementation>
     <LineIds Name="BlindStretch">
-      <LineId Id="426" Count="0" />
-      <LineId Id="430" Count="41" />
-      <LineId Id="429" Count="0" />
-      <LineId Id="427" Count="0" />
-      <LineId Id="51" Count="0" />
-      <LineId Id="53" Count="2" />
-      <LineId Id="97" Count="0" />
-      <LineId Id="350" Count="0" />
-      <LineId Id="293" Count="0" />
-      <LineId Id="111" Count="2" />
-      <LineId Id="280" Count="2" />
-      <LineId Id="284" Count="8" />
-      <LineId Id="114" Count="1" />
-      <LineId Id="396" Count="16" />
-      <LineId Id="264" Count="15" />
-      <LineId Id="263" Count="0" />
-      <LineId Id="296" Count="1" />
-      <LineId Id="132" Count="0" />
-      <LineId Id="380" Count="15" />
-      <LineId Id="133" Count="0" />
-      <LineId Id="347" Count="0" />
-      <LineId Id="305" Count="14" />
-      <LineId Id="304" Count="0" />
-      <LineId Id="320" Count="0" />
-      <LineId Id="322" Count="0" />
-      <LineId Id="321" Count="0" />
-      <LineId Id="150" Count="16" />
-      <LineId Id="348" Count="0" />
-      <LineId Id="324" Count="16" />
-      <LineId Id="323" Count="0" />
-      <LineId Id="167" Count="2" />
-      <LineId Id="417" Count="0" />
-      <LineId Id="170" Count="0" />
-      <LineId Id="428" Count="0" />
-      <LineId Id="472" Count="1" />
-      <LineId Id="418" Count="0" />
-      <LineId Id="171" Count="2" />
-      <LineId Id="475" Count="1" />
-      <LineId Id="474" Count="0" />
-      <LineId Id="345" Count="0" />
-      <LineId Id="421" Count="0" />
-      <LineId Id="298" Count="0" />
-      <LineId Id="174" Count="0" />
-      <LineId Id="299" Count="0" />
-      <LineId Id="175" Count="16" />
-      <LineId Id="413" Count="0" />
-      <LineId Id="192" Count="0" />
-      <LineId Id="423" Count="0" />
-      <LineId Id="193" Count="2" />
-      <LineId Id="420" Count="0" />
-      <LineId Id="344" Count="0" />
-      <LineId Id="301" Count="0" />
-      <LineId Id="196" Count="0" />
-      <LineId Id="300" Count="0" />
-      <LineId Id="197" Count="16" />
-      <LineId Id="415" Count="0" />
-      <LineId Id="214" Count="0" />
-      <LineId Id="424" Count="0" />
-      <LineId Id="215" Count="2" />
-      <LineId Id="422" Count="0" />
-      <LineId Id="349" Count="0" />
-      <LineId Id="302" Count="0" />
-      <LineId Id="218" Count="0" />
-      <LineId Id="303" Count="0" />
-      <LineId Id="219" Count="2" />
-      <LineId Id="294" Count="0" />
-      <LineId Id="222" Count="3" />
-      <LineId Id="295" Count="0" />
-      <LineId Id="226" Count="3" />
-      <LineId Id="341" Count="0" />
-      <LineId Id="230" Count="16" />
+      <LineId Id="537" Count="14" />
+      <LineId Id="566" Count="13" />
+      <LineId Id="965" Count="0" />
+      <LineId Id="967" Count="11" />
+      <LineId Id="966" Count="0" />
+      <LineId Id="581" Count="4" />
+      <LineId Id="587" Count="1" />
+      <LineId Id="995" Count="0" />
+      <LineId Id="589" Count="50" />
+      <LineId Id="827" Count="0" />
+      <LineId Id="829" Count="14" />
+      <LineId Id="828" Count="0" />
+      <LineId Id="640" Count="36" />
+      <LineId Id="845" Count="15" />
+      <LineId Id="844" Count="0" />
+      <LineId Id="677" Count="36" />
+      <LineId Id="862" Count="15" />
+      <LineId Id="861" Count="0" />
+      <LineId Id="714" Count="4" />
+      <LineId Id="879" Count="3" />
+      <LineId Id="884" Count="1" />
+      <LineId Id="878" Count="0" />
+      <LineId Id="724" Count="0" />
+      <LineId Id="895" Count="0" />
+      <LineId Id="897" Count="0" />
+      <LineId Id="900" Count="0" />
+      <LineId Id="906" Count="1" />
+      <LineId Id="901" Count="0" />
+      <LineId Id="908" Count="1" />
+      <LineId Id="902" Count="0" />
+      <LineId Id="896" Count="0" />
+      <LineId Id="910" Count="1" />
+      <LineId Id="913" Count="3" />
+      <LineId Id="919" Count="0" />
+      <LineId Id="912" Count="0" />
+      <LineId Id="735" Count="17" />
+      <LineId Id="927" Count="0" />
+      <LineId Id="920" Count="4" />
+      <LineId Id="755" Count="0" />
+      <LineId Id="928" Count="0" />
+      <LineId Id="931" Count="0" />
+      <LineId Id="938" Count="7" />
+      <LineId Id="937" Count="0" />
+      <LineId Id="930" Count="0" />
+      <LineId Id="929" Count="0" />
+      <LineId Id="763" Count="17" />
+      <LineId Id="949" Count="4" />
+      <LineId Id="783" Count="0" />
+      <LineId Id="791" Count="0" />
+      <LineId Id="947" Count="0" />
+      <LineId Id="955" Count="7" />
+      <LineId Id="948" Count="0" />
+      <LineId Id="946" Count="0" />
+      <LineId Id="792" Count="2" />
+      <LineId Id="996" Count="0" />
+      <LineId Id="796" Count="3" />
+      <LineId Id="997" Count="0" />
+      <LineId Id="801" Count="21" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>

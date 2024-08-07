@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "../.hmiframework/Schema/FunctionDescription.Schema.json",
   "apiVersion": 1,
   "version": {

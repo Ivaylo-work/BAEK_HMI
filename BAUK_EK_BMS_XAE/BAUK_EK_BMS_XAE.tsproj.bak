@@ -718,12 +718,12 @@
 		<System>
 			<Licenses>
 				<Target BkhfOrder="RESTORE">
-					<ManualSelect>{14DB2856-1BFD-49EE-AEAB-78906DBFBEE2}</ManualSelect>
 					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
+					<ManualSelect>{14DB2856-1BFD-49EE-AEAB-78906DBFBEE2}</ManualSelect>
 					<ManualSelect>{27326EE5-AB30-4084-B15B-8CCA96CCBF0B}</ManualSelect>
-					<ManualSelect>{CCE4FF6F-8342-4DB6-A976-37835E17161A}</ManualSelect>
-					<ManualSelect>{3DA5D7CD-70F1-4894-B3AD-D35619CB19FA}</ManualSelect>
 					<ManualSelect>{99A3CF49-FFBF-49D4-BA30-F4C0593B5161}</ManualSelect>
+					<ManualSelect>{3DA5D7CD-70F1-4894-B3AD-D35619CB19FA}</ManualSelect>
+					<ManualSelect>{CCE4FF6F-8342-4DB6-A976-37835E17161A}</ManualSelect>
 					<ManualSelect>{6425CC43-74BE-40EB-B459-8349B5AB98BD}</ManualSelect>
 				</Target>
 			</Licenses>
@@ -938,7 +938,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{C653EB4F-879B-4BFA-81EA-FD3B382D1A99}" Name="BAUK_EK_BMS_PLC" PrjFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.plcproj" TmcFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{FDDAEF4C-46A5-B35C-A396-B608107CCD1D}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{B23CADEA-DD5F-5218-9C59-667505513A4F}">
 					<Name>BAUK_EK_BMS_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">

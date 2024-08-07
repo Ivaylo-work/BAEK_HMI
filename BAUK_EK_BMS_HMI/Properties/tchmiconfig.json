@@ -120,6 +120,13 @@
   ],
   "content": [
     {
+      "url": "Pages/CabinetLEDs.content",
+      "preload": false,
+      "keepAlive": false,
+      "loadSync": false,
+      "preloadBindings": false
+    },
+    {
       "url": "Pages/CX2040Diagnostics.content",
       "preload": false,
       "keepAlive": false,
@@ -198,13 +205,6 @@
     },
     {
       "url": "Pages/StaffRoom.content",
-      "preload": false,
-      "keepAlive": false,
-      "loadSync": false,
-      "preloadBindings": false
-    },
-    {
-      "url": "Pages/CabinetLEDs.content",
       "preload": false,
       "keepAlive": false,
       "loadSync": false,
