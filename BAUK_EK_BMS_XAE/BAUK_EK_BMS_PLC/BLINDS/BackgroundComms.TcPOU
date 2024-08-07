@@ -208,8 +208,8 @@ END_IF
 (*Boardroom Area Blinds selection******************************************************************)
 (*Select Boardroom Blinds for Lond Wall*)
 
-rtBlindsBoardroomAreaWall1_7(CLK := BoardroomBlindSellection[0] AND (NOT BoardroomBlindSellection[1]));		
-rtBlindsBoardroomAreaWall8_16(CLK := (NOT BoardroomBlindSellection[0]) AND BoardroomBlindSellection[1]);
+rtBlindsBoardroomAreaWall1_7(CLK := BoardroomBlindSellection[1] AND (NOT BoardroomBlindSellection[0]));		
+rtBlindsBoardroomAreaWall8_16(CLK := (NOT BoardroomBlindSellection[1]) AND BoardroomBlindSellection[0]);
 rtBlindsBoardroomAreaWallAll(CLK := BoardroomBlindSellection[0] AND BoardroomBlindSellection[1]);
 rtBlindsBoardroomAreaWallAllFalse(CLK := (NOT BoardroomBlindSellection[0]) AND (NOT BoardroomBlindSellection[1]));
 
