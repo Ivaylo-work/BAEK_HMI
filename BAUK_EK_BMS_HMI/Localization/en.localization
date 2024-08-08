@@ -20,6 +20,11 @@
     "L_SystemDiagnostics": "System Diagnostics",
     "L_CX7000Diagnostics": "CX7000 Diagnostics",
     "L_CX2040Diagnostics": "CX2040 Diagnostics",
-    "L_Warning": "Warning"
+    "L_Warning": "Warning",
+    "L_Blinds_Stretch_Upper": "The blinds need a stretch. Press the button to start the stretch procedure. The stretch process starts from the office room and finishes with the kitchen. ",
+    "L_Blinds_Stretch_Lower": "If you start the procedure you will not be able to stop it until it is finished. You need to be within the building to monitor the blinds during the stretch.",
+    "L_Start_Stretch": "Start the stretch",
+    "L_Blinds_Stretch_In_Progress": "Stretching in Progress...",
+    "L_Blinds_Stretch_Finished": "The blinds are stretched. You can close this pop-up and use the main blind controls."
   }
 }

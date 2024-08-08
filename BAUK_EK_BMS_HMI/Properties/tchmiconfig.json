@@ -75,6 +75,11 @@
       "name": "Java Script/WindTurbineSubscriber.js",
       "description": "",
       "type": "JavaScript"
+    },
+    {
+      "name": "Java Script/BlindStretchHandler.js",
+      "description": "",
+      "type": "JavaScript"
     }
   ],
   "userControls": [
@@ -116,6 +121,9 @@
     },
     {
       "url": "User Controls/WindowIsOpen.usercontrol"
+    },
+    {
+      "url": "User Controls/BlindsStretchConfirmation.usercontrol"
     }
   ],
   "content": [
@@ -222,6 +230,9 @@
   "userFunctions": [
     {
       "url": "Functions/UpdateLanguageIcon.js"
+    },
+    {
+      "url": "Java Script/BlindStretchHandler.js"
     },
     {
       "url": "Java Script/EcoModeHandler.js"

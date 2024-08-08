@@ -3465,6 +3465,34 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.MAIN.HowOftenTimer.Q": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::HowOftenTimer::Q",
+            "SCHEMA": {
+                "allOf": [
+                    {
+                        "$ref": "tchmi:general#/definitions/BOOL"
+                    },
+                    {
+                        "comment": "gets TRUE, delay time (PT) after a rising edge at IN",
+                        "propertyOrder": 3
+                    }
+                ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.bStretchDone": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::bStretchDone",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
         "PLC1.MAIN.fbWindSimulator.powerOutput": {
             "ACCESS": 3,
             "DOMAIN": "ADS",
@@ -3513,6 +3541,26 @@
                         "propertyOrder": 1
                     }
                 ]
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.hmiFinished": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::hmiFinished",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.hmiStrech": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::hmiStrech",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/BOOL"
             },
             "USEMAPPING": true
         },
@@ -9803,9 +9851,13 @@
                 "PLC1.LightControl.xBoardRoom_Lights_ShowroomMode": 3,
                 "PLC1.LightControl.xBoardToom_Lights_ProjectorMode": 3,
                 "PLC1.LightControl.xBoardToom_Lights_ShowroomMode": 3,
+                "PLC1.MAIN.HowOftenTimer.Q": 3,
+                "PLC1.MAIN.bStretchDone": 3,
                 "PLC1.MAIN.fbWindSimulator.powerOutput": 3,
                 "PLC1.MAIN.fbWindSimulator.rpm": 3,
                 "PLC1.MAIN.fbWindSimulator.windSpeed": 3,
+                "PLC1.MAIN.hmiFinished": 3,
+                "PLC1.MAIN.hmiStrech": 3,
                 "PLC1.MAIN.windSpeed": 3,
                 "PLC1.MLtest.iDataOut": 3,
                 "PLC1.P_Scaling.diScaledFrequency": 3,
@@ -9943,12 +9995,9 @@
         "/Beckhoff.TwinCAT.HMI.BA.Framework": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Framework.2.6.0\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.BA.Icons": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.BA.Icons.2.6.0\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Controls": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Controls.12.760.59\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnostics.Meta.1.1.120",
         "/Beckhoff.TwinCAT.HMI.EcDiagnosticsControl": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.EcDiagnosticsControl.12.760.59\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.Functions": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Functions.12.760.54\\runtimes\\native1.12-tchmi",
         "/Beckhoff.TwinCAT.HMI.ResponsiveNavigation": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ResponsiveNavigation.12.760.54\\runtimes\\native1.12-tchmi",
-        "/Beckhoff.TwinCAT.HMI.Scope": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.14.1.114",
-        "/Beckhoff.TwinCAT.HMI.Scope.Meta": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.Scope.Meta.1.1.114",
         "/Beckhoff.TwinCAT.HMI.ScopeControl": "..\\..\\..\\Packages\\Beckhoff.TwinCAT.HMI.ScopeControl.12.760.54\\runtimes\\native1.12-tchmi",
         "/bin": "..\\..\\..\\BAUK_EK_BMS_HMI\\bin\\",
         "/bin/framework": "..\\..\\..\\BAUK_EK_BMS_HMI\\bin\\framework",

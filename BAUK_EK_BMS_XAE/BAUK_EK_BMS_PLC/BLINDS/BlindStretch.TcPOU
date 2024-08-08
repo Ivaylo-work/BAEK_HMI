@@ -109,170 +109,67 @@ CASE iState OF
 			
 		END_IF
 	11://Select individual blinds -> 20 stretch up -> 21 check -> 30 strech down -> 31 check -> 40 stretch up -> 41 check
-		//BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[7] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[8] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[9] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[10] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[11] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[12] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[16] := TRUE;
-
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := TRUE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := TRUE;
-		
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := TRUE; 
 		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[6] := TRUE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := True;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := True;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := True;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := True;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := True;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := True;
 		
 		iState := 20;
 		
 	12://Select individual blinds -> 20 stretch up -> 21 check -> 30 strech down -> 31 check -> 40 stretch up -> 41 check
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[13] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[14] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
-
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
-
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := TRUE; 
 		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[6] := TRUE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := True; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := True; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := TRUE;
 		
 		iState := 20;
 		
 	13://Select individual blinds -> 20 stretch up -> 21 check -> 30 strech down -> 31 check -> 40 stretch up -> 41 check
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[13] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[14] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[15] := FALSE;
-//		BackgroundComms.BlindCommandTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
-
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[1] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[2] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[3] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[4] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[5] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[6] := TRUE;  
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[7] := FALSE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[8] := FALSE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[9] := FALSE; 
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[10] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[11] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[12] := FALSE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[13] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[14] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[15] := TRUE;
-//		BlindCX7000UserTable[BlindSelector].SelectBlindsBulkCommand[16] := FALSE;
-
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := FALSE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[1] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[2] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[3] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[4] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[5] := TRUE; 
 		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[6] := TRUE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := FALSE; 
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := FALSE;
-		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := FALSE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[7] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[8] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[9] := TRUE; 
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[10] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[11] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[12] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[13] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[14] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[15] := TRUE;
+		BlindCX7000UserTable[BlinderSelection].SelectBlindsBulkCommand[16] := TRUE;
 		
 		iState := 20;
 	20://Strech up for X seconds
 		TonUpCommand.IN := TRUE;
-		TonUpCommand.PT := T#90S;
+		TonUpCommand.PT := T#30S;
 
 		IF NOT BusyBits[BlinderSelection] THEN
 			BlindCX7000UserTable[BlinderSelection].xCommandUp := TRUE;
@@ -316,7 +213,7 @@ CASE iState OF
 		END_IF 
 	30://Strech down for Y seconds
 		TonDownCommand.IN := TRUE;
-		TonDownCommand.PT := T#90S;
+		TonDownCommand.PT := T#30S;
 		
 		IF NOT BusyBits[BlinderSelection] THEN
 			BlindCX7000UserTable[BlinderSelection].xCommandDown := TRUE;
@@ -415,15 +312,14 @@ TonDownCommand();]]></ST>
       <LineId Id="581" Count="4" />
       <LineId Id="587" Count="1" />
       <LineId Id="995" Count="0" />
-      <LineId Id="589" Count="50" />
-      <LineId Id="827" Count="0" />
+      <LineId Id="589" Count="16" />
       <LineId Id="829" Count="14" />
       <LineId Id="828" Count="0" />
-      <LineId Id="640" Count="36" />
-      <LineId Id="845" Count="15" />
+      <LineId Id="640" Count="3" />
+      <LineId Id="846" Count="14" />
       <LineId Id="844" Count="0" />
-      <LineId Id="677" Count="36" />
-      <LineId Id="862" Count="15" />
+      <LineId Id="677" Count="3" />
+      <LineId Id="863" Count="14" />
       <LineId Id="861" Count="0" />
       <LineId Id="714" Count="4" />
       <LineId Id="879" Count="3" />

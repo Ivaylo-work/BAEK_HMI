@@ -1,0 +1,107 @@
+<div id="BlindsStretchConfirmation" data-tchmi-type="TcHmi.Controls.System.TcHmiUserControl" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="100" data-tchmi-height="100" data-tchmi-width-unit="%" data-tchmi-height-unit="%" data-tchmi-creator-viewport-width="500" data-tchmi-creator-viewport-height="500">
+
+<div id="StretchButton" data-tchmi-type="TcHmi.BuildingAutomation.Controls.Common.Button" data-tchmi-height="25" data-tchmi-height-unit="%" data-tchmi-icon-height="80" data-tchmi-icon-height-unit="%" data-tchmi-icon-width="80" data-tchmi-icon-width-unit="%" data-tchmi-left="5" data-tchmi-left-unit="%" data-tchmi-top="72.5" data-tchmi-top-unit="%" data-tchmi-width="90" data-tchmi-width-unit="%" data-tchmi-text-font-size="30" data-tchmi-text-font-size-unit="px" data-tchmi-text="%l%L_Start_Stretch%/l%">
+
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "StretchButton.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%s%PLC1.MAIN.hmiStrech%/s%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/BOOL",
+          "value": true
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": false,
+        "symbolExpression": "%ctrl%UpperText::Visibility%/ctrl%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/Visibility",
+          "value": "Collapsed"
+        },
+        "asyncWait": true
+      },
+      {
+        "objectType": "WriteToSymbol",
+        "active": false,
+        "symbolExpression": "%ctrl%UpperText_1::Visibility%/ctrl%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/String",
+          "value": "Collapsed"
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+</div>
+<div id="LoadingImage" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-height="300" data-tchmi-height-unit="px" data-tchmi-left="32.5" data-tchmi-left-unit="%" data-tchmi-top="5" data-tchmi-top-unit="%" data-tchmi-width="300" data-tchmi-width-unit="px" data-tchmi-src="Images/loading.gif" data-tchmi-visibility="Collapsed">
+</div>
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">
+[
+  {
+    "event": "BlindsStretchConfirmation.onAttached",
+    "actions": [
+      {
+        "objectType": "Function",
+        "active": true,
+        "fn": "TcHmi.Functions.BAUK_EK_BMS_HMI.BlindStretchHandler",
+        "fnParams": [
+          {
+            "objectType": "StaticValue",
+            "valueType": "tchmi:general#/definitions/String",
+            "value": "BlindsControlPopUp.UserControlHost"
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]
+</script>
+<div id="UpperText" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="%" data-tchmi-left="5" data-tchmi-left-unit="%" data-tchmi-top="2.5" data-tchmi-top-unit="%" data-tchmi-width="90" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text="%l%L_Blinds_Stretch_Upper%/l%">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "text-color-container"
+]
+</script>
+</div>
+<div id="LowerText" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="%" data-tchmi-left="5" data-tchmi-left-unit="%" data-tchmi-top="32.5" data-tchmi-top-unit="%" data-tchmi-width="90" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text="%l%L_Blinds_Stretch_Lower%/l%" data-tchmi-text-font-size="30" data-tchmi-text-horizontal-alignment="Center" data-tchmi-visibility="Visible">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "text-color-container"
+]
+</script>
+</div>
+<div id="LoadingText" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="25" data-tchmi-height-unit="%" data-tchmi-left="5" data-tchmi-left-unit="%" data-tchmi-top="72.5" data-tchmi-top-unit="%" data-tchmi-width="90" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="30" data-tchmi-text="%l%L_Blinds_Stretch_In_Progress%/l%" data-tchmi-visibility="Collapsed">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "text-color-container"
+]
+</script>
+</div>
+<div id="StretchFinishedText" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="30" data-tchmi-height-unit="%" data-tchmi-left="5" data-tchmi-left-unit="%" data-tchmi-top="30" data-tchmi-top-unit="%" data-tchmi-width="90" data-tchmi-width-unit="%" data-tchmi-word-wrap="true" data-tchmi-text="%l%L_Blinds_Stretch_Finished%/l%" data-tchmi-text-horizontal-alignment="Center" data-tchmi-text-font-size="30" data-tchmi-visibility="Collapsed">
+
+<script data-tchmi-target-attribute="data-tchmi-class-names" type="application/json">
+[
+  "text-color-container"
+]
+</script>
+</div>
+</div>

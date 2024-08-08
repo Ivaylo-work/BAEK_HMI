@@ -22,7 +22,7 @@
     <TargetFramework>native1.12-tchmi</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
     <Name>BAUK_EK_BMS_HMI</Name>
-    <HmiCommunicationRouterPort>10109</HmiCommunicationRouterPort>
+    <HmiCommunicationRouterPort>10110</HmiCommunicationRouterPort>
     <HmiCommunicationServerAuthPort>13000</HmiCommunicationServerAuthPort>
     <HmiInitial>1.12.760.54</HmiInitial>
     <HmiRecent>1.12.760.59</HmiRecent>
@@ -130,6 +130,9 @@
     <Content Include="Images\icons_presence-detector_normal.svg">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Images\loading.gif">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Images\RedBeer.png">
       <SubType>Content</SubType>
     </Content>
@@ -149,6 +152,13 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Images\Warning\warning-svg-yellow.svg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Java Script\BlindStretchHandler.function.json">
+      <SubType>Content</SubType>
+      <DependentUpon>Java Script\BlindStretchHandler.js</DependentUpon>
+    </Content>
+    <Content Include="Java Script\BlindStretchHandler.js">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Java Script\EcoModeHandler.function.json">
@@ -225,6 +235,13 @@
     <Content Include="User Controls\BlindSelector.usercontrol.json">
       <SubType>Content</SubType>
       <DependentUpon>User Controls\BlindSelector.usercontrol</DependentUpon>
+    </Content>
+    <Content Include="User Controls\BlindsStretchConfirmation.usercontrol">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="User Controls\BlindsStretchConfirmation.usercontrol.json">
+      <SubType>Content</SubType>
+      <DependentUpon>User Controls\BlindsStretchConfirmation.usercontrol</DependentUpon>
     </Content>
     <Content Include="User Controls\Current.usercontrol">
       <SubType>Content</SubType>

@@ -137,6 +137,14 @@
       "frameworkUserControlConfig": "User Controls\\DataCakeHost.usercontrol.json",
       "type": "object",
       "id": "tchmi:project#/definitions/DataCakeHost"
+    },
+    "BlindsStretchConfirmation": {
+      "frameworkControlNamespace": "TcHmi.Controls.Beckhoff",
+      "frameworkControlType": "TcHmi.Controls.System.TcHmiUserControl",
+      "frameworkInstanceOf": "TcHmi.Controls.System.TcHmiControl",
+      "frameworkUserControlConfig": "User Controls\\BlindsStretchConfirmation.usercontrol.json",
+      "type": "object",
+      "id": "tchmi:project#/definitions/BlindsStretchConfirmation"
     }
   }
 }
