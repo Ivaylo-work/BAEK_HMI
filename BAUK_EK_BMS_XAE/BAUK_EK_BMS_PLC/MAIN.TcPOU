@@ -30,7 +30,7 @@ VAR
 	
 	bStretch							: BOOL;
 	bStretchDone						: BOOL;
-	HowOftenTimer						: Ton := (PT:= T#1h);//31d);
+	HowOftenTimer						: Ton := (PT:= T#21d);//31d);
 		
 	fbBlindsStretch						: BlindStretch;
 
@@ -46,9 +46,18 @@ VAR
 
     fbWeatherAPI        				: FB_WeatherAPI_HTTP;
 	
+	fbSendWatsappCallMeBot				: FB_SendWhatsappCallMeBot;
+	
+	fbHttpClientWhatsAppResponse   		: FB_IotHttpClient :=(sHostName:='webhook.site', bKeepAlive:=TRUE, tConnectionTimeout:=T#10S);
+	
+	fbWhatsAppRespose					: FB_WatsAppResponse;
+	
+	textWhatsApp						: T_MaxString;
+	
 	weatherTon							: ton := (pt:=T#10m);					
 	local: BOOL;
 	hmiFinished: BOOL;
+	testWhatsApp: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -146,14 +155,36 @@ IF weatherTon.Q THEN
 	weatherTon.IN := FALSE;
 ELSE
 	weatherTon.IN := TRUE;
-	//weatherTon.IN := FALSE;
 END_IF
 
 fbHttpClientOpenWeatherMap.Execute();
 WindSpeed := fbWeatherAPI.wind_speed;
 fbWindSimulator(windSpeed:= WindSpeed, rpm=> RPM, powerOutput=> Power);
-//fbWindSimulator();
-weatherTon();]]></ST>
+weatherTon();
+
+fbSendWatsappCallMeBot(SendText := , YourNumber := '447724278323', Text2Send := textWhatsApp, ApiKey := '6082625');  //SendText := , YourNumber := '+447724278323', Text2Send := textWhatsApp, ApiKey := 'US6Y79pt7LAU'
+
+IF testWhatsApp THEN	//RPM > 200 AND weatherTon.Q 
+	textWhatsApp := 'Wind turbine at risk, consider switching the turbine off.';
+	fbSendWatsappCallMeBot.SendText := TRUE;
+ELSE
+	fbSendWatsappCallMeBot.SendText := FALSE;
+END_IF
+
+IF NOT fbHttpClientWhatsAppResponse.bConfigured THEN
+    fbHttpClientOpenWeatherMap.nHostPort:= 443;
+    fbHttpClientOpenWeatherMap.stTLS.bNoServerCertCheck:= TRUE;
+	//weatherTon.IN := TRUE;
+END_IF
+
+IF fbHttpClientWhatsAppResponse.bConfigured THEN
+    fbWhatsAppRespose(bSend:=testWhatsApp, fbClient:=fbHttpClientWhatsAppResponse);
+END_IF
+
+fbHttpClientWhatsAppResponse.Execute();
+
+
+]]></ST>
     </Implementation>
     <Action Name="SleepModeCheck" Id="{3f87cb06-794c-44e6-adeb-1113c47adff4}">
       <Implementation>
@@ -201,9 +232,25 @@ END_IF]]></ST>
       <LineId Id="229" Count="0" />
       <LineId Id="52" Count="0" />
       <LineId Id="284" Count="0" />
-      <LineId Id="353" Count="19" />
-      <LineId Id="422" Count="0" />
+      <LineId Id="353" Count="13" />
+      <LineId Id="368" Count="4" />
       <LineId Id="2" Count="0" />
+      <LineId Id="479" Count="0" />
+      <LineId Id="478" Count="0" />
+      <LineId Id="487" Count="0" />
+      <LineId Id="486" Count="0" />
+      <LineId Id="488" Count="0" />
+      <LineId Id="494" Count="0" />
+      <LineId Id="493" Count="0" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="489" Count="0" />
+      <LineId Id="499" Count="8" />
+      <LineId Id="498" Count="0" />
+      <LineId Id="512" Count="0" />
+      <LineId Id="511" Count="0" />
+      <LineId Id="485" Count="0" />
+      <LineId Id="484" Count="0" />
+      <LineId Id="483" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.SleepModeCheck">
       <LineId Id="1" Count="1" />

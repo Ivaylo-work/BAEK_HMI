@@ -126,7 +126,13 @@
     <Compile Include="POWER MONITORING\ST_PHASE_DATA.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WIND TURBINE\FB_SendWhatsappCallMeBot.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WIND TURBINE\FB_WeatherAPI_HTTP.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WIND TURBINE\FB_WatsAppResponse.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WIND TURBINE\FB_WindTurbineSim.TcPOU">

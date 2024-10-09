@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_SendWhatsappCallMeBot" Id="{71fb8619-8bce-4f9f-96d3-e90902d9f1a8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SendWhatsappCallMeBot
+VAR_INPUT
+	SendText			: BOOL;
+	YourNumber			: T_MaxString;
+	Text2Send			: T_MaxString;
+	ApiKey				: T_MaxString;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    // trigger command execution for OpenWeatherMap samples
+	fbHttpClient		: FB_IotHttpClient :=(sHostName:='api.callmebot.com',
+							bKeepAlive:=TRUE, tConnectionTimeout:=T#10S);
+	
+//	fbHttpClient		: FB_IotHttpClient :=(sHostName:='api.textmebot.com',
+//							bKeepAlive:=TRUE, tConnectionTimeout:=T#10S);
+
+    fbRequest           : FB_IotHttpRequest;
+							
+	// https://api.callmebot.com/whatsapp.php?phone=+324xxxxxxxx&text=This+is+a+test&apikey=yyyyyy
+	fbFormatString      : FB_FormatString;
+	sConMessage			: STRING(255);
+	rtrSend				: R_TRIG;
+	
+	lText2Send			: T_MaxString;
+	ifor				: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbHttpClient.Execute();
+
+
+
+rtrSend(CLK := SendText);	
+IF rtrSend.Q THEN
+	lText2Send := Text2Send;
+	
+	// Replace spaces in text to '+'
+	FOR ifor := 1 TO len(lText2Send) DO
+		IF MID(lText2Send,1,ifor) = ' ' THEN
+			lText2Send := REPLACE(lText2Send,'+',1,ifor);
+		END_IF
+	END_FOR
+
+	fbFormatString(
+		sFormat := '/whatsapp.php?phone=%s&text=%s&apikey=%s', //'/send.php?recipient=%s&apikey=%s&text=%s'
+		arg1    := F_STRING(YourNumber), 
+		arg2    := F_STRING(lText2Send), 
+		arg3    := F_STRING(ApiKey), 
+		bError  => , 
+		nErrId  => , 
+		sOut    => sConMessage);
+
+	fbRequest.SendRequest(sUri:=sConMessage, fbClient:=fbHttpClient, eRequestType:=ETcIotHttpRequestType.HTTP_POST, 0, 0, 0);
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SendWhatsappCallMeBot">
+      <LineId Id="3" Count="24" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

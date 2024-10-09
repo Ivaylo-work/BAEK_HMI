@@ -307,6 +307,35 @@
 			<BaseType GUID="{18071995-0000-0000-0000-000000000042}">AMSADDR</BaseType>
 		</DataType>
 		<DataType>
+			<Name GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI" AutoDeleteType="true">ST_DALIV2InData</Name>
+			<Comment><![CDATA[ Communication interface for the KL6811]]></Comment>
+			<BitSize>32</BitSize>
+			<SubItem>
+				<Name>nStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nDummy</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>nData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+			<Properties>
+				<Property>
+					<Name>obsolete</Name>
+					<Value>Use the structure ST_KL6811InData instead!</Value>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
 			<Name GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean" AutoDeleteType="true">KL6581_Input</Name>
 			<BitSize>96</BitSize>
 			<SubItem>
@@ -381,35 +410,6 @@
 				<BitSize>8</BitSize>
 				<BitOffs>88</BitOffs>
 			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI" AutoDeleteType="true">ST_DALIV2InData</Name>
-			<Comment><![CDATA[ Communication interface for the KL6811]]></Comment>
-			<BitSize>32</BitSize>
-			<SubItem>
-				<Name>nStatus</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>nDummy</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
-				<BitSize>8</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>nData</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>16</BitOffs>
-			</SubItem>
-			<Properties>
-				<Property>
-					<Name>obsolete</Name>
-					<Value>Use the structure ST_KL6811InData instead!</Value>
-				</Property>
-			</Properties>
 		</DataType>
 		<DataType>
 			<Name GUID="{EE936711-FB3E-6448-04F4-ADD9D01B6AE2}" Namespace="Tc3_DALI" AutoDeleteType="true">ST_KL6811InData</Name>
@@ -938,7 +938,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{C653EB4F-879B-4BFA-81EA-FD3B382D1A99}" Name="BAUK_EK_BMS_PLC" PrjFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.plcproj" TmcFilePath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{822B647D-6D78-15FC-5C35-01B8612E6B6E}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="BAUK_EK_BMS_PLC\BAUK_EK_BMS_PLC.tmc" TmcHash="{F3C13A88-C521-AE46-3309-40B1B401671E}">
 					<Name>BAUK_EK_BMS_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -1031,12 +1031,12 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.stKL6581InData</Name>
-							<Type GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean">KL6581_Input</Type>
-						</Var>
-						<Var>
 							<Name>.stDALIInData</Name>
 							<Type GUID="{6671C4AA-9267-109D-F3E9-CC37EA5B464C}" Namespace="Tc2_DALI">ST_DALIV2InData</Type>
+						</Var>
+						<Var>
+							<Name>.stKL6581InData</Name>
+							<Type GUID="{3739F8DE-1262-CBDF-6036-BE7156A9772E}" Namespace="Tc2_EnOcean">KL6581_Input</Type>
 						</Var>
 						<Var>
 							<Name>.stKL6811InData</Name>

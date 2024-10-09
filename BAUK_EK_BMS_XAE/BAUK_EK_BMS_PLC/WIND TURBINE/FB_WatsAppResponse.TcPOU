@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_WatsAppResponse" Id="{7eb5ff43-6e09-43d1-ae62-39d89c0e5279}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_WatsAppResponse
+VAR_INPUT
+	bSend             : BOOL;
+END_VAR
+VAR_OUTPUT
+	wind_speed		  : Lreal;
+	bBusy             : BOOL;
+    bError            : BOOL;
+END_VAR
+VAR
+	fbRequest         : FB_IotHttpRequest;
+    fbJson            : FB_JsonDomParser;
+    nState            : UDINT;
+    RisingEdge        : R_TRIG;
+
+    bGetContentResult : BOOL;
+    sContent          : STRING(511);
+
+    bGetJsonResult    : BOOL;
+    jsonDoc           : SJsonValue;
+    jsonVal           : SJsonValue;
+	jsonWind           : SJsonValue;
+
+    nReqCount         : UDINT;
+    nResCount         : UDINT;
+    nValidResCount    : UDINT;
+    nErrCount         : UDINT;
+	bHasMember		  : BOOL;
+	bHasMember2		  : BOOL;
+END_VAR
+VAR_IN_OUT
+	 fbClient          : FB_IotHttpClient;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[RisingEdge(CLK:= bSend);
+CASE nState OF
+0:
+    IF RisingEdge.Q THEN
+        IF fbRequest.SendRequest(sUri:= '/cebc385e-7c19-40b8-aaac-81ec04618ab7',
+                                 fbClient:= fbClient, 
+                                 eRequestType:= ETcIotHttpRequestType.HTTP_POST, 0, 0, 0) THEN
+            nState:= 1;
+            nReqCount:= nReqCount+1;
+            bBusy:= TRUE;
+            bError:= FALSE;
+        END_IF
+    END_IF
+1:
+    IF NOT fbRequest.bBusy THEN
+        bError:= TRUE;
+        IF NOT fbRequest.bError THEN
+            bGetContentResult:= fbRequest.GetContent(pContent:= ADR(sContent), 
+                                                     nContentSize:= SIZEOF(sContent), 
+                                                     bSetNullTermination:= TRUE);
+            IF fbRequest.nStatusCode >= 200 AND fbRequest.nStatusCode < 300 THEN
+                bGetJsonResult:= FALSE;
+                jsonDoc:= fbRequest.GetJsonDomContent(fbJson);
+//                IF jsonDoc <> 0 THEN
+//                    bHasMember := fbJson.HasMember(jsonDoc, 'current');
+//					IF (bHasMember) THEN
+//						bHasMember := FALSE;
+//						jsonVal := fbJson.FindMember(jsonDoc, 'current');
+//					END_IF
+					
+//					bHasMember2 := fbJson.HasMember(jsonVal, 'wind_mph');
+//					IF (bHasMember2) THEN
+//						bHasMember2 := FALSE;
+//						jsonWind := fbJson.FindMember(jsonVal, 'wind_mph');
+//						wind_speed := fbJson.GetDouble(jsonWind);
+//						WindSpeed := fbJson.GetDouble(jsonWind);
+//					END_IF
+					
+//                    nValidResCount:= nValidResCount+1;
+//                    bError:= FALSE;
+//                END_IF
+                nResCount:= nResCount+1;
+            END_IF
+        END_IF
+        nState:= 0;
+        bBusy:= FALSE;
+        IF bError THEN
+            nErrCount:= nErrCount+1;
+        END_IF
+    END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_WatsAppResponse">
+      <LineId Id="42" Count="3" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="47" Count="19" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="83" Count="1" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="89" Count="4" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="67" Count="11" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

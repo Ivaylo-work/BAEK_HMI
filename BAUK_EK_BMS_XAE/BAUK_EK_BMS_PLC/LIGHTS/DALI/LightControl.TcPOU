@@ -598,11 +598,11 @@ LightControlGroup5_SmallBoardRoom(
 //			nAddr:= 5, 
 //			eAddrType:= eDALIV2AddrTypeGroup, 
 //			stCommandBuffer:= stCommandBuffer );
-SmallBoardRoomOff(
-			bStart:= TRUE, 
-			nAddr:= 55, 
-			eAddrType:= eDALIV2AddrTypeShort,  
-			stCommandBuffer:= stCommandBuffer);
+//SmallBoardRoomOff(
+//			bStart:= TRUE, 
+//			nAddr:= 55, 
+//			eAddrType:= eDALIV2AddrTypeShort,  
+//			stCommandBuffer:= stCommandBuffer);
 //*******************************************************************************
 		
 	

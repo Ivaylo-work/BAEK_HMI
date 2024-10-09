@@ -146,6 +146,9 @@ VAR_GLOBAL
 	WindSpeed						AT%M*	:	LREAL;
 	RPM								AT%M*	:	LREAL;
 	Power							AT%M*	:	LREAL;
+	
+	(* Blind Stretch*)
+	BlindSelector					AT%M*	:	INT;
 
 END_VAR
 
